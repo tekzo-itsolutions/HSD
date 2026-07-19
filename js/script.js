@@ -314,23 +314,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const ROOMS = [
     {
       id: 'deluxe', name: 'Deluxe Room', price: 4500, rating: 4.6,
+      image: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #3d270e 60%, #14090C)',
       facilities: ['King Bed', 'City View', 'Free WiFi', 'Breakfast']
     },
     {
       id: 'premier', name: 'Premier Suite', price: 6800, rating: 4.8,
+      image: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       gradient: 'radial-gradient(ellipse at 60% 40%, #6E1027, #2c0813 60%, #14090C)',
       facilities: ['Living Area', 'Balcony', 'Mini Bar', 'Bathtub']
     },
     {
       id: 'heritage', name: 'Heritage Suite', price: 9500, rating: 4.9,
+      image: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       gradient: 'radial-gradient(ellipse at 40% 50%, #3f5240, #1c261d 60%, #14090C)',
       facilities: ['Courtyard View', 'Private Lounge', 'Butler Service', 'Spa Access']
     },
     {
       id: 'presidential', name: 'Presidential Suite', price: 15000, rating: 5.0,
+      image: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)',
       facilities: ['Panoramic View', 'Private Terrace', 'Dining Room', '24/7 Butler']
+    },
+    {
+      id: 'executive', name: 'Executive Deluxe', price: 7200, rating: 4.7,
+      image: 'https://images.pexels.com/photos/2215067/pexels-photo-2215067.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #8a5a1f, #57332a 55%, #14090C)',
+      facilities: ['City View', 'Workspace', 'Smart TV', 'Mini Bar']
+    },
+    {
+      id: 'royal', name: 'Royal Suite', price: 11200, rating: 4.95,
+      image: 'https://images.pexels.com/photos/2718165/pexels-photo-2718165.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #81523a, #3d1811 60%, #14090C)',
+      facilities: ['Private Balcony', 'Jacuzzi', 'Dining Area', 'Personal Butler']
     }
   ];
 
@@ -346,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
     targetElement.innerHTML = ROOMS.map(r => `
       <div class="room-card reveal-up in-view">
         <div class="room-image">
-          <div class="room-bg" style="position:absolute;inset:0;background:${r.gradient};"></div>
+          <div class="room-bg" style="position:absolute;inset:0;background:${r.image ? `url('${r.image}') center/cover no-repeat` : r.gradient};"></div>
           <span class="room-rating">★ ${r.rating}</span>
         </div>
         <div class="room-body">

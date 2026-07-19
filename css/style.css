@@ -656,6 +656,8 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 .room-image .room-bg {
   position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
   transition: transform 0.8s var(--ease);
 }
 .room-card:hover .room-image .room-bg { transform: scale(1.12); }
