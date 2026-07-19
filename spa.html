@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Sparsh Spa — Shree Daan Hotel</title>
+<meta name="description" content="Rejuvenate your senses at the Golden Sparsh Spa. Choose from signature massage therapies, steam and sauna circuits, and traditional Ayurvedic rituals.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Consolidated Stylesheets -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/responsive.css">
+<style>
+  /* Custom Spa Styles */
+  .spa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .spa-card {
+    background: var(--white);
+    border: 1px solid rgba(110, 16, 39, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(20,9,12,0.05);
+    transition: all 0.4s var(--ease);
+  }
+  .spa-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(110, 16, 39, 0.15);
+    border-color: var(--gold);
+  }
+  .spa-card-image {
+    height: 200px;
+    background: radial-gradient(ellipse at 50% 50%, #3f5240, #1c261d 75%);
+    position: relative;
+  }
+  .spa-card-body {
+    padding: 30px;
+  }
+  .spa-card-body h3 {
+    font-size: 1.45rem;
+    color: var(--maroon);
+    margin-bottom: 8px;
+  }
+  .spa-card-body p {
+    font-size: 0.92rem;
+    color: #6b6058;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .spa-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(20,9,12,0.06);
+    padding-top: 20px;
+  }
+  .spa-card-duration {
+    font-size: 0.8rem;
+    color: #8a8078;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .spa-card-price {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--maroon);
+    font-weight: 500;
+  }
+  .spa-booking-section {
+    background: var(--ink);
+    color: var(--ivory);
+    padding: 100px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== CUSTOM CURSOR GLOW ===== -->
+<div id="cursorGlow"></div>
+
+<!-- ===== HEADER ===== -->
+<header id="siteHeader">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/hsd-logo.png" alt="Hotel Shree Daan" class="logo-img">
+    </a>
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="rooms.html">Rooms</a>      
+      <a href="spa.html">Golden Sparsh Spa</a>   
+      <a href="services.html">Services</a>      
+      <a href="attractions.html"> Near By Attractions</a>      
+      <a href="gallery.html">Gallery</a>      
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <button class="btn btn-gold nav-cta" id="navBookBtn">Book Now</button>
+    <button id="menuToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== MOBILE MENU ===== -->
+<div id="mobileMenu">
+  <nav>
+    <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="rooms.html">Rooms</a>      
+      <a href="spa.html">Golden Sparsh Spa</a>   
+      <a href="services.html">Services</a>      
+      <a href="attractions.html"> Near By Attractions</a>      
+      <a href="gallery.html">Gallery</a>      
+      <a href="contact.html">Contact Us</a>
+  </nav>
+  <button class="btn btn-gold" id="mobileBookBtn">Book Now</button>
+</div>
+
+<!-- ===== PAGE BANNER ===== -->
+<section class="page-banner">
+  <div class="page-banner-bg" style="background: radial-gradient(ellipse at 50% 30%, #3f5240, #1c261d 85%); opacity:0.75;"></div>
+  <div class="page-banner-bg"></div>
+  <h1>Golden Sparsh <em>Spa</em></h1>
+</section>
+
+<!-- ===== SPA OVERVIEW ===== -->
+<section class="section section--tinted">
+  <div class="section-head reveal-up">
+    <p class="eyebrow">Wellness &amp; Healing</p>
+    <h2>Vedic Therapies &amp; Modern Comfort</h2>
+  </div>
+  
+  <div style="max-width: 900px; margin: 0 auto; text-align: center; margin-bottom: 60px;" class="reveal-up">
+    <p style="font-size: 1.15rem; line-height: 1.8; color: #5c534b;">
+      The Golden Sparsh Spa invites you to experience customized wellness journeys. Inspired by age-old techniques, our trained therapists use warm oils, organic scrubs, and custom herbal pastes to calm your mind, detoxify your body, and restore your natural harmony.
+    </p>
+  </div>
+
+  <div class="spa-grid">
+    <!-- Signature Massage -->
+    <div class="spa-card reveal-up">
+      <div class="spa-card-image" style="background: radial-gradient(ellipse at 30% 30%, #8a5a1f, #3f5240);"></div>
+      <div class="spa-card-body">
+        <h3>Signature Massage</h3>
+        <p>A full-body massage designed to release muscle tension. Blending warm oils and targeted pressure points, it balances your energy flow.</p>
+        <div class="spa-card-meta">
+          <span class="spa-card-duration">60 Minutes</span>
+          <span class="spa-card-price">₹2,200</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steam & Sauna -->
+    <div class="spa-card reveal-up">
+      <div class="spa-card-image" style="background: radial-gradient(ellipse at 60% 40%, #7a2338, #1c261d);"></div>
+      <div class="spa-card-body">
+        <h3>Steam &amp; Sauna Circuit</h3>
+        <p>A detoxifying circuit designed to flush out skin impurities and improve blood circulation. Includes a private steam chamber session.</p>
+        <div class="spa-card-meta">
+          <span class="spa-card-duration">45 Minutes</span>
+          <span class="spa-card-price">₹1,400</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Golden Ritual -->
+    <div class="spa-card reveal-up">
+      <div class="spa-card-image" style="background: radial-gradient(ellipse at 50% 50%, #C9A227, #1c261d);"></div>
+      <div class="spa-card-body">
+        <h3>Golden Ritual</h3>
+        <p>Our comprehensive signature spa package. Includes a gentle full-body scrub, warm mud wrap, standard massage, and custom facial treatment.</p>
+        <div class="spa-card-meta">
+          <span class="spa-card-duration">90 Minutes</span>
+          <span class="spa-card-price">₹3,800</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPA APPOINTMENT FORM ===== -->
+<section class="spa-booking-section">
+  <div class="jaali-bg"></div>
+  <div class="section-head reveal-up">
+    <p class="eyebrow eyebrow--light">Reserve an Appointment</p>
+    <h2 style="color:var(--ivory);">Request a Spa Session</h2>
+  </div>
+
+  <form id="spaBookingForm" class="booking-card reveal-up" style="max-width: 800px; margin: 0 auto;">
+    <div class="booking-row">
+      <div class="field">
+        <label for="spaName">Full Name</label>
+        <input type="text" id="spaName" required placeholder="Your Name">
+      </div>
+      <div class="field">
+        <label for="spaPhone">Phone Number</label>
+        <input type="tel" id="spaPhone" required placeholder="Contact Number">
+      </div>
+      <div class="field">
+        <label for="spaDate">Preferred Date</label>
+        <input type="date" id="spaDate" required>
+      </div>
+      <div class="field">
+        <label for="spaService">Service Type</label>
+        <select id="spaService">
+          <option value="signature">Signature Massage — ₹2,200</option>
+          <option value="steam">Steam &amp; Sauna — ₹1,400</option>
+          <option value="ritual">Golden Ritual — ₹3,800</option>
+        </select>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-gold btn-block" style="margin-top: 10px;">Send Spa Request</button>
+    <p class="form-note hidden" id="spaSuccessMsg" style="text-align: center; color: var(--gold-glow); margin-top: 20px; font-weight: 400;">
+      Spa Appointment Requested. Our wellness desk will call you shortly to confirm your slot.
+    </p>
+  </form>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="siteFooter">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        <img src="assets/images/hsd-logo.png" alt="Hotel Shree Daan" class="logo-img">
+      </a>
+      <p>Luxury stay begins here.</p>
+      <p class="footer-address">Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191<br>
+        <a href="tel:+917874050009">+91 78740 50009</a></p>
+    </div>
+
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="rooms.html">Rooms</a>
+      <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>Explore</h5>      
+      <a href="services.html">Services</a>      
+      <a href="attractions.html">Near By Attractions</a>      
+      <a href="gallery.html">Gallery</a>     
+      <a href="spa.html">Golden Sparsh Spa</a>      
+      <a href="booking.html">Book Room</a>
+    </div>
+
+    <div class="footer-col">
+      <h5>Our Services</h5>
+      <ul class="footer-services">
+        <li>Breakfast</li>
+        <li>Free WIFI</li>
+        <li>Pick &amp; Drop</li>
+        <li>Equipped with LED Rooms</li>
+        <li>Doctor On Call</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Follow</h5>
+      <div class="social-links">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="X">X</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Shree Daan Hotel. All rights reserved.</span>
+    <span>Crafted with quiet luxury.</span>
+  </div>
+</footer>
+
+<script>
+  // Page-specific form handling
+  document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('spaDate');
+    if (dateInput) dateInput.min = today;
+
+    const form = document.getElementById('spaBookingForm');
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const successMsg = document.getElementById('spaSuccessMsg');
+        if (successMsg) successMsg.classList.remove('hidden');
+        form.reset();
+        setTimeout(() => {
+          if (successMsg) successMsg.classList.add('hidden');
+        }, 6000);
+      });
+    }
+  });
+</script>
+
+<!-- GSAP Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
+
+

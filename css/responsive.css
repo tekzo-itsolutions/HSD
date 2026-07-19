@@ -1,0 +1,120 @@
+/* ==========================================================================
+   SHREE DAAN HOTEL — RESPONSIVE BREAKPOINTS & MOBILE DESIGN SYSTEM
+   ========================================================================== */
+
+/* 1. ACCESSIBILITY - REDUCED MOTION */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* 2. CUSTOM CURSOR HIDING FOR TOUCH / MOBILE DEVISE */
+@media (max-width: 900px), (hover: none) {
+  #cursorGlow {
+    display: none !important;
+  }
+}
+
+/* 3. HEADER & MOBILE MENU ACTIVATION */
+@media (max-width: 980px) {
+  #mainNav, 
+  .nav-cta { 
+    display: none !important; 
+  }
+  #menuToggle { 
+    display: flex; 
+  }
+  .header-inner { 
+    padding: 0 24px; 
+  }
+}
+
+/* 4. HERO SECTION CAPTION REDUCTION */
+@media (max-width: 700px) {
+  .hero-caption { 
+    left: 20px; 
+    bottom: 24px; 
+    font-size: 0.8rem; 
+  }
+}
+
+/* 5. GENERAL SECTION PADDING REDUCTION */
+@media (max-width: 700px) {
+  .section { 
+    padding: 90px 20px; 
+  }
+}
+
+/* 6. BOOKING GRID LAYOUT ADAPTATION */
+@media (max-width: 900px) {
+  .booking-row { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .booking-card { 
+    padding: 30px 22px; 
+  }
+}
+
+/* 7. SPA PACKAGES VERTICAL FLEX */
+@media (max-width: 800px) {
+  .spa-content { 
+    padding: 0 28px; 
+  }
+  .spa-package { 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px; 
+  }
+}
+
+/* 8. GALLERY MASONRY ADAPTATION */
+@media (max-width: 900px) {
+  .gallery-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    grid-auto-rows: 180px; 
+  }
+  .gallery-item.span-2 { 
+    grid-column: span 2; 
+  }
+}
+
+/* 9. ABOUT TIMELINE & STATISTICS REFITTING */
+@media (max-width: 900px) {
+  .about-timeline, 
+  .about-stats { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+  .about-timeline::before { 
+    display: none; 
+  }
+  .timeline-item {
+    padding-top: 30px;
+  }
+}
+
+/* 10. CONTACT GRID STACKING */
+@media (max-width: 900px) {
+  .contact-grid { 
+    grid-template-columns: 1fr; 
+    gap: 40px;
+  }
+}
+
+/* 11. FOOTER COLUMNS STACKING */
+@media (max-width: 1000px) {
+  .footer-top { 
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+}
