@@ -728,8 +728,8 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 .field input, .field select, .field textarea {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 3px;
-  padding: 13px 14px;
+  border-radius: 9px;
+  padding: 15px 9px;
   color: var(--ivory);
   font-size: 0.9rem;
   transition: border-color 0.3s;
@@ -1056,4 +1056,17 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   padding-top: 26px; border-top: 1px solid rgba(247,241,230,0.1);
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
   font-size: 0.78rem; color: rgba(247,241,230,0.4);
+}
+
+/* Tekzo credit highlight */
+.footer-bottom a[href="https://www.tekzoitsolution.in"] {
+  background: #ffe60000;
+  color: var(--gold);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: 400;
+  text-decoration: none;
+}
+.footer-bottom a[href="https://www.tekzoitsolution.in"]:hover {
+  background: #ffecb300;
 }
