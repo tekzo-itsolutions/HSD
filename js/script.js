@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBookingSummary();
   }
 
-  /* ---------- 14. BOOKING SUBMISSION -> INVOICE ---------- */
+  /* ---------- 14. BOOKING SUBMISSION -> INVOICE & LOCALSTORAGE ---------- */
   const bookingForm = document.getElementById('bookingForm');
   const bookingConfirmation = document.getElementById('bookingConfirmation');
 
@@ -467,19 +467,53 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const guestNameInput = document.getElementById('guestName');
+      const guestPhoneInput = document.getElementById('guestPhone');
+      const guestEmailInput = document.getElementById('guestEmail');
+
+      const guestName = guestNameInput ? guestNameInput.value.trim() : 'Guest';
+      const guestPhone = guestPhoneInput ? guestPhoneInput.value.trim() : '';
+      const guestEmail = guestEmailInput ? guestEmailInput.value.trim() : '';
+
       const selectedOption = roomTypeEl.options[roomTypeEl.selectedIndex];
+      const roomTypeName = selectedOption.textContent.split(' — ')[0];
       const price = parseInt(selectedOption.dataset.price, 10);
       const total = nights * price;
       const bookingId = 'SD' + Date.now().toString().slice(-8);
 
       document.getElementById('invBookingId').textContent = bookingId;
-      document.getElementById('invGuestName').textContent = 'Guest';
-      document.getElementById('invRoomType').textContent = selectedOption.textContent.split(' — ')[0];
+      document.getElementById('invGuestName').textContent = guestName || 'Guest';
+      document.getElementById('invRoomType').textContent = roomTypeName;
       document.getElementById('invCheckIn').textContent = formatDate(checkInEl.value);
       document.getElementById('invCheckOut').textContent = formatDate(checkOutEl.value);
       document.getElementById('invGuests').textContent = `${adultsEl.value} Adult${adultsEl.value > 1 ? 's' : ''}, ${childrenEl.value} Child${childrenEl.value == 1 ? '' : 'ren'}`;
       document.getElementById('invNights').textContent = nights;
       document.getElementById('invTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+
+      // Save to LocalStorage for Admin Panel
+      try {
+        const existingBookings = JSON.parse(localStorage.getItem('hsd_room_bookings')) || [];
+        existingBookings.unshift({
+          id: bookingId,
+          name: guestName || 'Guest',
+          phone: guestPhone,
+          email: guestEmail,
+          roomType: roomTypeName,
+          roomCode: roomTypeEl.value,
+          checkIn: checkInEl.value,
+          checkOut: checkOutEl.value,
+          adults: parseInt(adultsEl.value, 10),
+          children: parseInt(childrenEl.value, 10),
+          nights: nights,
+          total: total,
+          status: 'confirmed',
+          payStatus: 'Pending',
+          dateCreated: new Date().toISOString().split('T')[0]
+        });
+        localStorage.setItem('hsd_room_bookings', JSON.stringify(existingBookings));
+      } catch(err) {
+        console.error('Error saving room booking:', err);
+      }
 
       bookingForm.classList.add('hidden');
       bookingConfirmation.classList.remove('hidden');
@@ -652,6 +686,30 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const name = document.getElementById('cName')?.value || 'Guest';
+      const email = document.getElementById('cEmail')?.value || '';
+      const phone = document.getElementById('cPhone')?.value || '';
+      const message = document.getElementById('cMessage')?.value || '';
+
+      try {
+        const msgs = JSON.parse(localStorage.getItem('hsd_messages')) || [];
+        const msgId = 'MSG-' + Math.floor(100 + Math.random() * 900);
+        msgs.unshift({
+          id: msgId,
+          name,
+          email,
+          phone,
+          subject: 'Guest Web Inquiry',
+          message,
+          date: new Date().toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+          status: 'unread',
+          source: 'Contact Form'
+        });
+        localStorage.setItem('hsd_messages', JSON.stringify(msgs));
+      } catch(err) {
+        console.error('Error saving message:', err);
+      }
+
       const successMsg = document.getElementById('contactSuccess');
       if (successMsg) successMsg.classList.remove('hidden');
       e.target.reset();
