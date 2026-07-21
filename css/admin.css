@@ -93,11 +93,11 @@ body.admin-body {
 }
 
 .admin-sidebar-logo {
-  width: 42px;
-  height: 42px;
+  width: 162px;
+  height: 73px;
   border-radius: 8px;
   object-fit: contain;
-  background: #FFFFFF;
+  background: #FFF0;
   padding: 4px;
 }
 
