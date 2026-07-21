@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   (function loader() {
     const loaderEl = document.getElementById('loader');
     const pctEl = document.getElementById('loaderPct');
+    const lineLeft = document.getElementById('loaderLineLeft');
+    const lineRight = document.getElementById('loaderLineRight');
     if (!loaderEl || !pctEl) return;
     
     let pct = 0;
@@ -23,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 350);
       }
       pctEl.textContent = pct;
+      if (lineLeft) lineLeft.style.width = (pct / 2) + '%';
+      if (lineRight) lineRight.style.width = (pct / 2) + '%';
     }, 80);
     document.body.style.overflow = 'hidden';
   })();
@@ -570,16 +574,98 @@ document.addEventListener('DOMContentLoaded', () => {
     return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
-  /* ---------- 15. GALLERY ---------- */
+  /* ---------- 15. GALLERY (15 SQUARE PHOTOS WITH LIGHTBOX) ---------- */
   const GALLERY_ITEMS = [
-    { label: 'Grand Facade', gradient: 'radial-gradient(ellipse at 30% 30%, #7a2338, #2c0813 60%, #14090C)', category: 'exterior', big: true },
-    { label: 'Reception Lobby', gradient: 'radial-gradient(ellipse at 60% 40%, #8a5a1f, #3d270e 60%, #14090C)', category: 'interior' },
-    { label: 'Deluxe Room', gradient: 'radial-gradient(ellipse at 40% 50%, #6E1027, #2c0813 60%, #14090C)', category: 'rooms' },
-    { label: 'Golden Sparsh Spa', gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)', category: 'spa', tall: true },
-    { label: 'Fine Dining', gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)', category: 'dining' },
-    { label: 'Poolside', gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)', category: 'exterior' },
-    { label: 'Heritage Suite', gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)', category: 'rooms' },
-    { label: 'Evening Terrace', gradient: 'radial-gradient(ellipse at 30% 40%, #8a5a1f, #2c1a08 60%, #14090C)', category: 'exterior', big: true },
+    {
+      label: 'Grand Palace Facade',
+      category: 'exterior',
+      src: '../assets/images/luxury_hotel_facade_1784609178037.jpg',
+      gradient: 'radial-gradient(ellipse at 30% 30%, #7a2338, #2c0813 60%, #14090C)'
+    },
+    {
+      label: 'Heritage Royal Suite',
+      category: 'rooms',
+      src: '../assets/images/heritage_hotel_suite_1784609202334.jpg',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Golden Sparsh Spa Sanctuary',
+      category: 'spa',
+      src: '../assets/images/golden_spa_sanctuary_1784609220387.jpg',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Shree Daan Fine Dining',
+      category: 'dining',
+      src: '../assets/images/fine_dining_restaurant_1784609240700.jpg',
+      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
+    },
+    {
+      label: 'Royal Hotel Entrance & Lawn',
+      category: 'exterior',
+      src: '../assets/images/about1.jpg',
+      gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #2c0813 60%, #14090C)'
+    },
+    {
+      label: 'Royal Reception Lobby',
+      category: 'exterior',
+      src: 'https://images.pexels.com/photos/1001965/pexels-photo-1001965.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 60% 40%, #8a5a1f, #3d270e 60%, #14090C)'
+    },
+    {
+      label: 'Deluxe Executive Room',
+      category: 'rooms',
+      src: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #6E1027, #2c0813 60%, #14090C)'
+    },
+    {
+      label: 'Presidential Suite Lounge',
+      category: 'rooms',
+      src: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)'
+    },
+    {
+      label: 'Cleopatra Milk & Jacuzzi Bath',
+      category: 'spa',
+      src: 'https://images.pexels.com/photos/6620857/pexels-photo-6620857.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Ayurvedic Abhyanga Therapy',
+      category: 'spa',
+      src: 'https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Poolside Paradise & Cabanas',
+      category: 'exterior',
+      src: 'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
+    },
+    {
+      label: 'Rooftop Sunset Terrace',
+      category: 'exterior',
+      src: 'https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 30% 40%, #8a5a1f, #2c1a08 60%, #14090C)'
+    },
+    {
+      label: 'Premier Suite Marble Bath',
+      category: 'rooms',
+      src: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Gourmet Breakfast Buffet',
+      category: 'dining',
+      src: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
+    },
+    {
+      label: 'Royal Garden & Fountains',
+      category: 'exterior',
+      src: 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 30% 30%, #3f5240, #1c261d 60%, #14090C)'
+    }
   ];
 
   let filteredGalleryItems = [...GALLERY_ITEMS];
@@ -588,9 +674,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderGallery() {
     if (!galleryGrid) return;
     galleryGrid.innerHTML = filteredGalleryItems.map((item, i) => `
-      <div class="gallery-item reveal-up in-view ${item.big ? 'span-2' : ''} ${item.tall ? 'span-2-row' : ''}" data-index="${i}">
-        <div class="g-bg" style="position:absolute;inset:0;background:${item.gradient};"></div>
-        <span class="g-label">${item.label}</span>
+      <div class="gallery-item reveal-up in-view" data-index="${i}" style="background:${item.gradient};">
+        <img src="${item.src}" alt="${escapeHtml(item.label)}" class="gallery-item-img" loading="lazy" onerror="this.style.display='none';">
+        <span class="g-label">
+          <span>${escapeHtml(item.label)}</span>
+        </span>
       </div>
     `).join('');
 
@@ -623,13 +711,15 @@ document.addEventListener('DOMContentLoaded', () => {
     renderGallery();
   }
 
-  /* ---------- 15b. LIGHTBOX ---------- */
+  /* ---------- 15b. LIGHTBOX MODAL (FULL IMAGE VIEW) ---------- */
   let lightboxIndex = 0;
   const lightbox = document.getElementById('lightbox');
-  const lightboxMedia = document.getElementById('lightboxMedia');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxTitle = document.getElementById('lightboxTitle');
+  const lightboxCounter = document.getElementById('lightboxCounter');
 
   function openLightbox(index) {
-    if (!lightbox || !lightboxMedia) return;
+    if (!lightbox) return;
     lightboxIndex = index;
     renderLightbox();
     lightbox.classList.remove('hidden');
@@ -637,10 +727,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function renderLightbox() {
-    if (!lightboxMedia) return;
     const item = filteredGalleryItems[lightboxIndex];
     if (item) {
-      lightboxMedia.innerHTML = `<div class="g-bg" style="position:absolute;inset:0;background:${item.gradient};"></div><div class="lightbox-caption" style="position:absolute;bottom:20px;left:20px;color:white;font-family:var(--font-display);font-size:1.5rem;">${item.label}</div>`;
+      if (lightboxImg) {
+        lightboxImg.src = item.src;
+        lightboxImg.alt = item.label;
+      }
+      if (lightboxTitle) lightboxTitle.textContent = item.label;
+      if (lightboxCounter) lightboxCounter.textContent = `Photo ${lightboxIndex + 1} of ${filteredGalleryItems.length}`;
     }
   }
 
@@ -649,7 +743,9 @@ document.addEventListener('DOMContentLoaded', () => {
     lightboxClose.addEventListener('click', closeLightbox);
   }
   if (lightbox) {
-    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.id === 'lightboxContainer') closeLightbox();
+    });
   }
   
   function closeLightbox() {
@@ -660,7 +756,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const lightboxPrev = document.getElementById('lightboxPrev');
   if (lightboxPrev) {
-    lightboxPrev.addEventListener('click', () => {
+    lightboxPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
       lightboxIndex = (lightboxIndex - 1 + filteredGalleryItems.length) % filteredGalleryItems.length;
       renderLightbox();
     });
@@ -668,7 +765,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const lightboxNext = document.getElementById('lightboxNext');
   if (lightboxNext) {
-    lightboxNext.addEventListener('click', () => {
+    lightboxNext.addEventListener('click', (e) => {
+      e.stopPropagation();
       lightboxIndex = (lightboxIndex + 1) % filteredGalleryItems.length;
       renderLightbox();
     });
