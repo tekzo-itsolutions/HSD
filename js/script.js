@@ -51,14 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('siteHeader');
     if (!header) return;
 
-    // Check if current page is not home page to give it a solid background immediately
+    // Check if current page is not home page, spa page, or gallery page to give it a solid background immediately
     const pathname = window.location.pathname.toLowerCase();
     const isHomePage = pathname === '/' || pathname.endsWith('index.html') || pathname === '';
+    const isSpaPage = pathname.endsWith('spa.html');
+    const isGalleryPage = pathname.endsWith('gallery.html');
     
-    if (!isHomePage) {
+    if (!isHomePage && !isSpaPage && !isGalleryPage) {
       header.classList.add('scrolled');
       header.classList.add('solid-bg');
-      return; // Do not toggle on scroll for non-home pages
+      return; // Do not toggle on scroll for other non-home pages
     }
 
     const onScroll = () => {
