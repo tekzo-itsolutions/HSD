@@ -895,11 +895,15 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 9px;
-  padding: 15px 9px;
+  padding: 15px 12px;
   color: var(--ivory);
   font-size: 0.9rem;
   transition: border-color 0.3s;
   color-scheme: dark;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); outline: none; }
 

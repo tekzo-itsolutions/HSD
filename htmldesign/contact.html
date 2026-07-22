@@ -14,6 +14,788 @@
 <!-- Consolidated Stylesheets -->
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/responsive.css">
+<style>
+  /* ==========================================================================
+     3D HERO SLIDER STYLES
+     ========================================================================== */
+  .gallery-hero-3d {
+    position: relative;
+    height: 65vh;
+    min-height: 500px;
+    max-height: 720px;
+    width: 100%;
+    overflow: hidden;
+    background: #0d0608;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  .gallery-3d-viewport {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .gallery-3d-slides {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .gallery-3d-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 1.2s ease;
+    will-change: transform, opacity;
+  }
+
+  .gallery-3d-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 5;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.04);
+  }
+
+  .gallery-3d-slide.prev-slide {
+    opacity: 0;
+    visibility: visible;
+    z-index: 2;
+    transform: translate3d(-20%, 0, -350px) rotateY(25deg) scale(0.8);
+  }
+
+  .gallery-3d-slide.next-slide {
+    opacity: 0;
+    visibility: visible;
+    z-index: 2;
+    transform: translate3d(20%, 0, -350px) rotateY(-25deg) scale(0.8);
+  }
+
+  .gallery-slide-bg {
+    position: absolute;
+    inset: -3%;
+    width: 106%;
+    height: 106%;
+    background-size: cover;
+    background-position: center center;
+    transform: translateZ(-50px);
+    transition: transform 0.8s ease-out;
+    animation: gallery3dKenBurns 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes gallery3dKenBurns {
+    0% { transform: scale(1.0) translate(0, 0); }
+    50% { transform: scale(1.06) translate(-0.8%, -0.8%); }
+    100% { transform: scale(1.02) translate(0.8%, 0.4%); }
+  }
+
+  .gallery-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 45%, rgba(20, 9, 12, 0.2) 0%, rgba(20, 9, 12, 0.65) 75%, rgba(13, 6, 8, 0.88) 100%),
+                linear-gradient(180deg, rgba(20, 9, 12, 0.7) 0%, transparent 45%, rgba(20, 9, 12, 0.85) 100%);
+    z-index: 2;
+  }
+
+  .gallery-3d-light-sweep {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 35%, rgba(201, 162, 39, 0.12) 50%, transparent 65%);
+    z-index: 3;
+    pointer-events: none;
+    animation: galleryLightSweep 8s ease-in-out infinite;
+    mix-blend-mode: screen;
+  }
+
+  @keyframes galleryLightSweep {
+    0% { transform: translateX(-60%) rotate(0deg); }
+    50% { transform: translateX(60%) rotate(2deg); }
+    100% { transform: translateX(-60%) rotate(0deg); }
+  }
+
+  .gallery-3d-vignette {
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.75);
+    z-index: 4;
+    pointer-events: none;
+  }
+
+  .gallery-hero-content {
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateZ(60px);
+    z-index: 10;
+    text-align: center;
+    width: 90%;
+    max-width: 1100px;
+    color: var(--white);
+    pointer-events: auto;
+    transition: transform 0.2s ease-out;
+  }
+
+  .gallery-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 22px;
+    background: rgba(201, 162, 39, 0.15);
+    border: 1px solid rgba(201, 162, 39, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 30px;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-glow);
+    font-weight: 500;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    animation: badgePulse 3s ease-in-out infinite alternate;
+  }
+
+  .gallery-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--white);
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .gallery-hero-title span {
+    font-weight: 300;
+    color: var(--gold-glow);
+    font-style: italic;
+    display: inline-block;
+  }
+
+  .gallery-hero-breadcrumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(247, 241, 230, 0.8);
+  }
+
+  .gallery-hero-breadcrumb a {
+    color: var(--gold-glow);
+    transition: color 0.3s ease;
+  }
+
+  .gallery-hero-breadcrumb a:hover {
+    color: var(--white);
+    text-decoration: underline;
+  }
+
+  .gallery-hero-breadcrumb .sep {
+    color: var(--gold);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .gallery-hero-breadcrumb .active {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 400;
+  }
+
+  .gallery-3d-arrow {
+    position: absolute;
+    top: 56%;
+    transform: translateY(-50%) translateZ(40px);
+    z-index: 15;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(20, 9, 12, 0.45);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(201, 162, 39, 0.35);
+    color: var(--ivory);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.4s var(--ease);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  .gallery-3d-arrow:hover {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold-glow);
+    transform: translateY(-50%) translateZ(50px) scale(1.12);
+    box-shadow: 0 15px 35px rgba(201, 162, 39, 0.5);
+  }
+
+  .gallery-prev { left: 32px; }
+  .gallery-next { right: 32px; }
+
+  .gallery-3d-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateZ(40px);
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .gallery-3d-dots {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .gallery-dot {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.45);
+    position: relative;
+    transition: all 0.4s var(--ease);
+  }
+
+  .gallery-dot::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.4s var(--ease);
+  }
+
+  .gallery-dot.active {
+    color: var(--gold-glow);
+    font-weight: 600;
+  }
+
+  .gallery-dot.active::after, .gallery-dot:hover::after {
+    width: 100%;
+  }
+
+  .gallery-3d-progress {
+    width: 220px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .gallery-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-glow));
+    border-radius: 4px;
+    transition: width 0.1s linear;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-hero-3d { height: 55vh; min-height: 420px; }
+    .gallery-hero-title { font-size: 2.1rem; }
+    .gallery-hero-breadcrumb { font-size: 0.68rem; flex-wrap: wrap; }
+    .gallery-3d-arrow { width: 42px; height: 42px; }
+    .gallery-prev { left: 14px; }
+    .gallery-next { right: 14px; }
+  }
+
+  /* ==========================================================================
+     ULTRA LUXURY 3D CONTACT SECTION STYLES (LIGHT THEME BACKDROP)
+     ========================================================================== */
+  .contact-3d-section {
+    position: relative;
+    padding: 100px 0;
+    background: radial-gradient(circle at 10% 20%, rgba(110, 16, 39, 0.05), transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(201, 162, 39, 0.1), transparent 45%),
+                #fbf8f3;
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  .contact-3d-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(110, 16, 39, 0.04) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .contact-3d-head {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .contact-3d-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    background: rgba(110, 16, 39, 0.06);
+    border: 1px solid rgba(110, 16, 39, 0.2);
+    border-radius: 30px;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    font-weight: 600;
+    margin-bottom: 14px;
+    box-shadow: 0 4px 15px rgba(110, 16, 39, 0.05);
+  }
+
+  .contact-3d-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    color: var(--maroon);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .contact-3d-title span {
+    color: var(--gold-glow);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .contact-3d-subtitle {
+    font-size: 0.95rem;
+    color: #5c534b;
+    line-height: 1.6;
+  }
+
+  .contact-3d-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 5;
+    perspective: 1200px;
+  }
+
+  .contact-3d-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* 3D Light Glass Form Card */
+  .contact-3d-form-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(110, 16, 39, 0.14);
+    border-radius: 24px;
+    padding: 44px 40px;
+    box-shadow: 0 20px 60px rgba(20, 9, 12, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+
+  .contact-3d-form-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 30px 80px rgba(110, 16, 39, 0.15), 0 15px 45px rgba(0,0,0,0.06);
+    transform: translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
+  }
+
+  .contact-3d-form-header {
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(110, 16, 39, 0.1);
+    padding-bottom: 20px;
+  }
+
+  .contact-3d-form-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--maroon);
+    margin-bottom: 6px;
+  }
+
+  .contact-3d-form-header p {
+    font-size: 0.88rem;
+    color: #6b6058;
+  }
+
+  .field-3d {
+    margin-bottom: 22px;
+    position: relative;
+  }
+
+  .field-3d label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .field-3d input,
+  .field-3d textarea {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid rgba(110, 16, 39, 0.16);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: all 0.3s var(--ease);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+  }
+
+  .field-3d input:focus,
+  .field-3d textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #ffffff;
+    box-shadow: 0 0 18px rgba(201, 162, 39, 0.25), inset 0 2px 4px rgba(0, 0, 0, 0.02);
+    transform: translateZ(10px);
+  }
+
+  .field-3d input::placeholder,
+  .field-3d textarea::placeholder {
+    color: #a0958d;
+  }
+
+  .btn-3d-submit {
+    width: 100%;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, #c9a227 0%, #e8c766 50%, #9a7814 100%);
+    border: none;
+    border-radius: 12px;
+    color: #14090c;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s var(--ease);
+    box-shadow: 0 10px 25px rgba(201, 162, 39, 0.35);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .btn-3d-submit::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: rotate(25deg);
+    transition: all 0.7s ease;
+  }
+
+  .btn-3d-submit:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(201, 162, 39, 0.5);
+  }
+
+  .btn-3d-submit:hover::after {
+    left: 130%;
+  }
+
+  /* 3D Contact Details Cards Grid (Light Theme) */
+  .contact-3d-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-card-3d {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(110, 16, 39, 0.12);
+    border-radius: 18px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 12px 35px rgba(20, 9, 12, 0.05);
+    transition: all 0.4s var(--ease);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .info-card-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--maroon), var(--gold));
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+
+  .info-card-3d:hover {
+    transform: translateY(-5px) translateZ(15px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 45px rgba(110, 16, 39, 0.12), 0 10px 25px rgba(0,0,0,0.05);
+  }
+
+  .info-card-3d:hover::before {
+    opacity: 1;
+  }
+
+  .info-icon-3d {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 14px;
+    background: radial-gradient(circle at 30% 30%, rgba(201, 162, 39, 0.15), rgba(110, 16, 39, 0.08));
+    border: 1px solid rgba(110, 16, 39, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    color: var(--maroon);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+    transition: transform 0.4s var(--ease);
+  }
+
+  .info-card-3d:hover .info-icon-3d {
+    transform: scale(1.12) rotate(6deg);
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .info-content-3d h4 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--maroon);
+    margin-bottom: 4px;
+  }
+
+  .info-content-3d p {
+    font-size: 0.92rem;
+    color: #4a423b;
+    line-height: 1.5;
+  }
+
+  .info-content-3d a {
+    color: var(--maroon);
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .info-content-3d a:hover {
+    color: var(--gold);
+    text-decoration: underline;
+  }
+
+  .status-badge-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(37, 211, 102, 0.12);
+    border: 1px solid rgba(37, 211, 102, 0.3);
+    font-size: 0.74rem;
+    color: #128c7e;
+    font-weight: 600;
+  }
+
+  .status-dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 0 8px #25d366;
+    animation: liveDotPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes liveDotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  /* 3D WhatsApp Direct Connect Card */
+  .whatsapp-3d-card {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.08) 0%, rgba(18, 140, 126, 0.14) 100%), #ffffff;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(37, 211, 102, 0.35);
+    border-radius: 18px;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 12px 35px rgba(20, 9, 12, 0.05);
+    transition: all 0.4s var(--ease);
+  }
+
+  .whatsapp-3d-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(37, 211, 102, 0.65);
+    box-shadow: 0 18px 40px rgba(37, 211, 102, 0.2);
+  }
+
+  .whatsapp-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .whatsapp-icon-bg {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
+  }
+
+  .whatsapp-text h5 {
+    font-size: 1.05rem;
+    color: var(--maroon);
+    margin-bottom: 2px;
+  }
+
+  .whatsapp-text p {
+    font-size: 0.8rem;
+    color: #5c534b;
+  }
+
+  .btn-whatsapp-action {
+    padding: 10px 20px;
+    background: #25d366;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-whatsapp-action:hover {
+    background: #1eb956;
+    transform: scale(1.05);
+    box-shadow: 0 8px 22px rgba(37, 211, 102, 0.45);
+    color: #fff;
+  }
+
+  /* 3D Map Container */
+  .map-card-3d {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(110, 16, 39, 0.14);
+    border-radius: 20px;
+    padding: 14px;
+    box-shadow: 0 15px 40px rgba(20, 9, 12, 0.06);
+    transition: all 0.4s var(--ease);
+  }
+
+  .map-card-3d:hover {
+    border-color: var(--gold);
+    box-shadow: 0 22px 50px rgba(110, 16, 39, 0.12);
+  }
+
+  .map-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px 14px;
+  }
+
+  .map-card-title {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  .map-directions-link {
+    font-size: 0.78rem;
+    color: var(--maroon);
+    font-weight: 500;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .map-directions-link:hover {
+    color: var(--gold);
+  }
+
+  .map-card-3d iframe {
+    width: 100%;
+    height: 230px;
+    border: none;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 992px) {
+    .contact-3d-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .contact-3d-form-card {
+      padding: 30px 20px;
+    }
+    .whatsapp-3d-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .btn-whatsapp-action {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -58,65 +840,201 @@
   <button class="btn btn-gold" id="mobileBookBtn">Book Now</button>
 </div>
 
-<!-- ===== PAGE BANNER ===== -->
-<section class="page-banner">
-  <div class="page-banner-bg" style="background: radial-gradient(ellipse at 50% 30%, #8a5a1f, #14090C 85%); opacity:0.7;"></div>
-  <div class="page-banner-bg"></div>
-  <h1>Contact <em>Us</em></h1>
+<!-- ===== 3D CONTACT HERO SLIDER ===== -->
+<section id="galleryHeroSlider" class="gallery-hero-3d">
+  <!-- 3D Perspective Viewport -->
+  <div class="gallery-3d-viewport">
+    <div class="gallery-3d-slides" id="gallery3dSlides">
+      
+      <!-- Slide 1: Luxury Suite Room -->
+      <div class="gallery-3d-slide active" data-index="0">
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/gallery-slide-1.jpg');"></div>
+        <div class="gallery-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 2: Spa & Spa Academy (Bed Image) -->
+      <div class="gallery-3d-slide" data-index="1">
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/spa-long.jpg');"></div>
+        <div class="gallery-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 3: Our Staff Team -->
+      <div class="gallery-3d-slide" data-index="2">
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/gallery-slide-4.jpg');"></div>
+        <div class="gallery-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 4: About Our Hotel Reception -->
+      <div class="gallery-3d-slide" data-index="3">
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/gallery-slide-5.jpg');"></div>
+        <div class="gallery-slide-overlay"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ambient 3D Lighting & Vignette Overlay -->
+  <div class="gallery-3d-light-sweep"></div>
+  <div class="gallery-3d-vignette"></div>
+
+  <!-- Hero Content Overlay -->
+  <div class="gallery-hero-content">
+    <div class="gallery-hero-badge">
+      <span class="badge-sparkle">✦</span> HOTEL SHREE DAAN CONTACT &amp; LOCATION <span class="badge-sparkle">✦</span>
+    </div>
+    <h1 class="gallery-hero-title">
+      Contact <span>Us</span>
+    </h1>
+    <div class="gallery-hero-breadcrumb">
+      <a href="index.html">HOME</a>
+      <span class="sep">›</span>
+      <span class="active">CONTACT US</span>
+    </div>
+  </div>
+
+  <!-- 3D Navigation Arrows -->
+  <button class="gallery-3d-arrow gallery-prev" id="gallery3dPrev" aria-label="Previous Slide">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="gallery-3d-arrow gallery-next" id="gallery3dNext" aria-label="Next Slide">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+
+  <!-- Slider Controls & Auto Progress Bar -->
+  <div class="gallery-3d-controls">
+    <div class="gallery-3d-dots" id="gallery3dDots">
+      <button class="gallery-dot active" data-slide="0"><span>01</span></button>
+      <button class="gallery-dot" data-slide="1"><span>02</span></button>
+      <button class="gallery-dot" data-slide="2"><span>03</span></button>
+      <button class="gallery-dot" data-slide="3"><span>04</span></button>
+    </div>
+    <div class="gallery-3d-progress">
+      <div class="gallery-progress-bar" id="galleryProgressBar"></div>
+    </div>
+  </div>
 </section>
 
-<!-- ===== CONTACT SECTION ===== -->
-<section class="section">
-  <div class="contact-grid">
-    <!-- Form -->
-    <form id="contactForm" class="contact-form reveal-up">
-      <p class="eyebrow" style="margin-bottom:6px;">Inquiries</p>
-      <h2 style="font-size:2rem; margin-bottom: 20px;">Send a Message</h2>
-      
-      <div class="field">
-        <label for="cName">Full Name</label>
-        <input type="text" id="cName" required placeholder="Enter your name">
-      </div>
-      <div class="field">
-        <label for="cEmail">Email Address</label>
-        <input type="email" id="cEmail" required placeholder="Enter your email">
-      </div>
-      <div class="field">
-        <label for="cPhone">Phone Number</label>
-        <input type="tel" id="cPhone" placeholder="Enter your phone number">
-      </div>
-      <div class="field">
-        <label for="cMessage">Message</label>
-        <textarea id="cMessage" rows="5" required placeholder="Write your message here..."></textarea>
-      </div>
-      <button type="submit" class="btn btn-gold btn-block" style="margin-top: 10px;">Send Message</button>
-      <p class="form-note hidden" id="contactSuccess">Thank you — your message has been received. Our concierge team will respond shortly.</p>
-    </form>
+<!-- ===== ULTRA LUXURY 3D CONTACT SECTION ===== -->
+<section class="contact-3d-section">
+  <!-- Section Head -->
+  <div class="contact-3d-head reveal-up">
+    <div class="contact-3d-badge">
+      <span>✦</span> CONCIERGE &amp; RESERVATIONS DESK <span>✦</span>
+    </div>
+    <h2 class="contact-3d-title">Get In Touch With <span>Our Team</span></h2>
+    <p class="contact-3d-subtitle">Have a query or looking to reserve your luxury stay? Reach out to Hotel Shree Daan's 24/7 hospitality concierge team anytime.</p>
+  </div>
 
-    <!-- Info Column -->
-    <div class="contact-info reveal-up">
-      <div class="info-block">
-        <span class="info-label">Address</span>
-        <p>Shree Daan Hotel, MG Road, Nashik, Maharashtra, India</p>
+  <div class="contact-3d-container">
+    <div class="contact-3d-grid">
+      
+      <!-- Left Column: 3D Glass Form Card -->
+      <div class="contact-3d-form-card reveal-up">
+        <div class="contact-3d-form-header">
+          <h3>Send a Message</h3>
+          <p>Fill out the inquiry form below and our guest experience team will connect with you immediately.</p>
+        </div>
+
+        <form id="contactForm">
+          <div class="field-3d">
+            <label for="cName">Full Name</label>
+            <input type="text" id="cName" required placeholder="Enter your name">
+          </div>
+          
+          <div class="field-3d">
+            <label for="cEmail">Email Address</label>
+            <input type="email" id="cEmail" required placeholder="Enter your email">
+          </div>
+          
+          <div class="field-3d">
+            <label for="cPhone">Phone Number</label>
+            <input type="tel" id="cPhone" placeholder="Enter your phone number">
+          </div>
+          
+          <div class="field-3d">
+            <label for="cMessage">Message</label>
+            <textarea id="cMessage" rows="4" required placeholder="Write your message here..."></textarea>
+          </div>
+          
+          <button type="submit" class="btn-3d-submit">
+            <span>Send Direct Message</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          
+          <p class="form-note hidden" id="contactSuccess" style="color:var(--gold-glow); margin-top:14px; text-align:center;">
+            ✓ Thank you! Your message has been sent directly to our Concierge Desk.
+          </p>
+        </form>
       </div>
-      <div class="info-block">
-        <span class="info-label">Phone</span>
-        <p>+91 78740 50009</p>
+
+      <!-- Right Column: 3D Contact Details & Action Cards -->
+      <div class="contact-3d-info-column reveal-up">
+        
+        <!-- Address Card -->
+        <div class="info-card-3d">
+          <div class="info-icon-3d">📍</div>
+          <div class="info-content-3d">
+            <h4>Hotel Address</h4>
+            <p>Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191, Gujarat, India</p>
+          </div>
+        </div>
+
+        <!-- Phone & Reservations Card -->
+        <div class="info-card-3d">
+          <div class="info-icon-3d">📞</div>
+          <div class="info-content-3d">
+            <h4>Direct Concierge &amp; Phone</h4>
+            <p><a href="tel:+917874050009">+91 78740 50009</a> (Front Desk Hotline)</p>
+            <div class="status-badge-live">
+              <span class="status-dot-pulse"></span> Desk Hotline Active
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Card -->
+        <div class="info-card-3d">
+          <div class="info-icon-3d">✉️</div>
+          <div class="info-content-3d">
+            <h4>Email Desk</h4>
+            <p><a href="mailto:reservations@shreedaanhotel.com">reservations@shreedaanhotel.com</a></p>
+          </div>
+        </div>
+
+        <!-- Hours & Service Card -->
+        <div class="info-card-3d">
+          <div class="info-icon-3d">🕒</div>
+          <div class="info-content-3d">
+            <h4>Hours &amp; Operations</h4>
+            <p>Front Desk Concierge — 24 Hours / 7 Days<br>Dining &amp; Room Service — 6:30 AM – 11:30 PM</p>
+          </div>
+        </div>
+
+        <!-- WhatsApp 3D Direct Connect Card -->
+        <div class="whatsapp-3d-card">
+          <div class="whatsapp-left">
+            <div class="whatsapp-icon-bg">💬</div>
+            <div class="whatsapp-text">
+              <h5>Instant WhatsApp Support</h5>
+              <p>Chat directly with our Concierge Desk</p>
+            </div>
+          </div>
+          <a href="https://wa.me/917874050009" target="_blank" rel="noopener" class="btn-whatsapp-action">
+            <span>Chat Now</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- 3D Framed Map Card -->
+        <div class="map-card-3d">
+          <div class="map-card-header">
+            <span class="map-card-title">Interactive Map &amp; Navigation</span>
+            <a href="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191" target="_blank" rel="noopener" class="map-directions-link">Get Directions ↗</a>
+          </div>
+          <iframe title="Hotel Location Map" src="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+        </div>
+
       </div>
-      <div class="info-block">
-        <span class="info-label">Email</span>
-        <p>reservations@shreedaanhotel.com</p>
-      </div>
-      <div class="info-block">
-        <span class="info-label">Working Hours</span>
-        <p>Front Desk — 24 Hours<br>Dining Hall — 6:30 AM – 11:30 PM</p>
-      </div>
-      <a href="https://wa.me/917874050009" target="_blank" class="btn btn-whatsapp">
-        💬 Chat on WhatsApp
-      </a>
-      <div class="map-embed">
-        <iframe title="Hotel Location Map" src="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
-      </div>
+
     </div>
   </div>
 </section>
@@ -183,10 +1101,162 @@
   </div>
 </footer>
 
-<!-- GSAP Animations -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="../js/script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    /* ---------- 3D GALLERY HERO SLIDER CONTROLLER ---------- */
+    (function initGallery3DSlider() {
+      const slider = document.getElementById('galleryHeroSlider');
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.gallery-3d-slide');
+      const dots = slider.querySelectorAll('.gallery-dot');
+      const prevBtn = document.getElementById('gallery3dPrev');
+      const nextBtn = document.getElementById('gallery3dNext');
+      const progressBar = document.getElementById('galleryProgressBar');
+      const contentBox = slider.querySelector('.gallery-hero-content');
+
+      if (!slides.length) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoInterval = null;
+      let progressInterval = null;
+      let progressVal = 0;
+      const duration = 6000;
+
+      function updateSlides(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove('active', 'prev-slide', 'next-slide');
+          if (i === index) {
+            slide.classList.add('active');
+          } else if (i === (index - 1 + totalSlides) % totalSlides) {
+            slide.classList.add('prev-slide');
+          } else if (i === (index + 1) % totalSlides) {
+            slide.classList.add('next-slide');
+          }
+        });
+
+        dots.forEach((dot, i) => {
+          if (i === index) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+
+        resetProgress();
+      }
+
+      function goToNext() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlides(currentIndex);
+      }
+
+      function goToPrev() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlides(currentIndex);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        progressVal = 0;
+        if (progressBar) progressBar.style.width = '0%';
+        
+        const step = 100 / (duration / 50);
+        progressInterval = setInterval(() => {
+          progressVal += step;
+          if (progressBar) progressBar.style.width = Math.min(progressVal, 100) + '%';
+        }, 50);
+
+        autoInterval = setInterval(() => {
+          goToNext();
+        }, duration);
+      }
+
+      function stopAutoPlay() {
+        if (autoInterval) clearInterval(autoInterval);
+        if (progressInterval) clearInterval(progressInterval);
+      }
+
+      function resetProgress() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', goToNext);
+      if (prevBtn) prevBtn.addEventListener('click', goToPrev);
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          currentIndex = i;
+          updateSlides(currentIndex);
+        });
+      });
+
+      slider.addEventListener('mouseenter', stopAutoPlay);
+      slider.addEventListener('mouseleave', startAutoPlay);
+
+      /* Interactive 3D Parallax Tilt on Mouse Movement */
+      slider.addEventListener('mousemove', (e) => {
+        const rect = slider.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const rotateX = (-y / rect.height) * 10;
+        const rotateY = (x / rect.width) * 12;
+
+        if (contentBox) {
+          contentBox.style.transform = `translate(-50%, -50%) translateZ(60px) rotateX(${rotateX * 0.4}deg) rotateY(${rotateY * 0.4}deg)`;
+        }
+
+        const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
+        if (activeBg) {
+          activeBg.style.transform = `translateZ(-50px) translate(${rotateY * 1.5}px, ${rotateX * 1.5}px)`;
+        }
+      });
+
+      slider.addEventListener('mouseleave', () => {
+        if (contentBox) {
+          contentBox.style.transform = `translate(-50%, -50%) translateZ(60px) rotateX(0deg) rotateY(0deg)`;
+        }
+        const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
+        if (activeBg) {
+          activeBg.style.transform = `translateZ(-50px) translate(0, 0)`;
+        }
+      });
+
+      // Touch support for mobile swipe
+      let touchStartX = 0;
+      slider.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) goToNext();
+        if (touchEndX - touchStartX > 50) goToPrev();
+      }, { passive: true });
+
+      updateSlides(0);
+      startAutoPlay();
+    })();
+
+    /* ---------- 3D CARD TILT EFFECT ---------- */
+    const tiltCards = document.querySelectorAll('.info-card-3d, .contact-3d-form-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = (-y / rect.height) * 8;
+        const rotateY = (x / rect.width) * 8;
+        card.style.transform = `translateY(-6px) translateZ(15px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `translateY(0) translateZ(0) rotateX(0deg) rotateY(0deg)`;
+      });
+    });
+  });
+</script>
 </body>
 </html>
 

@@ -663,8 +663,8 @@
     <h2 style="color:var(--ivory);">Request a Spa Session</h2>
   </div>
 
-  <form id="spaBookingForm" class="booking-card reveal-up" style="max-width: 800px; margin: 0 auto;">
-    <div class="booking-row">
+  <form id="spaBookingForm" class="booking-card reveal-up" style="max-width: 1020px; margin: 0 auto; box-sizing: border-box; overflow: hidden;">
+    <div class="booking-row" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
       <div class="field">
         <label for="spaName">Full Name</label>
         <input type="text" id="spaName" required placeholder="Your Name">
@@ -679,7 +679,7 @@
       </div>
       <div class="field">
         <label for="spaService">Service Type</label>
-        <select id="spaService">
+        <select id="spaService" style="width: 100%; min-width: 0; box-sizing: border-box; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
           <option value="signature">Signature Massage — ₹2,200</option>
           <option value="steam">Steam &amp; Sauna — ₹1,400</option>
           <option value="ritual">Golden Ritual — ₹3,800</option>
