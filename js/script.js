@@ -320,37 +320,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const ROOMS = [
     {
       id: 'premier', name: 'Premier Suite', price: 3600, rating: 4.8,
-      image: 'https://www.hotelshreedaan.com/rooms/premier1.jpg',
+      image: '../assets/images/test_rooms/shree premier suite 1.jpg',
       gradient: 'radial-gradient(ellipse at 60% 40%, #6E1027, #2c0813 60%, #14090C)',
       facilities: ['Living Area', 'Balcony', 'Mini Bar', 'Bathtub']
     },
     {
       id: 'executive-single', name: 'Executive Single', price: 2400, rating: 4.6,
-      image: 'https://www.hotelshreedaan.com/rooms/executive-single.jpg',
+      image: '../assets/images/test_rooms/executive.jpg',
       gradient: 'radial-gradient(ellipse at 40% 40%, #8a5a1f, #57332a 55%, #14090C)',
       facilities: ['City View', 'Workspace', 'Smart TV', 'Mini Bar']
     },
     {
       id: 'standard-double', name: 'Standard Double', price: 2200, rating: 4.5,
-      image: 'https://www.hotelshreedaan.com/rooms/standard-double.jpg',
+      image: '../assets/images/test_rooms/standard-double.jpg',
       gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #3d270e 60%, #14090C)',
       facilities: ['King Bed', 'City View', 'Free WiFi', 'Breakfast']
     },
     {
       id: 'executive-double', name: 'Executive Double', price: 2600, rating: 4.7,
-      image: 'https://www.hotelshreedaan.com/rooms/executive-single.jpg',
+      image: '../assets/images/test_rooms/executive-double.jpg',
       gradient: 'radial-gradient(ellipse at 40% 50%, #3f5240, #1c261d 60%, #14090C)',
       facilities: ['Courtyard View', 'Private Lounge', 'Butler Service', 'Spa Access']
     },
     {
       id: 'standard-single', name: 'Standard Single', price: 2000, rating: 4.4,
-      image: 'https://www.hotelshreedaan.com/rooms/standard-single.jpg',
+      image: '../assets/images/test_rooms/standard-single.jpg',
       gradient: 'radial-gradient(ellipse at 40% 40%, #81523a, #3d1811 60%, #14090C)',
       facilities: ['Private Balcony', 'Jacuzzi', 'Dining Area', 'Personal Butler']
     },
     {
       id: 'board-room', name: 'Board Room', price: 4000, rating: 4.9,
-      image: 'https://www.hotelshreedaan.com/rooms/b-room.jpg',
+      image: '../assets/images/test_rooms/shree Bord Rooms 1.jpg',
       gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)',
       facilities: ['Panoramic View', 'Private Terrace', 'Dining Room', '24/7 Butler']
     }

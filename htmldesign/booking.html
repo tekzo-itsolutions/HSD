@@ -402,6 +402,303 @@
     .gallery-prev { left: 14px; }
     .gallery-next { right: 14px; }
   }
+
+  /* ==========================================================================
+     LINE-TO-LINE SIDE-BY-SIDE BOXES & SEPARATE BOOK NOW BUTTON LAYOUT
+     ========================================================================== */
+  .room-booking-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .booking-boxes-row {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 32px;
+    align-items: stretch; /* Line-to-line top & bottom border alignment */
+  }
+
+  /* Left Box: 3D Room Slider Box (Matching Hero 3D Perspective Slider) */
+  .room-slider-box {
+    position: relative;
+    width: 100%;
+    min-height: 410px;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0d0608;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    border: 1px solid rgba(110, 16, 39, 0.16);
+    box-shadow: 0 15px 45px rgba(20, 9, 12, 0.06);
+  }
+
+  .room-slider-viewport {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .room-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 1.2s ease;
+    will-change: transform, opacity;
+  }
+
+  .room-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 5;
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.04);
+  }
+
+  .room-slide.prev-slide {
+    opacity: 0;
+    visibility: visible;
+    z-index: 2;
+    transform: translate3d(-20%, 0, -350px) rotateY(25deg) scale(0.8);
+  }
+
+  .room-slide.next-slide {
+    opacity: 0;
+    visibility: visible;
+    z-index: 2;
+    transform: translate3d(20%, 0, -350px) rotateY(-25deg) scale(0.8);
+  }
+
+  .room-slide-bg {
+    position: absolute;
+    inset: -5%;
+    width: 110%;
+    height: 110%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transform: translateZ(-50px);
+    transition: transform 0.8s ease-out;
+  }
+
+  .room-slide.active .room-slide-bg {
+    animation: roomKenBurnsZoom 16s ease-in-out infinite alternate;
+  }
+
+  .room-slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(20, 9, 12, 0.05) 0%, rgba(20, 9, 12, 0.35) 75%, rgba(13, 6, 8, 0.7) 100%),
+                linear-gradient(180deg, rgba(20, 9, 12, 0.4) 0%, transparent 45%, rgba(20, 9, 12, 0.5) 100%);
+    z-index: 2;
+  }
+
+  .room-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(110, 16, 39, 0.15);
+    color: var(--maroon);
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  }
+
+  .room-slider-arrow:hover {
+    background: var(--gold);
+    color: var(--ink);
+    border-color: var(--gold-glow);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .room-prev { left: 16px; }
+  .room-next { right: 16px; }
+
+  .room-slider-dots {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    background: rgba(20, 9, 12, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(201, 162, 39, 0.3);
+  }
+
+  .room-dot {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 2px 5px;
+    transition: all 0.3s ease;
+  }
+
+  .room-dot.active {
+    color: var(--gold-glow);
+    font-weight: 600;
+  }
+
+  /* Right Box: Check Availability Form Box */
+  .check-availability-box {
+    background: #ffffff;
+    border: 1px solid rgba(110, 16, 39, 0.16);
+    border-radius: 16px;
+    padding: 24px 26px;
+    box-shadow: 0 15px 45px rgba(20, 9, 12, 0.06);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .box-header {
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(110, 16, 39, 0.1);
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  .box-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  .check-availability-box .field label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--maroon) !important;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .check-availability-box .field input,
+  .check-availability-box .field select {
+    background: #ffffff !important;
+    border: 1px solid rgba(110, 16, 39, 0.16) !important;
+    color: var(--ink) !important;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+
+  /* Bottom Row: Room Info on Left, SEPARATE Book Now Button on Right */
+  .booking-bottom-row {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 32px;
+    margin-top: 24px;
+    align-items: start;
+  }
+
+  .room-title-price-block h3 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--maroon);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+
+  .price-line {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .price-line strong {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--maroon);
+  }
+
+  .price-line span {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: #7a7067;
+    font-weight: 500;
+  }
+
+  .room-meta-sub {
+    font-size: 0.9rem;
+    color: #6b6058;
+  }
+
+  .book-action-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .mini-summary {
+    font-size: 0.88rem;
+    color: #6b6058;
+    text-align: right;
+  }
+
+  .mini-summary strong {
+    color: var(--maroon);
+    font-size: 1.1rem;
+  }
+
+  .book-now-separate-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(201, 162, 39, 0.3);
+  }
+
+  @media (max-width: 992px) {
+    .booking-boxes-row,
+    .booking-bottom-row {
+      grid-template-columns: 1fr;
+    }
+    .room-slider-box {
+      min-height: 340px;
+    }
+    .book-action-block {
+      align-items: stretch;
+    }
+    .mini-summary {
+      text-align: left;
+    }
+  }
 </style>
 </head>
 <body>
@@ -418,7 +715,17 @@
     <nav id="mainNav">
       <a href="index.html">Home</a>
       <a href="about.html">About Us</a>
-      <a href="rooms.html">Rooms</a>      
+      <div class="nav-item-dropdown">
+        <a href="rooms.html" class="nav-link-dropdown">Rooms <span class="nav-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="booking.html?room=premier">Premier Suite</a>
+          <a href="booking.html?room=executive-double">Executive Double</a>
+          <a href="booking.html?room=executive-single">Executive Single</a>
+          <a href="booking.html?room=standard-double">Standard Double</a>
+          <a href="booking.html?room=standard-single">Standard Single</a>
+          <a href="booking.html?room=board-room">Board Room</a>
+        </div>
+      </div>      
       <a href="spa.html">Golden Sparsh Spa</a>   
       <a href="services.html">Services</a>      
       <a href="attractions.html"> Near By Attractions</a>      
@@ -514,78 +821,149 @@
   </div>
 </section>
 
-<!-- ===== BOOKING DESK SECTION ===== -->
-<section id="booking" class="section section--booking section--booking-light" style="min-height: 70vh;">
+<!-- ===== BOOKING DESK & ROOM DETAIL SECTION ===== -->
+<section id="booking" class="section section--booking section--booking-light" style="min-height: 70vh; padding: 70px 0;">
   <div class="jaali-bg"></div>
-  <div class="section-head reveal-up">
+  
+  <div class="section-head reveal-up" style="margin-bottom: 40px;">
     <p class="eyebrow">Book Your Stay</p>
     <h2>Check Availability &amp; Reserve</h2>
   </div>
 
-  <!-- Booking Form -->
-  <form id="bookingForm" class="booking-card reveal-up">
-    <div class="booking-row" style="margin-bottom: 16px;">
-      <div class="field field--wide">
-        <label for="guestName">Guest Full Name</label>
-        <input type="text" id="guestName" required placeholder="Enter guest name">
-      </div>
-      <div class="field">
-        <label for="guestPhone">Phone Number</label>
-        <input type="tel" id="guestPhone" required placeholder="Enter phone number">
-      </div>
-      <div class="field">
-        <label for="guestEmail">Email Address</label>
-        <input type="email" id="guestEmail" placeholder="Enter email address">
-      </div>
-    </div>
-    <div class="booking-row">
-      <div class="field">
-        <label for="checkIn">Check-in</label>
-        <input type="date" id="checkIn" required>
-      </div>
-      <div class="field">
-        <label for="checkOut">Check-out</label>
-        <input type="date" id="checkOut" required>
-      </div>
-      <div class="field">
-        <label for="adults">Adults</label>
-        <select id="adults">
-          <option>1</option><option selected>2</option><option>3</option><option>4</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="children">Children</label>
-        <select id="children">
-          <option selected>0</option><option>1</option><option>2</option><option>3</option>
-        </select>
-      </div>
-      <div class="field field--wide">
-        <label for="roomType">Room Type</label>
-        <select id="roomType">
-          <option value="premier" data-price="3600">Premier Suite — ₹3,600/night</option>
-          <option value="executive-single" data-price="2400">Executive Single — ₹2,400/night</option>
-          <option value="standard-double" data-price="2200">Standard Double — ₹2,200/night</option>
-          <option value="executive-double" data-price="2600">Executive Double — ₹2,600/night</option>
-          <option value="standard-single" data-price="2000">Standard Single — ₹2,000/night</option>
-          <option value="board-room" data-price="4000">Board Room — ₹4,000/night</option>
-        </select>
-      </div>
-    </div>
+  <div class="room-booking-container reveal-up">
+    <!-- Main Booking Form Wrapping Fields & Separate Submit Button -->
+    <form id="bookingForm">
+      
+      <!-- ROW 1: TWO SIDE-BY-SIDE BOXES (LINE-TO-LINE TOP & BOTTOM ALIGNMENT) -->
+      <div class="booking-boxes-row">
+        
+        <!-- Left Box: 3D Room Slider Box (Matching Hero 3D Perspective Slider) -->
+        <div class="room-slider-box" id="roomDetailSlider">
+          <div class="room-slider-viewport">
+            <!-- Slide 1 -->
+            <div class="room-slide active" data-index="0">
+              <div class="room-slide-bg" id="roomSlideBg1" style="background-image: url('../assets/images/test_rooms/shree premier suite 1.jpg');"></div>
+              <div class="room-slide-overlay"></div>
+            </div>
 
-    <!-- Live Tariffs Estimator -->
-    <div class="booking-summary">
-      <div class="summary-line">
-        <span id="summaryNights">0 nights</span>
-        <span id="summaryRoom">—</span>
-      </div>
-      <div class="summary-total">
-        <span>Estimated Total</span>
-        <strong id="summaryTotal">₹0</strong>
-      </div>
-    </div>
+            <!-- Slide 2 -->
+            <div class="room-slide" data-index="1">
+              <div class="room-slide-bg" id="roomSlideBg2" style="background-image: url('../assets/images/test_rooms/shree premier suite 2.jpg');"></div>
+              <div class="room-slide-overlay"></div>
+            </div>
+          </div>
 
-    <button type="submit" class="btn btn-gold btn-block">Book Room</button>
-  </form>
+          <!-- Ambient 3D Lighting & Vignette Overlay -->
+          <div class="gallery-3d-light-sweep"></div>
+          <div class="gallery-3d-vignette"></div>
+
+          <!-- 3D Arrow Navigation Controls -->
+          <button type="button" class="gallery-3d-arrow gallery-prev room-prev" id="roomDetailPrev" aria-label="Previous Slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="gallery-3d-arrow gallery-next room-next" id="roomDetailNext" aria-label="Next Slide">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <!-- Slider Dots & Progress Bar -->
+          <div class="gallery-3d-controls" style="bottom: 14px;">
+            <div class="gallery-3d-dots" id="roomDetailDots">
+              <button type="button" class="gallery-dot active" data-slide="0"><span>01</span></button>
+              <button type="button" class="gallery-dot" data-slide="1"><span>02</span></button>
+            </div>
+            <div class="gallery-3d-progress" style="width: 140px; height: 2px;">
+              <div class="gallery-progress-bar" id="roomProgressBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Box: Check Availability Form Box -->
+        <div class="check-availability-box">
+          <div class="box-header">
+            <h3>CHECK AVAILABILITY</h3>
+          </div>
+
+          <div class="field" style="margin-bottom: 10px;">
+            <label for="guestName">GUEST FULL NAME</label>
+            <input type="text" id="guestName" required placeholder="Enter guest name">
+          </div>
+
+          <div class="field-row" style="margin-bottom: 10px;">
+            <div class="field">
+              <label for="guestPhone">PHONE NUMBER</label>
+              <input type="tel" id="guestPhone" required placeholder="Enter phone number">
+            </div>
+            <div class="field">
+              <label for="guestEmail">EMAIL ADDRESS</label>
+              <input type="email" id="guestEmail" placeholder="Enter email address">
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom: 10px;">
+            <div class="field">
+              <label for="checkIn">CHECK IN DATE</label>
+              <input type="date" id="checkIn" required>
+            </div>
+            <div class="field">
+              <label for="checkOut">CHECK OUT DATE</label>
+              <input type="date" id="checkOut" required>
+            </div>
+          </div>
+
+          <div class="field-row" style="margin-bottom: 10px;">
+            <div class="field">
+              <label for="adults">NO. OF ADULTS</label>
+              <select id="adults">
+                <option>1</option><option selected>2</option><option>3</option><option>4</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="children">NO. OF CHILDREN'S</label>
+              <select id="children">
+                <option selected>0</option><option>1</option><option>2</option><option>3</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Hidden roomType select for tariff calculation & invoicing -->
+          <select id="roomType" style="display:none !important;">
+            <option value="premier" data-price="3600">Premier Suite — ₹3,600/night</option>
+            <option value="executive-single" data-price="2400">Executive Single — ₹2,400/night</option>
+            <option value="standard-double" data-price="2200">Standard Double — ₹2,200/night</option>
+            <option value="executive-double" data-price="2600">Executive Double — ₹2,600/night</option>
+            <option value="standard-single" data-price="2000">Standard Single — ₹2,000/night</option>
+            <option value="board-room" data-price="4000">Board Room — ₹4,000/night</option>
+          </select>
+        </div>
+
+      </div> <!-- end .booking-boxes-row -->
+
+      <!-- ROW 2: ROOM TITLE & PRICE ON LEFT, SEPARATE BOOK NOW BUTTON & ESTIMATE ON RIGHT -->
+      <div class="booking-bottom-row">
+        <!-- Left: Room Title, Price & Meta -->
+        <div class="room-title-price-block">
+          <h3 id="displayRoomName">PREMIER SUITE</h3>
+          <div class="price-line">
+            <strong id="displayRoomPrice">₹ 3,600</strong>
+            <span>/ NIGHT</span>
+          </div>
+          <p id="displayRoomMeta" class="room-meta-sub">Luxury Suite with Private Oasis View</p>
+        </div>
+
+        <!-- Right: Estimate & Separate Book Now Button -->
+        <div class="book-action-block">
+          <div class="mini-summary">
+            <span id="summaryNights">0 nights</span> • 
+            <span id="summaryRoom">Premier Suite</span> • 
+            <span>Estimated Total: </span>
+            <strong id="summaryTotal">₹0</strong>
+          </div>
+          <button type="submit" class="btn btn-gold btn-block book-now-separate-btn">BOOK NOW</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
 
   <!-- Printable Invoice desk -->
   <div id="bookingConfirmation" class="booking-confirmation hidden">
@@ -819,6 +1197,210 @@
         if (touchStartX - touchEndX > 50) goToNext();
         if (touchEndX - touchStartX > 50) goToPrev();
       }, { passive: true });
+
+      updateSlides(0);
+      startAutoPlay();
+    })();
+
+    /* ---------- 2-IMAGE ROOM DETAIL 3D SLIDER CONTROLLER & QUERY SYNC ---------- */
+    (function initRoomDetailSlider() {
+      const roomSlider = document.getElementById('roomDetailSlider');
+      if (!roomSlider) return;
+      const slides = roomSlider.querySelectorAll('.room-slide');
+      const dots = roomSlider.querySelectorAll('.gallery-3d-dots .gallery-dot');
+      const prevBtn = document.getElementById('roomDetailPrev');
+      const nextBtn = document.getElementById('roomDetailNext');
+      const progressBar = document.getElementById('roomProgressBar');
+
+      if (!slides.length) return;
+
+      let currentIndex = 0;
+      const totalSlides = slides.length;
+      let autoInterval = null;
+      let progressInterval = null;
+      let progressVal = 0;
+      const duration = 5000;
+
+      function updateSlides(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.remove('active', 'prev-slide', 'next-slide');
+          if (i === index) {
+            slide.classList.add('active');
+          } else if (i === (index - 1 + totalSlides) % totalSlides) {
+            slide.classList.add('prev-slide');
+          } else if (i === (index + 1) % totalSlides) {
+            slide.classList.add('next-slide');
+          }
+        });
+
+        dots.forEach((dot, i) => {
+          if (i === index) dot.classList.add('active');
+          else dot.classList.remove('active');
+        });
+
+        resetProgress();
+      }
+
+      function goToNext() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlides(currentIndex);
+      }
+
+      function goToPrev() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlides(currentIndex);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        progressVal = 0;
+        if (progressBar) progressBar.style.width = '0%';
+        
+        const step = 100 / (duration / 50);
+        progressInterval = setInterval(() => {
+          progressVal += step;
+          if (progressBar) progressBar.style.width = Math.min(progressVal, 100) + '%';
+        }, 50);
+
+        autoInterval = setInterval(() => {
+          goToNext();
+        }, duration);
+      }
+
+      function stopAutoPlay() {
+        if (autoInterval) clearInterval(autoInterval);
+        if (progressInterval) clearInterval(progressInterval);
+      }
+
+      function resetProgress() {
+        stopAutoPlay();
+        startAutoPlay();
+      }
+
+      if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); goToNext(); });
+      if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); goToPrev(); });
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentIndex = i;
+          updateSlides(currentIndex);
+        });
+      });
+
+      roomSlider.addEventListener('mouseenter', stopAutoPlay);
+      roomSlider.addEventListener('mouseleave', startAutoPlay);
+
+      /* Interactive 3D Parallax Tilt on Mouse Movement */
+      roomSlider.addEventListener('mousemove', (e) => {
+        const rect = roomSlider.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const rotateX = (-y / rect.height) * 8;
+        const rotateY = (x / rect.width) * 10;
+
+        const activeBg = roomSlider.querySelector('.room-slide.active .room-slide-bg');
+        if (activeBg) {
+          activeBg.style.transform = `translateZ(-50px) translate(${rotateY * 1.2}px, ${rotateX * 1.2}px)`;
+        }
+      });
+
+      roomSlider.addEventListener('mouseleave', () => {
+        const activeBg = roomSlider.querySelector('.room-slide.active .room-slide-bg');
+        if (activeBg) {
+          activeBg.style.transform = `translateZ(-50px) translate(0, 0)`;
+        }
+      });
+
+      // Sync Room details & unique slider images from URL parameters (e.g. ?room=premier)
+      (function syncRoomUrlDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const roomCode = params.get('room') || 'premier';
+        
+        const roomData = {
+          'premier': {
+            name: 'Premier Suite',
+            price: '₹3,600',
+            meta: 'Luxury Suite with Private Oasis View',
+            slides: [
+              '../assets/images/test_rooms/shree premier suite 1.jpg',
+              '../assets/images/test_rooms/shree premier suite 2.jpg'
+            ]
+          },
+          'executive-single': {
+            name: 'Executive Single',
+            price: '₹2,400',
+            meta: 'Executive Comfort with City View & Workspace',
+            slides: [
+              '../assets/images/test_rooms/executive.jpg',
+              '../assets/images/test_rooms/premier-suite2.jpg'
+            ]
+          },
+          'standard-double': {
+            name: 'Standard Double',
+            price: '₹2,200',
+            meta: 'Spacious Deluxe Room for Couples',
+            slides: [
+              '../assets/images/test_rooms/standard-double.jpg',
+              '../assets/images/test_rooms/premier-suite3.jpg'
+            ]
+          },
+          'executive-double': {
+            name: 'Executive Double',
+            price: '₹2,600',
+            meta: 'Courtyard View with Private Lounge',
+            slides: [
+              '../assets/images/test_rooms/executive-double.jpg',
+              '../assets/images/test_rooms/executive.jpg'
+            ]
+          },
+          'standard-single': {
+            name: 'Standard Single',
+            price: '₹2,000',
+            meta: 'Cosy Room with Private Balcony',
+            slides: [
+              '../assets/images/test_rooms/standard-single.jpg',
+              '../assets/images/test_rooms/standard-double.jpg'
+            ]
+          },
+          'board-room': {
+            name: 'Board Room',
+            price: '₹4,000',
+            meta: 'Panoramic View Master Suite & Meeting Lounge',
+            slides: [
+              '../assets/images/test_rooms/shree Bord Rooms 1.jpg',
+              '../assets/images/test_rooms/shree Bord Rooms 2.jpg'
+            ]
+          }
+        };
+
+        if (roomData[roomCode]) {
+          const info = roomData[roomCode];
+          const nameEl = document.getElementById('displayRoomName');
+          const priceEl = document.getElementById('displayRoomPrice');
+          const metaEl = document.getElementById('displayRoomMeta');
+          const bg1 = document.getElementById('roomSlideBg1');
+          const bg2 = document.getElementById('roomSlideBg2');
+          const roomTypeSelect = document.getElementById('roomType');
+
+          if (nameEl) nameEl.textContent = info.name;
+          if (priceEl) priceEl.textContent = info.price;
+          if (metaEl) metaEl.textContent = info.meta;
+          if (bg1 && info.slides[0]) bg1.style.backgroundImage = `url('${encodeURI(info.slides[0])}')`;
+          if (bg2 && info.slides[1]) bg2.style.backgroundImage = `url('${encodeURI(info.slides[1])}')`;
+
+          if (roomTypeSelect) {
+            for (let i = 0; i < roomTypeSelect.options.length; i++) {
+              if (roomTypeSelect.options[i].value === roomCode) {
+                roomTypeSelect.selectedIndex = i;
+                roomTypeSelect.dispatchEvent(new Event('change'));
+                break;
+              }
+            }
+          }
+        }
+      })();
 
       updateSlides(0);
       startAutoPlay();
