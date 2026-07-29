@@ -479,9 +479,9 @@
 
   .room-slide-bg {
     position: absolute;
-    inset: -5%;
-    width: 110%;
-    height: 110%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -697,6 +697,243 @@
     }
     .mini-summary {
       text-align: left;
+    }
+  }
+
+  /* ==========================================================================
+     ROOM FEATURES SEPARATE SECTION & ULTRA-PREMIUM HEADER
+     ========================================================================== */
+  .room-features-section {
+    padding: 75px 0 95px 0;
+    background: radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.05), transparent 55%), #fbf8f3;
+    border-top: 1px solid rgba(110, 16, 39, 0.08);
+  }
+
+  .room-features-container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .features-premium-header {
+    margin-bottom: 42px;
+  }
+
+  .features-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .features-eyebrow .badge-sparkle {
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  .room-features-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.0rem, 4vw, 2.85rem);
+    font-weight: 500;
+    color: var(--maroon);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .room-features-title span,
+  .room-features-title .gold-text {
+    color: var(--gold);
+  }
+
+  .features-title-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 420px;
+  }
+
+  .features-title-divider .divider-line {
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--gold), rgba(201, 162, 39, 0.15));
+  }
+
+  .features-title-divider .divider-diamond {
+    color: var(--gold);
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+
+  .features-open-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 80px;
+    row-gap: 0;
+  }
+
+  .feature-line-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(110, 16, 39, 0.1);
+    opacity: 0;
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                padding-left 0.3s ease;
+    will-change: opacity, transform;
+  }
+
+  .feature-line-item:nth-child(odd) {
+    transform: translate3d(-35px, 25px, 0);
+  }
+
+  .feature-line-item:nth-child(even) {
+    transform: translate3d(35px, 25px, 0);
+  }
+
+  .feature-line-item.revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .feature-line-item:hover {
+    padding-left: 8px;
+  }
+
+  .feature-line-item .feature-bullet {
+    color: var(--gold);
+    font-size: 0.72rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .feature-line-item:hover .feature-bullet {
+    transform: translateX(4px);
+    color: var(--gold-glow);
+  }
+
+  .feature-line-item .feature-text {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #2b2325;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .room-features-section {
+      padding: 45px 0 60px 0;
+    }
+    .room-features-container {
+      padding: 0 20px;
+    }
+    .features-open-grid {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+    }
+    .room-features-title {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+    .features-title-divider {
+      max-width: 100%;
+    }
+  }
+
+  /* ==========================================================================
+     KINDLY NOTE SECTION & 1-BY-1 SCROLL SLIDE ANIMATION
+     ========================================================================== */
+  .kindly-note-section {
+    padding: 75px 0 100px 0;
+    background: radial-gradient(circle at 50% 0%, rgba(201, 162, 39, 0.09), transparent 65%),
+                linear-gradient(180deg, #f7f1e6 0%, #eee3d3 100%);
+    border-top: 2px solid rgba(201, 162, 39, 0.3);
+    border-bottom: 2px solid rgba(201, 162, 39, 0.3);
+    box-shadow: inset 0 10px 30px rgba(110, 16, 39, 0.05);
+  }
+
+  .kindly-note-container {
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 0 30px;
+  }
+
+  .note-open-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .note-line-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 8px;
+    border-bottom: 1px solid rgba(110, 16, 39, 0.12);
+    opacity: 0;
+    transform: translate3d(-35px, 20px, 0);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), 
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                padding-left 0.3s ease,
+                background 0.3s ease;
+    will-change: opacity, transform;
+  }
+
+  .note-line-item.revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .note-line-item:hover {
+    padding-left: 14px;
+    background: rgba(201, 162, 39, 0.08);
+    border-radius: 6px;
+  }
+
+  .note-check-icon {
+    color: var(--gold);
+    font-size: 0.95rem;
+    font-weight: bold;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .note-line-item:hover .note-check-icon {
+    transform: translateX(4px) scale(1.15);
+    color: var(--gold-glow);
+  }
+
+  .note-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2b2325;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .kindly-note-section {
+      padding: 40px 0 60px 0;
+    }
+    .kindly-note-container {
+      padding: 0 20px;
+    }
+    .note-text {
+      font-size: 0.82rem;
     }
   }
 </style>
@@ -995,6 +1232,146 @@
       <div class="confirmation-actions">
         <button class="btn btn-ghost" id="printInvoiceBtn">Print Invoice</button>
         <button class="btn btn-gold" id="newBookingBtn">Make Another Booking</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ROOM FEATURES / SPECIFICATIONS SECTION (ULTRA PREMIUM STYLED) ===== -->
+<section class="room-features-section">
+  <div class="room-features-container">
+    <div class="features-premium-header">
+      <div class="features-eyebrow">
+        <span class="badge-sparkle">✦</span> LUXURY AMENITIES &amp; SPECIFICATIONS <span class="badge-sparkle">✦</span>
+      </div>
+      <h3 class="room-features-title" id="displayRoomFeaturesTitle">PREMIER SUITE ROOM'S / <span class="gold-text">FEATURES</span></h3>
+      <div class="features-title-divider">
+        <span class="divider-line"></span>
+        <span class="divider-diamond">✦</span>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="features-open-grid" id="displayRoomFeaturesGrid">
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">BED - KING BED</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">DRAWING ROOM WITH 32" LED</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">VIEW - CITY</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">SPACIOUS SEE THROUGH BATHROOM</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">WIFI - YES</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">BREAKFAST INCLUDED - YES</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">ROOM SERVICE - 24 X 7</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">ELECTRONIC SAFE</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">TEA / COFFEE MAKER</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">A/C INCLUDED</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">DRESSING AREA</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">MAX - 3 PEOPLE</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">FRAGRANCES WITH DIFFUSER AND CANDLES</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">ROOM SIZE - 500 SQ. FT.</span>
+      </div>
+      <div class="feature-line-item">
+        <span class="feature-bullet">▶</span>
+        <span class="feature-text">ATTACHED BALCONY</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KINDLY NOTE SECTION (ONLY FOR STANDARD DOUBLE ROOM) ===== -->
+<section class="kindly-note-section" id="kindlyNoteSection">
+  <div class="kindly-note-container">
+    <div class="features-premium-header">
+      <div class="features-eyebrow">
+        <span class="badge-sparkle">✦</span> IMPORTANT HOTEL POLICIES <span class="badge-sparkle">✦</span>
+      </div>
+      <h3 class="room-features-title">KINDLY <span class="gold-text">NOTE</span></h3>
+      <div class="features-title-divider">
+        <span class="divider-line"></span>
+        <span class="divider-diamond">✦</span>
+        <span class="divider-line"></span>
+      </div>
+    </div>
+
+    <div class="note-open-list" id="kindlyNoteList">
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">RATES ARE INCLUSIVE OF BREAKFAST AND NEWSPAPER.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">RATES ARE EXCLUSIVE OF APPLICABLE GOVT. TAXES.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">MASTER / VISA CARDS ACCEPTED.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">TARIFF &amp; TAXES ARE SUBJECT TO CHANGE WITHOUT PRIOR NOTICE.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">CHECK-IN TIME 12.00 NOON CHECK-OUT TIME IS 11.00 AM.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">OUTSIDE FOOD &amp; DRINKS NOT ALLOWED.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">INDIAN NATIONALS/CITIZENS ARE REQUESTED TO SUBMIT A COPY OF PHOTO-ID AT THE TIME OF CHECK-IN.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">FOREIGN NATIONALS/CITIZENS ARE REQUESTED TO SUBMIT A COPY OF PASSPORT AT THE TIME OF CHECK-IN.</span>
+      </div>
+      <div class="note-line-item">
+        <span class="note-check-icon">✓</span>
+        <span class="note-text">RIGHTS OF ADMISSION RESERVED.</span>
       </div>
     </div>
   </div>
@@ -1326,6 +1703,25 @@
             slides: [
               '../assets/images/test_rooms/shree premier suite 1.jpg',
               '../assets/images/test_rooms/shree premier suite 2.jpg'
+            ],
+            featuresTitle: "PREMIER SUITE ROOM'S / FEATURES",
+            features: [
+              "BED - KING BED",
+              "DRAWING ROOM WITH 32\" LED",
+              "VIEW - CITY",
+              "SPACIOUS SEE THROUGH BATHROOM",
+              "WIFI - YES",
+              "BREAKFAST INCLUDED - YES",
+              "ROOM SERVICE - 24 X 7",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "ELECTRONIC SAFE",
+              "TEA / COFFEE MAKER",
+              "A/C INCLUDED",
+              "DRESSING AREA",
+              "MAX - 3 PEOPLE",
+              "FRAGRANCES WITH DIFFUSER AND CANDLES",
+              "ROOM SIZE - 500 SQ. FT.",
+              "ATTACHED BALCONY"
             ]
           },
           'executive-single': {
@@ -1335,6 +1731,24 @@
             slides: [
               '../assets/images/test_rooms/executive.jpg',
               '../assets/images/test_rooms/premier-suite2.jpg'
+            ],
+            featuresTitle: "EXECUTIVE SINGLE ROOM'S / FEATURES",
+            features: [
+              "HEAD & SOLDER OR FOOT SPA",
+              "LED TV",
+              "BED - KING SIZE BED",
+              "ATTACHED BALCONY",
+              "VIEW - CITY",
+              "SEE THROUGH BATHROOM",
+              "WIFI - YES",
+              "BREAKFAST INCLUDED - YES",
+              "ROOM SERVICE - 24 X 7",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "A/C INCLUDED",
+              "REFRIGERATOR",
+              "MAX - 3 PEOPLE",
+              "ELECTRONIC SAFE",
+              "ROOM SIZE - 180 SQ. FT."
             ]
           },
           'standard-double': {
@@ -1343,7 +1757,24 @@
             meta: 'Spacious Deluxe Room for Couples',
             slides: [
               '../assets/images/test_rooms/standard-double.jpg',
-              '../assets/images/test_rooms/premier-suite3.jpg'
+              '../assets/images/test_rooms/standard-double.jpg'
+            ],
+            featuresTitle: "STANDARD DOUBLE ROOM'S / FEATURES",
+            features: [
+              "BED - DOUBLE BED",
+              "LED TV",
+              "VIEW - CITY",
+              "ATTACHED BALCONY",
+              "WIFI - YES",
+              "SEE THROUGH BATHROOM",
+              "ROOM SERVICE - 24 X 7",
+              "BREAKFAST INCLUDED - YES",
+              "A/C INCLUDED",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "MAX - 3 PEOPLE",
+              "DAILY NEWS PAPER",
+              "ROOM SIZE - 150 SQ. FT.",
+              "ELECTRONIC SAFE"
             ]
           },
           'executive-double': {
@@ -1353,6 +1784,24 @@
             slides: [
               '../assets/images/test_rooms/executive-double.jpg',
               '../assets/images/test_rooms/executive.jpg'
+            ],
+            featuresTitle: "EXECUTIVE DOUBLE ROOM'S / FEATURES",
+            features: [
+              "HEAD & SOLDER OR FOOT SPA",
+              "32\" LED TV",
+              "BED - KING SIZE BED",
+              "ATTACHED BALCONY",
+              "VIEW - CITY",
+              "SEE THROUGH BATHROOM",
+              "WIFI - YES",
+              "BREAKFAST INCLUDED - YES",
+              "ROOM SERVICE - 24 X 7",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "A/C INCLUDED",
+              "REFRIGERATOR",
+              "MAX - 3 PEOPLE",
+              "ELECTRONIC SAFE",
+              "ROOM SIZE - 180 SQ. FT."
             ]
           },
           'standard-single': {
@@ -1362,6 +1811,23 @@
             slides: [
               '../assets/images/test_rooms/standard-single.jpg',
               '../assets/images/test_rooms/standard-double.jpg'
+            ],
+            featuresTitle: "STANDARD SINGLE ROOM'S / FEATURES",
+            features: [
+              "BED - DOUBLE BED",
+              "LED TV",
+              "VIEW - CITY",
+              "ATTACHED BALCONY",
+              "WIFI - YES",
+              "SEE THROUGH BATHROOM",
+              "ROOM SERVICE - 24 X 7",
+              "BREAKFAST INCLUDED - YES",
+              "A/C INCLUDED",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "MAX - 3 PEOPLE",
+              "DAILY NEWS PAPER",
+              "ROOM SIZE - 150 SQ. FT.",
+              "ELECTRONIC SAFE"
             ]
           },
           'board-room': {
@@ -1371,6 +1837,19 @@
             slides: [
               '../assets/images/test_rooms/shree Bord Rooms 1.jpg',
               '../assets/images/test_rooms/shree Bord Rooms 2.jpg'
+            ],
+            featuresTitle: "BOARD ROOM'S / FEATURES",
+            features: [
+              "BED - 30 PAX",
+              "ROOM SIZE - 500 SQ. FT.",
+              "VIEW - BANQUET HALL",
+              "BREAKFAST INCLUDED - YES",
+              "WIFI - YES",
+              "AIRPORT PICKUP SERVICE - ₹ 2,800 PER ROUND",
+              "ROOM SERVICE - 24 X 7",
+              "DAILY NEWS PAPER",
+              "MAX - 30 PEOPLE",
+              "ELECTRONIC SAFE"
             ]
           }
         };
@@ -1383,12 +1862,89 @@
           const bg1 = document.getElementById('roomSlideBg1');
           const bg2 = document.getElementById('roomSlideBg2');
           const roomTypeSelect = document.getElementById('roomType');
+          const featuresTitleEl = document.getElementById('displayRoomFeaturesTitle');
+          const featuresGridEl = document.getElementById('displayRoomFeaturesGrid');
 
           if (nameEl) nameEl.textContent = info.name;
           if (priceEl) priceEl.textContent = info.price;
           if (metaEl) metaEl.textContent = info.meta;
           if (bg1 && info.slides[0]) bg1.style.backgroundImage = `url('${encodeURI(info.slides[0])}')`;
           if (bg2 && info.slides[1]) bg2.style.backgroundImage = `url('${encodeURI(info.slides[1])}')`;
+
+          if (featuresTitleEl && info.featuresTitle) {
+            featuresTitleEl.innerHTML = info.featuresTitle.replace('FEATURES', '<span class="gold-text">FEATURES</span>');
+          }
+          if (featuresGridEl && info.features) {
+            featuresGridEl.innerHTML = info.features.map(feat => `
+              <div class="feature-line-item">
+                <span class="feature-bullet">▶</span>
+                <span class="feature-text">${feat}</span>
+              </div>
+            `).join('');
+
+            /* ---------- SCROLL STAGGERED SLIDE ANIMATION CONTROLLER ---------- */
+            (function initFeatureScrollObserver() {
+              const items = featuresGridEl.querySelectorAll('.feature-line-item');
+              if (!items.length) return;
+
+              items.forEach(item => item.classList.remove('revealed'));
+
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    items.forEach((item, index) => {
+                      setTimeout(() => {
+                        item.classList.add('revealed');
+                      }, index * 80); // 80ms cascading delay per item
+                    });
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, {
+                threshold: 0.05,
+                rootMargin: '0px 0px -40px 0px'
+              });
+
+              observer.observe(featuresGridEl);
+            })();
+            /* ---------- TOGGLE KINDLY NOTE SECTION (ONLY FOR STANDARD DOUBLE ROOM) ---------- */
+            const kindlyNoteSection = document.getElementById('kindlyNoteSection');
+            if (kindlyNoteSection) {
+              if (roomCode === 'standard-double') {
+                kindlyNoteSection.style.display = 'block';
+              } else {
+                kindlyNoteSection.style.display = 'none';
+              }
+            }
+
+            /* ---------- SCROLL STAGGERED SLIDE ANIMATION CONTROLLER FOR KINDLY NOTE ---------- */
+            (function initKindlyNoteScrollObserver() {
+              const noteList = document.getElementById('kindlyNoteList');
+              if (!noteList || !kindlyNoteSection || kindlyNoteSection.style.display === 'none') return;
+              const noteItems = noteList.querySelectorAll('.note-line-item');
+              if (!noteItems.length) return;
+
+              noteItems.forEach(item => item.classList.remove('revealed'));
+
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    noteItems.forEach((item, index) => {
+                      setTimeout(() => {
+                        item.classList.add('revealed');
+                      }, index * 80); // 80ms cascading delay per note item
+                    });
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, {
+                threshold: 0.05,
+                rootMargin: '0px 0px -40px 0px'
+              });
+
+              observer.observe(noteList);
+            })();
+          }
 
           if (roomTypeSelect) {
             for (let i = 0; i < roomTypeSelect.options.length; i++) {

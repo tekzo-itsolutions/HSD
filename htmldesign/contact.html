@@ -402,27 +402,36 @@
   .contact-3d-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: start;
+    gap: 36px;
+    align-items: stretch; /* Line-to-line top & bottom border alignment */
   }
 
-  /* 3D Light Glass Form Card */
+  /* Matching Luxury Card Box for Both Left & Right Columns */
+  .contact-3d-card-box {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(110, 16, 39, 0.14);
+    border-radius: 20px;
+    padding: 36px 36px;
+    box-shadow: 0 20px 60px rgba(20, 9, 12, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+
+  .contact-3d-card-box:hover {
+    border-color: var(--gold);
+    box-shadow: 0 30px 80px rgba(110, 16, 39, 0.14);
+  }
+
+  /* Legacy support for form card */
   .contact-3d-form-card {
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(110, 16, 39, 0.14);
-    border-radius: 24px;
-    padding: 44px 40px;
-    box-shadow: 0 20px 60px rgba(20, 9, 12, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
-    transform-style: preserve-3d;
-    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s ease;
-  }
-
-  .contact-3d-form-card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 30px 80px rgba(110, 16, 39, 0.15), 0 15px 45px rgba(0,0,0,0.06);
-    transform: translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
+    border-radius: 20px;
+    padding: 36px 36px;
+    box-shadow: 0 20px 60px rgba(20, 9, 12, 0.08);
   }
 
   .contact-3d-form-header {
@@ -725,54 +734,61 @@
     color: #fff;
   }
 
-  /* 3D Map Container */
-  .map-card-3d {
+  /* Full Width Big Map Section Below 2-Box Row */
+  .map-card-3d-full {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(110, 16, 39, 0.14);
     border-radius: 20px;
-    padding: 14px;
-    box-shadow: 0 15px 40px rgba(20, 9, 12, 0.06);
+    padding: 28px 32px;
+    box-shadow: 0 20px 60px rgba(20, 9, 12, 0.08);
     transition: all 0.4s var(--ease);
   }
 
-  .map-card-3d:hover {
+  .map-card-3d-full:hover {
     border-color: var(--gold);
-    box-shadow: 0 22px 50px rgba(110, 16, 39, 0.12);
+    box-shadow: 0 30px 80px rgba(110, 16, 39, 0.14);
   }
 
-  .map-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px 14px;
-  }
-
-  .map-card-title {
-    font-size: 0.85rem;
+  .map-header-left .map-badge {
+    display: inline-block;
+    font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--maroon);
-    font-weight: 600;
-  }
-
-  .map-directions-link {
-    font-size: 0.78rem;
-    color: var(--maroon);
-    font-weight: 500;
-    text-decoration: underline;
-    transition: color 0.3s ease;
-  }
-
-  .map-directions-link:hover {
     color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 4px;
   }
 
-  .map-card-3d iframe {
-    width: 100%;
-    height: 230px;
-    border: none;
-    border-radius: 12px;
+  .map-full-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--maroon);
+    margin: 0;
+  }
+
+  .map-directions-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 22px;
+    background: var(--gold);
+    color: var(--ink);
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(201, 162, 39, 0.25);
+    text-decoration: none;
+  }
+
+  .map-directions-btn:hover {
+    background: var(--maroon);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(110, 16, 39, 0.3);
   }
 
   @media (max-width: 992px) {
@@ -936,10 +952,11 @@
   </div>
 
   <div class="contact-3d-container">
+    <!-- ROW 1: TWO SIDE-BY-SIDE MATCHING BOXES (LINE-TO-LINE TOP & BOTTOM ALIGNMENT) -->
     <div class="contact-3d-grid">
       
-      <!-- Left Column: 3D Glass Form Card -->
-      <div class="contact-3d-form-card reveal-up">
+      <!-- Left Column Box: Send a Message Form -->
+      <div class="contact-3d-card-box reveal-up">
         <div class="contact-3d-form-header">
           <h3>Send a Message</h3>
           <p>Fill out the inquiry form below and our guest experience team will connect with you immediately.</p>
@@ -977,50 +994,58 @@
         </form>
       </div>
 
-      <!-- Right Column: 3D Contact Details & Action Cards -->
-      <div class="contact-3d-info-column reveal-up">
-        
-        <!-- Address Card -->
-        <div class="info-card-3d">
-          <div class="info-icon-3d">📍</div>
-          <div class="info-content-3d">
-            <h4>Hotel Address</h4>
-            <p>Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191, Gujarat, India</p>
+      <!-- Right Column Box: Concierge & Contact Details (1 Single Line-to-Line Matching Card Box!) -->
+      <div class="contact-3d-card-box reveal-up" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="contact-3d-form-header">
+            <h3>Concierge Details</h3>
+            <p>Direct contact hotline, email desk, and location details for Hotel Shree Daan.</p>
           </div>
-        </div>
 
-        <!-- Phone & Reservations Card -->
-        <div class="info-card-3d">
-          <div class="info-icon-3d">📞</div>
-          <div class="info-content-3d">
-            <h4>Direct Concierge &amp; Phone</h4>
-            <p><a href="tel:+917874050009">+91 78740 50009</a> (Front Desk Hotline)</p>
-            <div class="status-badge-live">
-              <span class="status-dot-pulse"></span> Desk Hotline Active
+          <div class="contact-info-list" style="display: flex; flex-direction: column; gap: 14px;">
+            <!-- Address Item -->
+            <div class="info-card-3d">
+              <div class="info-icon-3d">📍</div>
+              <div class="info-content-3d">
+                <h4>Hotel Address</h4>
+                <p>Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191, Gujarat, India</p>
+              </div>
+            </div>
+
+            <!-- Phone & Reservations Card -->
+            <div class="info-card-3d">
+              <div class="info-icon-3d">📞</div>
+              <div class="info-content-3d">
+                <h4>Direct Concierge &amp; Phone</h4>
+                <p><a href="tel:+917874050009">+91 78740 50009</a> (Front Desk Hotline)</p>
+                <div class="status-badge-live">
+                  <span class="status-dot-pulse"></span> Desk Hotline Active
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Card -->
+            <div class="info-card-3d">
+              <div class="info-icon-3d">✉️</div>
+              <div class="info-content-3d">
+                <h4>Email Desk</h4>
+                <p><a href="mailto:reservations@shreedaanhotel.com">reservations@shreedaanhotel.com</a></p>
+              </div>
+            </div>
+
+            <!-- Hours & Service Card -->
+            <div class="info-card-3d">
+              <div class="info-icon-3d">🕒</div>
+              <div class="info-content-3d">
+                <h4>Hours &amp; Operations</h4>
+                <p>Front Desk Concierge — 24 Hours / 7 Days<br>Dining &amp; Room Service — 6:30 AM – 11:30 PM</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Email Card -->
-        <div class="info-card-3d">
-          <div class="info-icon-3d">✉️</div>
-          <div class="info-content-3d">
-            <h4>Email Desk</h4>
-            <p><a href="mailto:reservations@shreedaanhotel.com">reservations@shreedaanhotel.com</a></p>
-          </div>
-        </div>
-
-        <!-- Hours & Service Card -->
-        <div class="info-card-3d">
-          <div class="info-icon-3d">🕒</div>
-          <div class="info-content-3d">
-            <h4>Hours &amp; Operations</h4>
-            <p>Front Desk Concierge — 24 Hours / 7 Days<br>Dining &amp; Room Service — 6:30 AM – 11:30 PM</p>
-          </div>
-        </div>
-
         <!-- WhatsApp 3D Direct Connect Card -->
-        <div class="whatsapp-3d-card">
+        <div class="whatsapp-3d-card" style="margin-top: 14px;">
           <div class="whatsapp-left">
             <div class="whatsapp-icon-bg">💬</div>
             <div class="whatsapp-text">
@@ -1034,18 +1059,24 @@
           </a>
         </div>
 
-        <!-- 3D Framed Map Card -->
-        <div class="map-card-3d">
-          <div class="map-card-header">
-            <span class="map-card-title">Interactive Map &amp; Navigation</span>
-            <a href="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191" target="_blank" rel="noopener" class="map-directions-link">Get Directions ↗</a>
-          </div>
-          <iframe title="Hotel Location Map" src="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
-        </div>
-
       </div>
 
+    </div> <!-- end .contact-3d-grid -->
+
+    <!-- ROW 2: FULL WIDTH BIG INTERACTIVE MAP & NAVIGATION CARD (Niche Bada Map Box) -->
+    <div class="map-card-3d-full reveal-up" style="margin-top: 36px;">
+      <div class="map-card-header" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="map-header-left">
+          <span class="map-badge">📍 INTERACTIVE MAP &amp; LOCATION</span>
+          <h3 class="map-full-title">Find Us On Google Maps — Hotel Shree Daan, Vapi</h3>
+        </div>
+        <a href="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191" target="_blank" rel="noopener" class="map-directions-btn">
+          <span>Get Directions ↗</span>
+        </a>
+      </div>
+      <iframe title="Hotel Location Map" src="https://maps.google.com/maps?q=Hotel+Shree+Daan%2C+Valsad+Road%2C+N.H+396+191+8%2C+Koparli+Road%2C+Balitha%2C+Vapi%2C+Gujarat+396191&t=&z=15&ie=UTF8&iwloc=&output=embed" loading="lazy" style="width: 100%; height: 420px; border: none; border-radius: 12px; margin-top: 18px;"></iframe>
     </div>
+
   </div>
 </section>
 
