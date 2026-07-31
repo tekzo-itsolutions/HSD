@@ -161,6 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
     let timer;
     let isHovered = false;
 
+    const HERO_CONDITIONS = [
+      {
+        title: "Welcome to Hotel Shree Daan",
+        desc: "Hotel Shree Daan provide a standard single rooms, standard double rooms, also executive single, double rooms etc."
+      },
+      {
+        title: "Enjoy Holidays At Hotel Shree Daan",
+        desc: "Slope mornings are excellent... particularly in case you're awakening in one of our lodging's refined rooms!"
+      },
+      {
+        title: "Stay with us and feel like Home",
+        desc: "Discover a hotel that defines a new dimension of luxury. and We put a smile back on your face."
+      },
+      {
+        title: "Luxury You Deserve. Hospitality You Remember.",
+        desc: "Experience elegant stays, modern comfort, and warm hospitality—creating unforgettable moments every time you stay with us."
+      }
+    ];
+
     function go(i) {
       slides[index].classList.remove('active');
       if (dots[index]) dots[index].classList.remove('active');
@@ -169,7 +188,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (dots[index]) dots[index].classList.add('active');
       
       const video = slides[index].querySelector('.hero-video');
-      if (video && video.paused) video.play().catch(() => {});
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }
+
+      // Dynamic text conditions update
+      const titleEl = document.getElementById('heroTitle');
+      const descEl = document.getElementById('heroDesc');
+      const innerEl = document.querySelector('.hero-content-inner');
+      if (innerEl && titleEl && descEl) {
+        innerEl.classList.remove('active');
+        setTimeout(() => {
+          const condition = HERO_CONDITIONS[i] || HERO_CONDITIONS[0];
+          titleEl.innerHTML = condition.title;
+          descEl.innerHTML = condition.desc;
+          innerEl.classList.add('active');
+        }, 400);
+      }
     }
     
     function nextSlide() { 
@@ -183,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startAutoplay() {
       clearInterval(timer);
       timer = setInterval(() => {
-        if (!isHovered) nextSlide();
+        nextSlide();
       }, 6000);
     }
 
@@ -198,11 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (nextBtn) {
       nextBtn.addEventListener('click', () => { nextSlide(); startAutoplay(); });
-    }
-
-    if (heroSection) {
-      heroSection.addEventListener('mouseenter', () => { isHovered = true; });
-      heroSection.addEventListener('mouseleave', () => { isHovered = false; });
     }
 
     startAutoplay();
@@ -602,94 +633,94 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 15. GALLERY (15 SQUARE PHOTOS WITH LIGHTBOX) ---------- */
   const GALLERY_ITEMS = [
     {
-      label: 'Grand Palace Facade',
-      category: 'exterior',
-      src: '../assets/images/luxury_hotel_facade_1784609178037.jpg',
-      gradient: 'radial-gradient(ellipse at 30% 30%, #7a2338, #2c0813 60%, #14090C)'
+      label: 'Premier Suite Canopy Bed',
+      category: 'premier-suite',
+      src: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
     },
     {
-      label: 'Heritage Royal Suite',
-      category: 'rooms',
+      label: 'Premier Suite Luxury Seating',
+      category: 'premier-suite',
+      src: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Premier Master Bath & Shower',
+      category: 'premier-suite',
       src: '../assets/images/heritage_hotel_suite_1784609202334.jpg',
       gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
     },
     {
-      label: 'Golden Sparsh Spa Sanctuary',
-      category: 'spa',
-      src: '../assets/images/golden_spa_sanctuary_1784609220387.jpg',
-      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
-    },
-    {
-      label: 'Shree Daan Fine Dining',
-      category: 'dining',
-      src: '../assets/images/fine_dining_restaurant_1784609240700.jpg',
-      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
-    },
-    {
-      label: 'Royal Hotel Entrance & Lawn',
-      category: 'exterior',
-      src: '../assets/images/about1.jpg',
-      gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #2c0813 60%, #14090C)'
-    },
-    {
-      label: 'Royal Reception Lobby',
-      category: 'exterior',
-      src: 'https://images.pexels.com/photos/1001965/pexels-photo-1001965.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 60% 40%, #8a5a1f, #3d270e 60%, #14090C)'
-    },
-    {
-      label: 'Deluxe Executive Room',
-      category: 'rooms',
+      label: 'Executive King Bed Room',
+      category: 'executive-rooms',
       src: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 40% 50%, #6E1027, #2c0813 60%, #14090C)'
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Presidential Suite Lounge',
-      category: 'rooms',
-      src: 'https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)'
+      label: 'Executive Workspace Desk',
+      category: 'executive-rooms',
+      src: 'https://images.pexels.com/photos/2215067/pexels-photo-2215067.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Cleopatra Milk & Jacuzzi Bath',
-      category: 'spa',
-      src: 'https://images.pexels.com/photos/6620857/pexels-photo-6620857.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 40% 40%, #3f5240, #1c261d 60%, #14090C)'
+      label: 'Executive Room Window Lounge',
+      category: 'executive-rooms',
+      src: 'https://images.pexels.com/photos/2079293/pexels-photo-2079293.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Ayurvedic Abhyanga Therapy',
-      category: 'spa',
-      src: 'https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=800',
+      label: 'Standard Double Bed Comfort',
+      category: 'standard-rooms',
+      src: 'https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
     },
     {
-      label: 'Poolside Paradise & Cabanas',
-      category: 'exterior',
-      src: 'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=800',
+      label: 'Standard Twin Bedroom Setup',
+      category: 'standard-rooms',
+      src: 'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Standard Cozy Queen Room',
+      category: 'standard-rooms',
+      src: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Grand Executive Boardroom',
+      category: 'board-rooms',
+      src: 'https://images.pexels.com/photos/260686/pexels-photo-260686.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
-      label: 'Rooftop Sunset Terrace',
-      category: 'exterior',
-      src: 'https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 30% 40%, #8a5a1f, #2c1a08 60%, #14090C)'
+      label: 'Corporate Meeting Room',
+      category: 'board-rooms',
+      src: 'https://images.pexels.com/photos/1181398/pexels-photo-1181398.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
-      label: 'Premier Suite Marble Bath',
-      category: 'rooms',
-      src: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+      label: 'Mini Discussion Boardroom',
+      category: 'board-rooms',
+      src: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
-      label: 'Gourmet Breakfast Buffet',
-      category: 'dining',
-      src: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800',
+      label: 'Premium Tea & Coffee Kit',
+      category: 'room-kit',
+      src: 'https://images.pexels.com/photos/3259624/pexels-photo-3259624.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
     },
     {
-      label: 'Royal Garden & Fountains',
-      category: 'exterior',
-      src: 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 30% 30%, #3f5240, #1c261d 60%, #14090C)'
+      label: 'Herbal Bathroom Toiletries Kit',
+      category: 'room-kit',
+      src: 'https://images.pexels.com/photos/5472286/pexels-photo-5472286.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
+    },
+    {
+      label: 'Luxury Embroidered Spa Robes',
+      category: 'room-kit',
+      src: 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800',
+      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
     }
   ];
 
@@ -706,10 +737,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </span>
       </div>
     `).join('');
-
-    galleryGrid.querySelectorAll('.gallery-item').forEach(el => {
-      el.addEventListener('click', () => openLightbox(parseInt(el.dataset.index, 10)));
-    });
   }
 
   // Active filter triggers
@@ -731,8 +758,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initialize Gallery Render
+  // Delegated click handler for gallery items
   if (galleryGrid) {
+    galleryGrid.addEventListener('click', (e) => {
+      const itemEl = e.target.closest('.gallery-item');
+      if (itemEl) {
+        const idx = parseInt(itemEl.getAttribute('data-index'), 10);
+        if (!isNaN(idx)) {
+          openLightbox(idx);
+        }
+      }
+    });
     renderGallery();
   }
 
