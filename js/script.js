@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- 11. ANIMATED COUNTERS ---------- */
   (function counters() {
-    const stats = document.querySelectorAll('.stat strong[data-count]');
+    const stats = document.querySelectorAll('[data-count]');
     if (!stats.length) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

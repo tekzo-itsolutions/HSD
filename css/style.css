@@ -748,6 +748,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 /* ============ SECTIONS ============ */
 .section { padding: 130px 40px; position: relative; }
 .section--tinted { background: var(--ivory-dim); }
+.section--stats { padding: 45px 40px; }
 
 .welcome-grid {
   display: grid;
