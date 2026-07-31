@@ -943,4 +943,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
+  /* ---------- 20. PAGE BANNER IMAGE SLIDER ---------- */
+  (function pageBannerSlider() {
+    const slides = document.querySelectorAll('.page-banner-slider .banner-slide');
+    if (!slides.length) return;
+    
+    let currentIdx = 0;
+    setInterval(() => {
+      slides[currentIdx].classList.remove('active');
+      currentIdx = (currentIdx + 1) % slides.length;
+      slides[currentIdx].classList.add('active');
+    }, 5000);
+  })();
+
 });
