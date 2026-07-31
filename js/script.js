@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- 11. ANIMATED COUNTERS ---------- */
   (function counters() {
-    const stats = document.querySelectorAll('.stat strong[data-count]');
+    const stats = document.querySelectorAll('[data-count]');
     if (!stats.length) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -941,6 +941,19 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  })();
+
+  /* ---------- 20. PAGE BANNER IMAGE SLIDER ---------- */
+  (function pageBannerSlider() {
+    const slides = document.querySelectorAll('.page-banner-slider .banner-slide');
+    if (!slides.length) return;
+    
+    let currentIdx = 0;
+    setInterval(() => {
+      slides[currentIdx].classList.remove('active');
+      currentIdx = (currentIdx + 1) % slides.length;
+      slides[currentIdx].classList.add('active');
+    }, 5000);
   })();
 
 });

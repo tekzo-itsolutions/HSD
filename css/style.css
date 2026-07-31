@@ -748,6 +748,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 /* ============ SECTIONS ============ */
 .section { padding: 130px 40px; position: relative; }
 .section--tinted { background: var(--ivory-dim); }
+.section--stats { padding: 45px 40px; }
 
 .welcome-grid {
   display: grid;
@@ -1540,6 +1541,25 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   justify-content: center;
   overflow: hidden;
   background: var(--ink);
+}
+
+.banner-slides {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.banner-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+
+.banner-slide.active {
+  opacity: 0.38; /* Soft transparent overlay so the crimson velvet gradient shows behind it */
 }
 .page-banner-bg {
   position: absolute; inset: 0;
