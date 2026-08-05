@@ -31,7 +31,7 @@
     inset: -5%;
     width: 110%;
     height: 110%;
-    background-image: url('../assets/images/test_rooms/shree Bord Rooms 2.jpg');
+    background-image: url('../assets/images/recreational-hero-bg.png');
     background-size: cover;
     background-position: center;
     animation: recKenBurns 18s ease-in-out infinite alternate;
@@ -96,24 +96,19 @@
   }
 
   .rec-feature-card {
-    background: #ffffff;
-    border: 1px solid rgba(110, 16, 39, 0.12);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 50px rgba(20, 9, 12, 0.06);
-    transition: all 0.4s var(--ease);
-  }
-
-  .rec-feature-card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 30px 70px rgba(110, 16, 39, 0.14);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
   }
 
   .rec-feature-img-wrap {
     position: relative;
     width: 100%;
-    height: 440px;
+    height: 360px;
     overflow: hidden;
+    border-radius: 0;
   }
 
   .rec-feature-img {
@@ -124,7 +119,37 @@
   }
 
   .rec-feature-card:hover .rec-feature-img {
-    transform: scale(1.05);
+    transform: scale(1.03);
+  }
+
+  .karaoke-banner-inline {
+    margin-top: 20px;
+  }
+
+  .karaoke-banner-inline .karaoke-banner-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--maroon);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  .karaoke-banner-inline .karaoke-banner-title span {
+    color: var(--gold);
+  }
+
+  .karaoke-banner-inline .karaoke-taglines-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: #999999;
+    font-weight: 500;
   }
 
   /* Right Sidebar: ROOMS WE PROVIDE */
@@ -338,6 +363,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background: #14090c;
     transform: scale(1.06);
     transition: transform 0.8s ease;
   }
@@ -538,10 +564,20 @@
   <div class="container" style="max-width: 1240px; margin: 0 auto; padding: 0 20px;">
     <div class="rec-grid">
       
-      <!-- Left Column: Karaoke Performance Image Card -->
+      <!-- Left Column: Karaoke Performance Image Card & Inline Text -->
       <div class="rec-feature-card reveal-up">
         <div class="rec-feature-img-wrap">
-          <img src="../assets/images/gallery-slide-5.jpg" alt="Karaoke Singing &amp; Performance Lounge" class="rec-feature-img">
+          <img src="../assets/images/recreational-area.png" alt="Karaoke Singing &amp; Performance Lounge" class="rec-feature-img">
+        </div>
+        <div class="karaoke-banner-inline">
+          <h2 class="karaoke-banner-title">KARAOKE <span>SINGING</span></h2>
+          <div class="karaoke-taglines-row">
+            <span class="tag-item">Bring music to life</span>
+            <span class="tag-sep">/</span>
+            <span class="tag-item">Music makes you smarter</span>
+            <span class="tag-sep">/</span>
+            <span class="tag-item">Music makes me stronger</span>
+          </div>
         </div>
       </div>
 
@@ -584,18 +620,6 @@
   </div>
 </section>
 
-<!-- ===== SECTION 2: KARAOKE SINGING BANNER BAR ===== -->
-<section class="karaoke-banner-bar reveal-up">
-  <h2 class="karaoke-banner-title">KARAOKE <span>SINGING</span></h2>
-  <div class="karaoke-taglines-row">
-    <span class="tag-item">Bring music to life</span>
-    <span class="tag-sep">/</span>
-    <span class="tag-item">Music makes you smarter</span>
-    <span class="tag-sep">/</span>
-    <span class="tag-item">Music makes me stronger</span>
-  </div>
-</section>
-
 <!-- ===== SECTION 3: OCCASIONALLY MUSICAL EVENINGS (WITH HOTEL ROOM BACKGROUND & 3D CONCERT PORTAL) ===== -->
 <section class="musical-evenings-section">
   <!-- Hotel Room Background Image -->
@@ -609,7 +633,7 @@
       <div class="cloud-aura-2"></div>
       <div class="music-portal-circle">
         <!-- Live Musical Concert / Dancing Public Crowd Video -->
-        <video class="music-portal-video" autoplay muted loop playsinline poster="../assets/images/gallery-slide-1.jpg">
+        <video class="music-portal-video" autoplay muted loop playsinline>
           <source src="https://videos.pexels.com/video-files/3195995/3195995-uhd_2560_1440_25fps.mp4" type="video/mp4">
           <source src="https://videos.pexels.com/video-files/2022395/2022395-hd_1920_1080_30fps.mp4" type="video/mp4">
         </video>
