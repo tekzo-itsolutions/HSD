@@ -380,10 +380,9 @@ document.addEventListener('DOMContentLoaded', () => {
       facilities: ['Private Balcony', 'Jacuzzi', 'Dining Area', 'Personal Butler']
     },
     {
-      id: 'board-room', name: 'Board Room', price: 4000, rating: 4.9,
+      id: 'banquet-hall', name: 'Banquet Hall', price: 4000, rating: 4.9,
       image: '../assets/images/test_rooms/shree Bord Rooms 1.jpg',
-      gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)',
-      facilities: ['Panoramic View', 'Private Terrace', 'Dining Room', '24/7 Butler']
+      facilities: ['300 PAX Capacity', 'Advanced AV System', 'Gourmet Catering', 'Centralized A/C']
     }
   ];
 
@@ -437,6 +436,102 @@ document.addEventListener('DOMContentLoaded', () => {
     targetElement.querySelectorAll('[data-room]').forEach(btn => {
       btn.addEventListener('click', () => {
         window.location.href = `booking.html?room=${btn.dataset.room}`;
+      });
+    });
+  })();
+
+  /* ---------- 12B. SPA GRID DYNAMIC RENDERING ---------- */
+  const SPA_CATEGORIES = [
+    {
+      id: 'body-scrub', name: 'Body Scrub', price: 1000, rating: 4.8,
+      image: '../assets/images/spa_body_scrub.jpg',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #8a5a1f, #57332a 55%, #14090C)',
+      facilities: ['Natural Scrub', 'De-Tan Scrub', 'Fruit Exfoliator', 'Turmeric Ubtan']
+    },
+    {
+      id: 'bath-therapy', name: 'Luxury Bath Therapy', price: 6000, rating: 4.9,
+      image: '../assets/images/spa_luxury_bath.jpg',
+      gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #3d270e 60%, #14090C)',
+      facilities: ['Turkish Hammam', 'Signature Jacuzzi', 'Aromatic Flower Bath']
+    },
+    {
+      id: 'rejuvenate', name: 'Rejuvenate', price: 3000, rating: 4.9,
+      image: '../assets/images/spa_rejuvenate.jpg',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #3f5240, #1c261d 60%, #14090C)',
+      facilities: ['Couple Connect', 'Pizhichil Therapy', 'Royal Milk Bath']
+    },
+    {
+      id: 'body-therapy', name: 'Body Therapy', price: 2000, rating: 4.8,
+      image: '../assets/images/spa_body_therapy.jpg',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #81523a, #3d1811 60%, #14090C)',
+      facilities: ['Deep Tissue', 'Aroma Healing', 'Swedish Massage', 'Balinese Massage']
+    },
+    {
+      id: 'ayurveda', name: 'Ayurveda', price: 1200, rating: 4.9,
+      image: '../assets/images/spa_ayurveda.jpg',
+      gradient: 'radial-gradient(ellipse at 50% 30%, #C9A227, #4A0A1A 55%, #14090C)',
+      facilities: ['Traditional Shirodhara', 'Herbal Pouch', 'Hasta-Padbhyangam']
+    },
+    {
+      id: 'spa-packages', name: 'Spa Packages & Escapes', price: 3500, rating: 5.0,
+      image: '../assets/images/spa_packages.jpg',
+      gradient: 'radial-gradient(ellipse at 40% 40%, #8a5a1f, #57332a 55%, #14090C)',
+      facilities: ['Space Aakash Escape', 'Fire Tejas Escape', 'Water Jal Escape', 'Earth Ira Escape']
+    },
+    {
+      id: 'facial-therapy', name: 'Facial Therapy', price: 800, rating: 4.7,
+      image: '../assets/images/spa_facial.jpg',
+      gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #3d270e 60%, #14090C)',
+      facilities: ['Gold Radiance', 'Diamond Firming', 'Charcoal Detox', 'Berries Hydration']
+    }
+  ];
+
+  (function renderSpa() {
+    const spaGridEl = document.getElementById('spaGrid');
+    if (!spaGridEl) return;
+
+    spaGridEl.innerHTML = SPA_CATEGORIES.map(s => `
+      <div class="room-card reveal-up in-view" style="flex: 0 0 350px;">
+        <div class="room-image-wrap">
+          <div class="room-image">
+            <div class="room-bg" style="position:absolute;inset:0;background:${s.image ? `url('${s.image}') center/cover no-repeat` : s.gradient};"></div>
+          </div>
+          <span class="room-rating">★ ${s.rating}</span>
+        </div>
+        <div class="room-body">
+          <h3>${s.name}</h3>
+          <p class="room-price">From ₹${s.price.toLocaleString('en-IN')}</p>
+          <div class="room-facilities">${s.facilities.map(f => `<span>${f}</span>`).join('')}</div>
+          <button class="btn btn-gold" data-spa="${s.id}" style="width: 100%;">Explore Treatments</button>
+        </div>
+      </div>
+    `).join('');
+
+    // Dynamic 3D mouse tilt interaction (matching rooms card tilt)
+    spaGridEl.querySelectorAll('.room-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((centerY - y) / centerY) * 12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+        
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0deg)';
+      });
+    });
+
+    // Redirect to spa details page with hash anchor
+    spaGridEl.querySelectorAll('[data-spa]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        window.location.href = `spa-details.html#${btn.dataset.spa}`;
       });
     });
   })();
@@ -496,6 +591,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (summaryNights) summaryNights.textContent = `${nights} night${nights === 1 ? '' : 's'}`;
       if (summaryRoom) summaryRoom.textContent = selectedOption.textContent.split(' — ')[0];
       if (summaryTotal) summaryTotal.textContent = `₹${total.toLocaleString('en-IN')}`;
+
+      // Dynamically toggle Adults/Children field row for Banquet Hall
+      const guestsRow = document.getElementById('guestsRow');
+      if (guestsRow) {
+        if (roomTypeEl.value === 'banquet-hall') {
+          guestsRow.style.display = 'none';
+        } else {
+          guestsRow.style.display = '';
+        }
+      }
 
       // Keep checkout min a day after checkin
       if (checkInEl.value) {
@@ -688,19 +793,19 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       label: 'Grand Executive Boardroom',
-      category: 'board-rooms',
+      category: 'banquet-halls',
       src: 'https://images.pexels.com/photos/260686/pexels-photo-260686.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
       label: 'Corporate Meeting Room',
-      category: 'board-rooms',
+      category: 'banquet-halls',
       src: 'https://images.pexels.com/photos/1181398/pexels-photo-1181398.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
       label: 'Mini Discussion Boardroom',
-      category: 'board-rooms',
+      category: 'banquet-halls',
       src: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
@@ -957,3 +1062,4 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
 });
+

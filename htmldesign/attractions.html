@@ -320,6 +320,95 @@
     transition: width 0.1s linear;
   }
 
+  /* ===== ATTRACTIONS GRID & CARDS ===== */
+  .attractions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .attraction-card {
+    background: var(--white);
+    border: 1px solid rgba(110, 16, 39, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.55s var(--ease), box-shadow 0.55s var(--ease), border-color 0.55s var(--ease);
+    transform-style: preserve-3d;
+    perspective: 800px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(110, 16, 39, 0.03);
+  }
+
+  .attraction-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px -20px rgba(110, 16, 39, 0.15);
+    border-color: var(--gold);
+  }
+
+  .attraction-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background: #eae5e1;
+  }
+
+  .attraction-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .attraction-card:hover .attraction-img {
+    transform: scale(1.08);
+  }
+
+  .attraction-distance {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(110, 16, 39, 0.85); /* Maroon semi-transparent */
+    color: var(--gold-glow);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(201, 162, 39, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+
+  .attraction-content {
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .attraction-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: 12px;
+    color: var(--maroon);
+    letter-spacing: 0.02em;
+  }
+
+  .attraction-content p {
+    font-size: 0.92rem;
+    color: #6b6058;
+    line-height: 1.6;
+    margin: 0;
+  }
+
   @media (max-width: 768px) {
     .gallery-hero-3d { height: 55vh; min-height: 420px; }
     .gallery-hero-title { font-size: 2.1rem; }
@@ -327,6 +416,10 @@
     .gallery-3d-arrow { width: 42px; height: 42px; }
     .gallery-prev { left: 14px; }
     .gallery-next { right: 14px; }
+    
+    .attraction-img-wrapper { height: 200px; }
+    .attraction-content { padding: 20px 18px; }
+    .attraction-content h3 { font-size: 1.3rem; }
   }
 </style>
 </head>
@@ -352,11 +445,22 @@
           <a href="booking.html?room=executive-single">Executive Single</a>
           <a href="booking.html?room=standard-double">Standard Double</a>
           <a href="booking.html?room=standard-single">Standard Single</a>
-          <a href="booking.html?room=board-room">Board Room</a>
-          <a href="recreational-area.html">Recreational Area</a>
+          <a href="booking.html?room=banquet-hall">Banquet Hall</a>
+
         </div>
       </div>      
-      <a href="spa.html">Golden Sparsh Spa</a>   
+      <div class="nav-item-dropdown">
+        <a href="spa.html" class="nav-link-dropdown">Golden Sparsh Spa <span class="nav-arrow">▾</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="spa-details.html#body-scrub">Body Scrub</a>
+          <a href="spa-details.html#bath-therapy">Luxury Bath Therapy</a>
+          <a href="spa-details.html#rejuvenate">Rejuvenate</a>
+          <a href="spa-details.html#body-therapy">Body Therapy</a>
+          <a href="spa-details.html#ayurveda">Ayurveda</a>
+          <a href="spa-details.html#spa-packages">Spa Packages &amp; Escapes</a>
+          <a href="spa-details.html#facial-therapy">Facial Therapy</a>
+        </div>
+      </div>
       <a href="services.html">Services</a>      
       <a href="attractions.html"> Near By Attractions</a>      
       <a href="gallery.html">Gallery</a>      
@@ -463,36 +567,66 @@
     </p>
   </div>
 
-  <div class="services-grid">
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">⛱️</div>
-      <h3>Daman Beach</h3>
-      <p>13 km away | Relax on the golden sands of Daman Beach, enjoy stunning Arabian Sea views, peaceful sunsets, and a refreshing coastal escape just moments away.</p>
+  <div class="attractions-grid">
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/daman_beach.jpg" alt="Daman Beach" class="attraction-img">
+        <span class="attraction-distance">13 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Daman Beach</h3>
+        <p>Relax on the golden sands of Daman Beach, enjoy stunning Arabian Sea views, peaceful sunsets, and a refreshing coastal escape just moments away.</p>
+      </div>
     </div>
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">🌊</div>
-      <h3>Dudhni Lake</h3>
-      <p>40 km away | Experience the tranquil beauty of Dudhni Lake, known for its peaceful waters, exciting boating activities, and picturesque surroundings an ideal destination for relaxation and adventure.</p>
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/dudhni_lake.jpg" alt="Dudhni Lake" class="attraction-img">
+        <span class="attraction-distance">40 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Dudhni Lake</h3>
+        <p>Experience the tranquil beauty of Dudhni Lake, known for its peaceful waters, exciting boating activities, and picturesque surroundings—an ideal destination for relaxation and adventure.</p>
+      </div>
     </div>
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">🏛️</div>
-      <h3>Udvada</h3>
-      <p>15 km away | A historic coastal town that serves as a major pilgrimage site for Parsis. It houses the Iranshah Atash Behram, which holds the oldest continuously burning sacred fire in India. It is also highly regarded for its authentic, traditional Parsi cuisine.</p>
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/udvada.jpg" alt="Udvada" class="attraction-img">
+        <span class="attraction-distance">15 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Udvada</h3>
+        <p>A historic coastal town that serves as a major pilgrimage site for Parsis. It houses the Iranshah Atash Behram, which holds the oldest continuously burning sacred fire in India. It is also highly regarded for its authentic, traditional Parsi cuisine.</p>
+      </div>
     </div>
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">🛣️</div>
-      <h3>Silvassa</h3>
-      <p>18 km away |Wildlife parks, nature, familiesVisit the Lion Safari, Vasona Deer Park, and Dudhni Lake. Silvassa offers lush greenery, adventure activities, and scenic lake views just a few minutes away.</p>
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/silvassa.jpg" alt="Silvassa" class="attraction-img">
+        <span class="attraction-distance">18 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Silvassa</h3>
+        <p>Silvassa offers lush greenery, adventure activities, and scenic lake views. Visit the Lion Safari, Vasona Deer Park, and Dudhni Lake just a few minutes away from Vapi.</p>
+      </div>
     </div>
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">🌅</div>
-      <h3>Valsad (Tithal Beach)</h3>
-      <p>35 km away | Beach walks, relaxationFamous for sunrise and sunset views, black-sand beaches, and the Swaminarayan temple near the coastline.</p>
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/tithal_beach.jpg" alt="Valsad (Tithal Beach)" class="attraction-img">
+        <span class="attraction-distance">35 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Valsad (Tithal Beach)</h3>
+        <p>Famous for stunning sunrise and sunset views, black-sand beaches, and the Swaminarayan temple near the coastline, perfect for peaceful beach walks and relaxation.</p>
+      </div>
     </div>
-    <div class="service-card reveal-up" data-tilt>
-      <div class="service-icon">⛰️</div>
-      <h3>Wilson Hills</h3>
-      <p>71 km away | Escape to the scenic beauty of Wilson Hill, where lush greenery, cool breezes, and breathtaking panoramic views create the perfect getaway for nature lovers and adventure seekers.</p>
+    <div class="attraction-card reveal-up" data-tilt>
+      <div class="attraction-img-wrapper">
+        <img src="../assets/images/wilson_hills.jpg" alt="Wilson Hills" class="attraction-img">
+        <span class="attraction-distance">71 km away</span>
+      </div>
+      <div class="attraction-content">
+        <h3>Wilson Hills</h3>
+        <p>Escape to the scenic beauty of Wilson Hill, where lush greenery, cool breezes, and breathtaking panoramic views create the perfect getaway for nature lovers and adventure seekers.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -702,5 +836,6 @@
 </script>
 </body>
 </html>
+
 
 
