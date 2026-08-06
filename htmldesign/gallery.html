@@ -20,9 +20,9 @@
      ========================================================================== */
   .gallery-hero-3d {
     position: relative;
-    height: 65vh;
-    min-height: 500px;
-    max-height: 720px;
+    height: 88vh;
+    min-height: 660px;
+    max-height: 920px;
     width: 100%;
     overflow: hidden;
     background: #0d0608;
@@ -64,7 +64,7 @@
     opacity: 1;
     visibility: visible;
     z-index: 5;
-    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.04);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
   }
 
   .gallery-3d-slide.prev-slide {
@@ -83,27 +83,19 @@
 
   .gallery-slide-bg {
     position: absolute;
-    inset: -3%;
-    width: 106%;
-    height: 106%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center center;
-    transform: translateZ(-50px);
+    transform: none;
     transition: transform 0.8s ease-out;
-    animation: gallery3dKenBurns 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes gallery3dKenBurns {
-    0% { transform: scale(1.0) translate(0, 0); }
-    50% { transform: scale(1.06) translate(-0.8%, -0.8%); }
-    100% { transform: scale(1.02) translate(0.8%, 0.4%); }
   }
 
   .gallery-slide-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 45%, rgba(20, 9, 12, 0.2) 0%, rgba(20, 9, 12, 0.65) 75%, rgba(13, 6, 8, 0.88) 100%),
-                linear-gradient(180deg, rgba(20, 9, 12, 0.7) 0%, transparent 45%, rgba(20, 9, 12, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(13, 6, 8, 0.35) 0%, rgba(13, 6, 8, 0.05) 50%, rgba(13, 6, 8, 0.45) 100%);
     z-index: 2;
   }
 
@@ -314,7 +306,7 @@
   }
 
   @media (max-width: 768px) {
-    .gallery-hero-3d { height: 55vh; min-height: 420px; }
+    .gallery-hero-3d { height: 65vh; min-height: 480px; }
     .gallery-hero-title { font-size: 2.1rem; }
     .gallery-hero-breadcrumb { font-size: 0.68rem; flex-wrap: wrap; }
     .gallery-3d-arrow { width: 42px; height: 42px; }
@@ -405,9 +397,9 @@
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Our Staff Team -->
+      <!-- Slide 3: Spa & Wellness -->
       <div class="gallery-3d-slide" data-index="2">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/gallery-slide-4.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/pic 73.jpg.jpeg');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
@@ -729,7 +721,7 @@
 
         const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(${rotateY * 1.5}px, ${rotateX * 1.5}px)`;
+          activeBg.style.transform = `none`;
         }
       });
 
@@ -739,7 +731,7 @@
         }
         const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(0, 0)`;
+          activeBg.style.transform = `none`;
         }
       });
 

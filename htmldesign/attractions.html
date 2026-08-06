@@ -18,9 +18,9 @@
   /* ===== 3D GALLERY HERO SLIDER ===== */
   .gallery-hero-3d {
     position: relative;
-    height: 65vh;
-    min-height: 500px;
-    max-height: 720px;
+    height: 88vh;
+    min-height: 660px;
+    max-height: 920px;
     width: 100%;
     overflow: hidden;
     background: #0d0608;
@@ -62,7 +62,7 @@
     opacity: 1;
     visibility: visible;
     z-index: 5;
-    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.04);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
   }
 
   .gallery-3d-slide.prev-slide {
@@ -85,27 +85,19 @@
 
   .gallery-slide-bg {
     position: absolute;
-    inset: -3%;
-    width: 106%;
-    height: 106%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center center;
-    transform: translateZ(-50px);
+    transform: none;
     transition: transform 0.8s ease-out;
-    animation: gallery3dKenBurns 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes gallery3dKenBurns {
-    0% { transform: scale(1.0) translate(0, 0); }
-    50% { transform: scale(1.06) translate(-0.8%, -0.8%); }
-    100% { transform: scale(1.02) translate(0.8%, 0.4%); }
   }
 
   .gallery-slide-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 45%, rgba(20, 9, 12, 0.2) 0%, rgba(20, 9, 12, 0.65) 75%, rgba(13, 6, 8, 0.88) 100%),
-                linear-gradient(180deg, rgba(20, 9, 12, 0.7) 0%, transparent 45%, rgba(20, 9, 12, 0.85) 100%);
+    background: linear-gradient(180deg, rgba(13, 6, 8, 0.35) 0%, rgba(13, 6, 8, 0.05) 50%, rgba(13, 6, 8, 0.45) 100%);
     z-index: 2;
   }
 
@@ -366,7 +358,7 @@
   }
 
   .attraction-card:hover .attraction-img {
-    transform: scale(1.08);
+    transform: none;
   }
 
   .attraction-distance {
@@ -409,8 +401,116 @@
     margin: 0;
   }
 
+  /* ===== DAMAN BEACH CARD MINI SLIDER ===== */
+  .attraction-card-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .attraction-card-slider .card-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: scale(1);
+    pointer-events: none;
+  }
+
+  .attraction-card-slider .card-slide.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .attraction-card:hover .attraction-card-slider .card-slide.active {
+    transform: none;
+  }
+
+  .card-slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(110, 16, 39, 0.75);
+    color: #ffffff;
+    border: 1px solid rgba(201, 162, 39, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 6;
+    opacity: 0;
+    transition: opacity 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-slider-arrow svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .attraction-img-wrapper:hover .card-slider-arrow {
+    opacity: 1;
+  }
+
+  .card-slider-arrow:hover {
+    background: rgba(110, 16, 39, 0.95);
+    color: var(--gold, #c9a227);
+    border-color: var(--gold, #c9a227);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .card-slider-prev {
+    left: 10px;
+  }
+
+  .card-slider-next {
+    right: 10px;
+  }
+
+  .card-slider-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 6;
+  }
+
+  .card-slider-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .card-slider-dot.active {
+    width: 20px;
+    border-radius: 10px;
+    background: var(--gold, #c9a227);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
   @media (max-width: 768px) {
-    .gallery-hero-3d { height: 55vh; min-height: 420px; }
+    .gallery-hero-3d { height: 65vh; min-height: 480px; }
     .gallery-hero-title { font-size: 2.1rem; }
     .gallery-hero-breadcrumb { font-size: 0.68rem; flex-wrap: wrap; }
     .gallery-3d-arrow { width: 42px; height: 42px; }
@@ -494,21 +594,21 @@
   <div class="gallery-3d-viewport">
     <div class="gallery-3d-slides" id="attractions3dSlides">
       
-      <!-- Slide 1: Jampore Beach road path -->
+      <!-- Slide 1: Daman Beach -->
       <div class="gallery-3d-slide active" data-index="0">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/attractions-slider-1.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/damans1.jpg');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Daman River Aerial -->
+      <!-- Slide 2: Silvassa -->
       <div class="gallery-3d-slide" data-index="1">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/attractions-slider-2.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/silvasas1.jpg');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Vapi Railway Station -->
+      <!-- Slide 3: Wilson Hills -->
       <div class="gallery-3d-slide" data-index="2">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/attractions-slider-3.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/wilsons hill2.jpg');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
@@ -569,8 +669,23 @@
 
   <div class="attractions-grid">
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/daman_beach.jpg" alt="Daman Beach" class="attraction-img">
+      <div class="attraction-img-wrapper" id="damanBeachSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/Daman1.jpg" alt="Daman Beach 1" class="attraction-img card-slide active">
+          <img src="../assets/images/Daman2.jpg" alt="Daman Beach 2" class="attraction-img card-slide">
+          <img src="../assets/images/Daman3.jpg" alt="Daman Beach 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">13 km away</span>
       </div>
       <div class="attraction-content">
@@ -579,8 +694,23 @@
       </div>
     </div>
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/dudhni_lake.jpg" alt="Dudhni Lake" class="attraction-img">
+      <div class="attraction-img-wrapper" id="dudhniLakeSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/Dudhni1.jpg" alt="Dudhni Lake 1" class="attraction-img card-slide active">
+          <img src="../assets/images/Dudhni2.jpg" alt="Dudhni Lake 2" class="attraction-img card-slide">
+          <img src="../assets/images/Dudhni3.jpg" alt="Dudhni Lake 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">40 km away</span>
       </div>
       <div class="attraction-content">
@@ -589,8 +719,23 @@
       </div>
     </div>
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/udvada.jpg" alt="Udvada" class="attraction-img">
+      <div class="attraction-img-wrapper" id="udvadaSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/udvada1.jpg" alt="Udvada 1" class="attraction-img card-slide active">
+          <img src="../assets/images/udvada2.jpg" alt="Udvada 2" class="attraction-img card-slide">
+          <img src="../assets/images/udvada3.jpg" alt="Udvada 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">15 km away</span>
       </div>
       <div class="attraction-content">
@@ -599,8 +744,23 @@
       </div>
     </div>
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/silvassa.jpg" alt="Silvassa" class="attraction-img">
+      <div class="attraction-img-wrapper" id="silvassaSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/Silvassa1.jpg" alt="Silvassa 1" class="attraction-img card-slide active">
+          <img src="../assets/images/Silvassa2.jpg" alt="Silvassa 2" class="attraction-img card-slide">
+          <img src="../assets/images/Silvassa3.jpg" alt="Silvassa 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">18 km away</span>
       </div>
       <div class="attraction-content">
@@ -609,8 +769,23 @@
       </div>
     </div>
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/tithal_beach.jpg" alt="Valsad (Tithal Beach)" class="attraction-img">
+      <div class="attraction-img-wrapper" id="tithalSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/tithal1.jpg" alt="Tithal Beach 1" class="attraction-img card-slide active">
+          <img src="../assets/images/tithal12.jpg" alt="Tithal Beach 2" class="attraction-img card-slide">
+          <img src="../assets/images/tithal3.jpg" alt="Tithal Beach 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">35 km away</span>
       </div>
       <div class="attraction-content">
@@ -619,8 +794,23 @@
       </div>
     </div>
     <div class="attraction-card reveal-up" data-tilt>
-      <div class="attraction-img-wrapper">
-        <img src="../assets/images/wilson_hills.jpg" alt="Wilson Hills" class="attraction-img">
+      <div class="attraction-img-wrapper" id="wilsonSlider">
+        <div class="attraction-card-slider">
+          <img src="../assets/images/wilson hills1.jpg" alt="Wilson Hills 1" class="attraction-img card-slide active">
+          <img src="../assets/images/wilson hills2.jpg" alt="Wilson Hills 2" class="attraction-img card-slide">
+          <img src="../assets/images/wilson hills3.jpg" alt="Wilson Hills 3" class="attraction-img card-slide">
+        </div>
+        <button class="card-slider-arrow card-slider-prev" aria-label="Previous image">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="card-slider-arrow card-slider-next" aria-label="Next image">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <div class="card-slider-dots">
+          <span class="card-slider-dot active" data-index="0"></span>
+          <span class="card-slider-dot" data-index="1"></span>
+          <span class="card-slider-dot" data-index="2"></span>
+        </div>
         <span class="attraction-distance">71 km away</span>
       </div>
       <div class="attraction-content">
@@ -803,7 +993,7 @@
 
         const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(${rotateY * 1.5}px, ${rotateX * 1.5}px)`;
+          activeBg.style.transform = `none`;
         }
       });
 
@@ -813,7 +1003,7 @@
         }
         const activeBg = slider.querySelector('.gallery-3d-slide.active .gallery-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(0, 0)`;
+          activeBg.style.transform = `none`;
         }
       });
 
@@ -831,6 +1021,103 @@
 
       updateSlides(0);
       startAutoPlay();
+    })();
+
+    /* ---------- ATTRACTION CARDS SLIDER CONTROLLER ---------- */
+    (function initCardSliders() {
+      const sliderWrappers = document.querySelectorAll('.attraction-img-wrapper');
+      
+      sliderWrappers.forEach((sliderWrapper) => {
+        const slides = sliderWrapper.querySelectorAll('.card-slide');
+        if (!slides.length) return;
+
+        const dots = sliderWrapper.querySelectorAll('.card-slider-dot');
+        const prevBtn = sliderWrapper.querySelector('.card-slider-prev');
+        const nextBtn = sliderWrapper.querySelector('.card-slider-next');
+
+        let currentIndex = 0;
+        let intervalId = null;
+        const slideDuration = 4000;
+
+        function showSlide(index) {
+          currentIndex = (index + slides.length) % slides.length;
+          slides.forEach((slide, i) => {
+            if (i === currentIndex) {
+              slide.classList.add('active');
+            } else {
+              slide.classList.remove('active');
+            }
+          });
+          dots.forEach((dot, i) => {
+            if (i === currentIndex) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        }
+
+        function nextSlide() {
+          showSlide(currentIndex + 1);
+        }
+
+        function prevSlide() {
+          showSlide(currentIndex - 1);
+        }
+
+        function startAutoPlay() {
+          stopAutoPlay();
+          intervalId = setInterval(nextSlide, slideDuration);
+        }
+
+        function stopAutoPlay() {
+          if (intervalId) clearInterval(intervalId);
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextSlide();
+            startAutoPlay();
+          });
+        }
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevSlide();
+            startAutoPlay();
+          });
+        }
+
+        dots.forEach((dot, idx) => {
+          dot.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSlide(idx);
+            startAutoPlay();
+          });
+        });
+
+        sliderWrapper.addEventListener('mouseenter', stopAutoPlay);
+        sliderWrapper.addEventListener('mouseleave', startAutoPlay);
+
+        let startX = 0;
+        sliderWrapper.addEventListener('touchstart', (e) => {
+          startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        sliderWrapper.addEventListener('touchend', (e) => {
+          const endX = e.changedTouches[0].clientX;
+          const diffX = startX - endX;
+          if (Math.abs(diffX) > 30) {
+            if (diffX > 0) nextSlide();
+            else prevSlide();
+            startAutoPlay();
+          }
+        }, { passive: true });
+
+        startAutoPlay();
+      });
     })();
   });
 </script>

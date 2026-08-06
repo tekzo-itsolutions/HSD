@@ -88,9 +88,9 @@
      ========================================================================== */
   .spa-hero-3d {
     position: relative;
-    height: 65vh;
-    min-height: 500px;
-    max-height: 720px;
+    height: 88vh;
+    min-height: 660px;
+    max-height: 920px;
     width: 100%;
     overflow: hidden;
     background: #0d0608;
@@ -132,7 +132,7 @@
     opacity: 1;
     visibility: visible;
     z-index: 5;
-    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.05);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
   }
 
   .spa-3d-slide.prev-slide {
@@ -151,27 +151,19 @@
 
   .spa-slide-bg {
     position: absolute;
-    inset: -5%;
-    width: 110%;
-    height: 110%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center center;
-    transform: translateZ(-50px);
+    transform: none;
     transition: transform 0.8s ease-out;
-    animation: spa3dKenBurns 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes spa3dKenBurns {
-    0% { transform: scale(1.0) translate(0, 0); }
-    50% { transform: scale(1.08) translate(-1%, -1%); }
-    100% { transform: scale(1.02) translate(1%, 0.5%); }
   }
 
   .spa-slide-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 40%, rgba(20, 9, 12, 0.25) 0%, rgba(20, 9, 12, 0.75) 75%, rgba(13, 6, 8, 0.95) 100%),
-                linear-gradient(180deg, rgba(20, 9, 12, 0.75) 0%, transparent 40%, rgba(20, 9, 12, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(13, 6, 8, 0.35) 0%, rgba(13, 6, 8, 0.05) 50%, rgba(13, 6, 8, 0.45) 100%);
     z-index: 2;
   }
 
@@ -392,7 +384,7 @@
   }
 
   @media (max-width: 768px) {
-    .spa-hero-3d { height: 55vh; min-height: 420px; }
+    .spa-hero-3d { height: 65vh; min-height: 480px; }
     .spa-hero-title { font-size: 2.1rem; }
     .spa-hero-breadcrumb { font-size: 0.68rem; flex-wrap: wrap; }
     .spa-3d-arrow { width: 42px; height: 42px; }
@@ -920,21 +912,27 @@
   <div class="spa-3d-viewport">
     <div class="spa-3d-slides" id="spa3dSlides">
       
-      <!-- Slide 1: Exact original spa treatment room image from Image 1 -->
+      <!-- Slide 1: pic 73 -->
       <div class="spa-3d-slide active" data-index="0">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-sort.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/pic 73.jpg.jpeg');"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Exact original spa image 2 -->
+      <!-- Slide 2: PIC 10 -->
       <div class="spa-3d-slide" data-index="1">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-sort1.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/PIC 10.JPG.jpeg'); background-position: center 42%;"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Exact original spa image 3 -->
+      <!-- Slide 3: pic 60 -->
       <div class="spa-3d-slide" data-index="2">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-long.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/pic 60.jpg.jpeg');"></div>
+        <div class="spa-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 4: IMG_20210816_142523_028 -->
+      <div class="spa-3d-slide" data-index="3">
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/IMG_20210816_142523_028.jpg.jpeg');"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
@@ -974,6 +972,7 @@
       <button class="spa-dot active" data-slide="0"><span>01</span></button>
       <button class="spa-dot" data-slide="1"><span>02</span></button>
       <button class="spa-dot" data-slide="2"><span>03</span></button>
+      <button class="spa-dot" data-slide="3"><span>04</span></button>
     </div>
     <div class="spa-3d-progress">
       <div class="spa-progress-bar" id="spaProgressBar"></div>
@@ -1197,7 +1196,7 @@
 
         const activeBg = slider.querySelector('.spa-3d-slide.active .spa-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(${rotateY * 1.5}px, ${rotateX * 1.5}px)`;
+          activeBg.style.transform = `none`;
         }
       });
 
@@ -1207,7 +1206,7 @@
         }
         const activeBg = slider.querySelector('.spa-3d-slide.active .spa-slide-bg');
         if (activeBg) {
-          activeBg.style.transform = `translateZ(-50px) translate(0, 0)`;
+          activeBg.style.transform = `none`;
         }
       });
 
