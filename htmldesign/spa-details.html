@@ -158,7 +158,7 @@
     opacity: 1;
     visibility: visible;
     z-index: 5;
-    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1.05);
+    transform: translate3d(0, 0, 0) rotateY(0deg) scale(1);
   }
 
   .spa-3d-slide.prev-slide {
@@ -177,20 +177,13 @@
 
   .spa-slide-bg {
     position: absolute;
-    inset: -5%;
-    width: 110%;
-    height: 110%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center center;
-    transform: translateZ(-50px);
+    transform: none;
     transition: transform 0.8s ease-out;
-    animation: spa3dKenBurns 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes spa3dKenBurns {
-    0% { transform: scale(1.0) translate(0, 0); }
-    50% { transform: scale(1.08) translate(-1%, -1%); }
-    100% { transform: scale(1.02) translate(1%, 0.5%); }
   }
 
   .spa-slide-overlay {
@@ -515,6 +508,64 @@
     position: relative;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
     scroll-margin-top: 100px;
+    overflow: hidden;
+  }
+
+  /* Floating Ayurvedic Leaves Overlay & Particle Styling */
+  .ayurvedic-leaves-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .ayurvedic-leaf {
+    position: absolute;
+    top: -40px;
+    width: 26px;
+    height: 26px;
+    opacity: 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(1.2px) drop-shadow(0 3px 8px rgba(34, 139, 34, 0.5));
+    animation: floatAyurvedicLeaf 13s linear infinite;
+    will-change: top, transform, opacity;
+  }
+
+  @keyframes floatAyurvedicLeaf {
+    0% {
+      top: -40px;
+      transform: translateX(0) rotate(0deg) scale(0.65);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.85;
+    }
+    30% {
+      transform: translateX(30px) rotate(120deg) scale(1.05);
+    }
+    60% {
+      transform: translateX(-25px) rotate(240deg) scale(1.15);
+      opacity: 0.95;
+    }
+    85% {
+      opacity: 0.85;
+    }
+    100% {
+      top: calc(100% + 40px);
+      transform: translateX(15px) rotate(360deg) scale(0.7);
+      opacity: 0;
+    }
+  }
+
+  /* Ensure content stays above leaves */
+  .spa-category-header,
+  .spa-category-layout,
+  .spa-tax-notice {
+    position: relative;
+    z-index: 2;
   }
   .spa-category-header {
     display: inline-block;
@@ -946,21 +997,21 @@
   <div class="spa-3d-viewport">
     <div class="spa-3d-slides" id="spa3dSlides">
       
-      <!-- Slide 1: Exact original spa treatment room image from Image 1 -->
+      <!-- Slide 1: spa_home_1 -->
       <div class="spa-3d-slide active" data-index="0">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-sort.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa_home_1.jpg');"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Exact original spa image 2 -->
+      <!-- Slide 2: IMG_20210816_142523_028 -->
       <div class="spa-3d-slide" data-index="1">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-sort1.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/IMG_20210816_142523_028.jpg.jpeg');"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Exact original spa image 3 -->
+      <!-- Slide 3: pic 37 -->
       <div class="spa-3d-slide" data-index="2">
-        <div class="spa-slide-bg" style="background-image: url('../assets/images/spa-long.jpg');"></div>
+        <div class="spa-slide-bg" style="background-image: url('../assets/images/pic 37.jpg.jpeg');"></div>
         <div class="spa-slide-overlay"></div>
       </div>
 
@@ -1043,7 +1094,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_body_scrub.jpg" alt="Body Scrub Showcase">
+            <img class="spa-showcase-img" src="../assets/images/spa_home_1.jpg" alt="Body Scrub Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1066,7 +1117,7 @@
                data-duration="30 Min" 
                data-price="₹1,000" 
                data-desc="A traditionally exfoliating ritual for the body with a specially formulated combination that helps in improving the skin complexion." 
-               data-image="../assets/images/spa_body_scrub.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="natural-scrub">
             <div class="spa-item-text">
               <h5>Natural Scrub</h5>
@@ -1084,7 +1135,7 @@
                data-duration="30 Min" 
                data-price="₹1,000" 
                data-desc="De-tan scrub may help remove dirt and impurities and reduce fine lines. Moreover, it can remove and deeply cleanse it to keep it clean without making your skin dry." 
-               data-image="../assets/images/spa_body_scrub.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="detan-scrub">
             <div class="spa-item-text">
               <h5>De-Tan Scrub</h5>
@@ -1102,7 +1153,7 @@
                data-duration="30 Min" 
                data-price="₹1,200" 
                data-desc="Fruit Scrub is a natural exfoliator. It is enriched with fruits extract that keeps your skin all-day fresh and rejuvenated which promotes a glowing, clean complexion by deeply cleansing pores." 
-               data-image="../assets/images/spa-sort.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="fruit-scrub">
             <div class="spa-item-text">
               <h5>Fruit Scrub</h5>
@@ -1120,7 +1171,7 @@
                data-duration="30 Min" 
                data-price="₹1,500" 
                data-desc="This scrub contains Turmeric and Saffron extracts that have anti-inflammatory and antiseptic properties. It helps in tan removal, evens out the complexion. Suitable for all skin types." 
-               data-image="../assets/images/spa_body_scrub.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="ubtan-scrub">
             <div class="spa-item-text">
               <h5>Ubtan Scrub</h5>
@@ -1187,7 +1238,7 @@
                data-duration="3 Hours" 
                data-price="₹6,000" 
                data-desc="Signature therapy is a combination of Thai massage and oil massage along with facial as well as scrub. Soak yourself in hot water in Jacuzzi—an effective way to help relax and soothe tight, tense muscles." 
-               data-image="../assets/images/spa-long.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="signature-therapy">
             <div class="spa-item-text">
               <h5>Signature Therapy</h5>
@@ -1236,7 +1287,7 @@
                data-duration="2 Hours" 
                data-price="₹6,000" 
                data-desc="A couple massage is a treatment that involves two people receiving a massage at the same time, in the same room, by two different massage therapists. The goal of a couple massage is to provide a relaxing and rejuvenating experience for both partners." 
-               data-image="../assets/images/spa_rejuvenate.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="couple-connect">
             <div class="spa-item-text">
               <h5>Couple Connect</h5>
@@ -1254,7 +1305,7 @@
                data-duration="2 Hours" 
                data-price="₹5,000" 
                data-desc="Pizhichil is a perfect mix of Snehana (Oleation Therapy) and Swedana (Sudation Therapy). This treatment improves blood circulation and immunity. It is very effective in the treatment of ailments like muscle cramps, paralysis, rheumatic diseases, arthritis and blood pressure issues." 
-               data-image="../assets/images/spa_ayurveda.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="pizhichil">
             <div class="spa-item-text">
               <h5>Pizhichil Therapy</h5>
@@ -1273,7 +1324,7 @@
                data-price="From ₹3,500" 
                data-desc="Relaxing & soothing bath, incorporate the use of a milk and scrub. Leaves a silky, smooth shimmering veil on the body." 
                data-rates='[{"duration":"90 Minutes","price":"₹3,500"},{"duration":"2 Hours","price":"₹4,000"}]'
-               data-image="../assets/images/spa_luxury_bath.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="hamam">
             <div class="spa-item-text">
               <h5>Royal Hammam Bath</h5>
@@ -1292,7 +1343,7 @@
                data-price="From ₹3,000" 
                data-desc="Flowers and flowering herbs have incredible healing properties and when added to a tub filled with warm water, epsom salts, and essential oils you can connect your own personal time ritual that is equally beneficial for your physical and mental well-being." 
                data-rates='[{"duration":"60 Minutes","price":"₹3,000"},{"duration":"90 Minutes","price":"₹3,500"}]'
-               data-image="../assets/images/spa-hero-2.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="flower-bath">
             <div class="spa-item-text">
               <h5>Aromatic Flower Bath</h5>
@@ -1318,7 +1369,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_body_therapy.jpg" alt="Body Therapy Showcase">
+            <img class="spa-showcase-img" src="../assets/images/IMG_20210816_142523_028.jpg.jpeg" alt="Body Therapy Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1342,7 +1393,7 @@
                data-price="From ₹2,500" 
                data-desc="Your therapy is personalized to focus on your body's area affected by tension and stress. Special blend of oils like invigorating oils is used for tired muscles. This treatment is designed to relieve aches & knots with deep pressure." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,500"},{"duration":"90 Minutes","price":"₹3,000"}]'
-               data-image="../assets/images/spa_body_therapy.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="deep-tissue">
             <div class="spa-item-text">
               <h5>Deep Tissue</h5>
@@ -1361,7 +1412,7 @@
                data-price="From ₹2,000" 
                data-desc="The Healing power of the pure essential oils and their properties have an invigorating effect on the mind using the classical techniques. Medium pressure is applied to improve the circulation and ease muscle knots for a complete relaxation." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,000"},{"duration":"90 Minutes","price":"₹2,500"}]'
-               data-image="../assets/images/spa-hero-1.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="aroma">
             <div class="spa-item-text">
               <h5>Aroma</h5>
@@ -1380,7 +1431,7 @@
                data-price="From ₹2,000" 
                data-desc="One of the most popular forms of massage therapy. It can help you relax, give you more energy, and may help after an injury. Swedish massage involves long, kneading strokes combined with rhythmic tapping strokes and movement of the joints." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,000"},{"duration":"90 Minutes","price":"₹2,500"}]'
-               data-image="../assets/images/spa_body_therapy.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="swedish">
             <div class="spa-item-text">
               <h5>Swedish</h5>
@@ -1399,7 +1450,7 @@
                data-price="From ₹2,500" 
                data-desc="Balinese massage is a full-body, deep-tissue, holistic treatment. Traditional Balinese massage uses a combination of gentle stretches, acupressure, reflexology, and aromatherapy to stimulate the flow of blood, oxygen and energy around your body, and bring a sense of wellbeing, calm and deep relaxation." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,500"},{"duration":"90 Minutes","price":"₹3,000"}]'
-               data-image="../assets/images/spa-long.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="balinese">
             <div class="spa-item-text">
               <h5>Balinese</h5>
@@ -1418,7 +1469,7 @@
                data-price="From ₹2,500" 
                data-desc="The practitioner will use their hands, thumbs, elbows, and knees to stretch, pull, and rock different parts of your body. Good for muscle relaxation, increase flexibility in your muscles and mobility." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,500"},{"duration":"90 Minutes","price":"₹3,000"}]'
-               data-image="../assets/images/spa_body_therapy.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="dry-therapy">
             <div class="spa-item-text">
               <h5>Dry Therapy</h5>
@@ -1437,7 +1488,7 @@
                data-price="From ₹2,400" 
                data-desc="Chavutti Thirumal is also known as Indian rope massage and its translation literally means 'massage by foot pressure'. The therapist holds onto a rope above their head for balance, and to adjust the pressure. It's a perfect massage for keen sportspeople, like footballers, rugby players, or rowers, and for those who are particularly muscular." 
                data-rates='[{"duration":"60 Minutes","price":"₹2,400"},{"duration":"90 Minutes","price":"₹3,000"}]'
-               data-image="../assets/images/spa-sort1.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="rope-therapy">
             <div class="spa-item-text">
               <h5>Rope Therapy</h5>
@@ -1455,7 +1506,7 @@
                data-duration="90 Min" 
                data-price="₹5,000" 
                data-desc="A session facilitated by two staff members to ensure high safety standards and for maximum support and flow." 
-               data-image="../assets/images/spa-sort1.jpg"
+               data-image="../assets/images/pic 37.jpg.jpeg"
                data-service="two-therapist-rope">
             <div class="spa-item-text">
               <h5>Two Therapist Rope Session</h5>
@@ -1473,7 +1524,7 @@
                data-duration="60 Min" 
                data-price="₹3,750" 
                data-desc="A therapeutic full body massage using aromatic oils and warm volcanic stones to relieve deep muscle tension. The warmth of the stones penetrates your muscles to soothe aches and pains helping you to unwind your body to feel rejuvenated." 
-               data-image="../assets/images/spa-hero-2.jpg"
+               data-image="../assets/images/spa_home_1.jpg"
                data-service="hot-stone">
             <div class="spa-item-text">
               <h5>Hot Stone Therapy</h5>
@@ -2132,6 +2183,50 @@
 <script>
   // Page-specific form handling & LocalStorage Integration
   document.addEventListener('DOMContentLoaded', () => {
+    // Generate Animated Floating Green Ayurvedic Leaves in all Spa Category Boxes
+    const leafSVGs = [
+      // Vibrant Emerald Neem Leaf
+      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%232e7d32"><path d="M50,5 C30,25 15,50 15,75 C15,88 28,95 45,95 C48,95 50,91 50,88 C50,91 52,95 55,95 C72,95 85,88 85,75 C85,50 70,25 50,5 Z M50,15 C52,30 50,80 50,88 M50,30 L65,22 M50,42 L32,35 M50,54 L68,48 M50,66 L30,62 M50,78 L64,74" stroke="%2381c784" stroke-width="3.5" fill-opacity="0.85" stroke-linecap="round"/></svg>`,
+      // Lush Green Tulsi Leaf
+      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,10 C20,30 10,65 30,85 C42,97 58,97 70,85 C90,65 80,30 50,10 Z M50,10 L50,90 M50,28 C65,34 72,40 72,40 M50,45 C32,50 25,56 25,56 M50,62 C68,66 74,72 74,72" stroke="%23a5d6a7" stroke-width="4" fill="%23388e3c" fill-opacity="0.85" stroke-linecap="round"/></svg>`,
+      // Rich Forest Ayurvedic Sacred Leaf
+      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,5 C25,20 20,40 20,65 C20,85 35,95 50,95 C65,95 80,85 80,65 C80,40 75,20 50,5 Z M50,5 L50,95 M50,25 C62,35 70,42 70,42 M50,45 C35,52 28,60 28,60 M50,65 C64,70 70,78 70,78" stroke="%2366bb6a" stroke-width="3.5" fill="%231b5e20" fill-opacity="0.85" stroke-linecap="round"/></svg>`,
+      // Fresh Mint Herbal Leaf
+      `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,8 C25,28 12,52 22,78 C30,94 50,96 50,96 C50,96 70,94 78,78 C88,52 75,28 50,8 Z M50,8 L50,96 M50,25 L72,36 M50,45 L28,54 M50,65 L70,72" stroke="%23c8e6c9" stroke-width="3.5" fill="%2343a047" fill-opacity="0.85" stroke-linecap="round"/></svg>`
+    ];
+
+    document.querySelectorAll('.spa-menu-category').forEach((categoryBox) => {
+      const leavesContainer = document.createElement('div');
+      leavesContainer.className = 'ayurvedic-leaves-container';
+
+      // Create 6 subtle floating green leaves per category box with soft blur
+      for (let i = 0; i < 6; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'ayurvedic-leaf';
+
+        const svgSrc = leafSVGs[i % leafSVGs.length];
+        leaf.style.backgroundImage = `url('${svgSrc}')`;
+
+        // Randomize leaf properties for realistic organic top-to-bottom flow
+        const leftPos = 8 + Math.random() * 84; // 8% to 92% horizontal spread across box width
+        const size = 18 + Math.random() * 20; // 18px to 38px subtle leaf size
+        const duration = 11 + Math.random() * 9; // 11s to 20s gentle top-to-bottom traversal speed
+        const delay = -Math.random() * 14; // Negative delay for smooth continuous flow
+        const blurVal = (0.8 + Math.random() * 1.0).toFixed(1); // 0.8px to 1.8px soft blur
+
+        leaf.style.left = `${leftPos}%`;
+        leaf.style.width = `${size}px`;
+        leaf.style.height = `${size}px`;
+        leaf.style.animationDuration = `${duration}s`;
+        leaf.style.animationDelay = `${delay}s`;
+        leaf.style.filter = `blur(${blurVal}px) drop-shadow(0 3px 8px rgba(34, 139, 34, 0.45))`;
+
+        leavesContainer.appendChild(leaf);
+      }
+
+      categoryBox.prepend(leavesContainer);
+    });
+
     const today = new Date().toISOString().split('T')[0];
     const dateInput = document.getElementById('spaDate');
     if (dateInput) dateInput.min = today;

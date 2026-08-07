@@ -51,18 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.getElementById('siteHeader');
     if (!header) return;
 
-    // Check if current page is not home page, spa page, or gallery page to give it a solid background immediately
-    const pathname = window.location.pathname.toLowerCase();
-    const isHomePage = pathname === '/' || pathname.endsWith('index.html') || pathname === '';
-    const isSpaPage = pathname.endsWith('spa.html');
-    const isGalleryPage = pathname.endsWith('gallery.html');
-    
-    if (!isHomePage && !isSpaPage && !isGalleryPage) {
-      header.classList.add('scrolled');
-      header.classList.add('solid-bg');
-      return; // Do not toggle on scroll for other non-home pages
-    }
-
     const onScroll = () => {
       if (window.scrollY > 60) {
         header.classList.add('scrolled');
@@ -1048,17 +1036,108 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
 
-  /* ---------- 20. PAGE BANNER IMAGE SLIDER ---------- */
-  (function pageBannerSlider() {
-    const slides = document.querySelectorAll('.page-banner-slider .banner-slide');
+  /* ---------- 21. 3D WELCOME SECTION SLIDER ---------- */
+  (function welcome3dSlider() {
+    const slider = document.getElementById('welcome3dSlider');
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.welcome-3d-slide');
+    const dots = slider.querySelectorAll('.welcome-dot');
+    const prevBtn = document.getElementById('welcomePrev');
+    const nextBtn = document.getElementById('welcomeNext');
     if (!slides.length) return;
-    
-    let currentIdx = 0;
-    setInterval(() => {
-      slides[currentIdx].classList.remove('active');
-      currentIdx = (currentIdx + 1) % slides.length;
-      slides[currentIdx].classList.add('active');
-    }, 5000);
+
+    let currentIndex = 0;
+    let autoInterval = null;
+    const total = slides.length;
+
+    function updateSlides(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active', 'prev-slide', 'next-slide');
+        if (i === index) {
+          slide.classList.add('active');
+        } else if (i === (index - 1 + total) % total) {
+          slide.classList.add('prev-slide');
+        } else if (i === (index + 1) % total) {
+          slide.classList.add('next-slide');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === index) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    function goToNext() {
+      currentIndex = (currentIndex + 1) % total;
+      updateSlides(currentIndex);
+    }
+
+    function goToPrev() {
+      currentIndex = (currentIndex - 1 + total) % total;
+      updateSlides(currentIndex);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoInterval = setInterval(goToNext, 4000);
+    }
+
+    function stopAutoPlay() {
+      if (autoInterval) clearInterval(autoInterval);
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', () => { goToNext(); startAutoPlay(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { goToPrev(); startAutoPlay(); });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        currentIndex = i;
+        updateSlides(currentIndex);
+        startAutoPlay();
+      });
+    });
+
+    slider.addEventListener('mouseenter', stopAutoPlay);
+    slider.addEventListener('mouseleave', startAutoPlay);
+
+    // Interactive 3D Parallax Tilt on Mouse Movement
+    slider.addEventListener('mousemove', (e) => {
+      const rect = slider.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      const rotateX = (-y / rect.height) * 12;
+      const rotateY = (x / rect.width) * 14;
+
+      const activeSlide = slider.querySelector('.welcome-3d-slide.active');
+      if (activeSlide) {
+        activeSlide.style.transform = `translate3d(0, 0, 0) rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg) scale(1.02)`;
+      }
+    });
+
+    slider.addEventListener('mouseleave', () => {
+      const activeSlide = slider.querySelector('.welcome-3d-slide.active');
+      if (activeSlide) {
+        activeSlide.style.transform = `translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1)`;
+      }
+    });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 40) { goToNext(); startAutoPlay(); }
+      if (touchEndX - touchStartX > 40) { goToPrev(); startAutoPlay(); }
+    }, { passive: true });
+
+    updateSlides(0);
+    startAutoPlay();
   })();
 
 });
