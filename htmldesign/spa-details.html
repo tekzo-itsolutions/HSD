@@ -15,6 +15,32 @@
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/responsive.css">
 <style>
+  /* Category Tabs Styling */
+  .spa-tab-btn {
+    background: transparent;
+    border: 1px solid rgba(110, 16, 39, 0.2);
+    color: var(--maroon);
+    padding: 12px 24px;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .spa-tab-btn:hover {
+    background: rgba(110, 16, 39, 0.05);
+    border-color: var(--maroon);
+  }
+  .spa-tab-btn.active {
+    background: var(--maroon);
+    border-color: var(--maroon);
+    color: var(--white) !important;
+    box-shadow: 0 6px 18px rgba(110, 16, 39, 0.18);
+  }
+
   /* Custom Spa Styles */
   .spa-grid {
     display: grid;
@@ -994,6 +1020,17 @@
     <p style="font-size: 1.15rem; line-height: 1.8; color:#5c534b;">
       Explore our comprehensive treatment menu below. Scroll through the chapters to view details, timing, and pricing for our massage therapies, hammams, and advanced facials.
     </p>
+  </div>
+
+  <!-- Premium Category Tabs Navigation -->
+  <div class="spa-tabs-nav reveal-up" style="max-width: 1100px; margin: 0 auto 50px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 0 20px;">
+    <button class="spa-tab-btn active" data-target="body-scrub">Body Scrub</button>
+    <button class="spa-tab-btn" data-target="bath-therapy">Luxury Bath Therapy</button>
+    <button class="spa-tab-btn" data-target="rejuvenate">Rejuvenate</button>
+    <button class="spa-tab-btn" data-target="body-therapy">Body Therapy</button>
+    <button class="spa-tab-btn" data-target="ayurveda">Ayurveda</button>
+    <button class="spa-tab-btn" data-target="spa-packages">Spa Packages &amp; Escapes</button>
+    <button class="spa-tab-btn" data-target="facial-therapy">Facial Therapy</button>
   </div>
 
   <div class="spa-menu-container">
@@ -2313,6 +2350,64 @@
       });
     }
 
+    /* ---------- SPA CATEGORIES TABS FILTER ---------- */
+    function filterSpaCategories() {
+      const hash = window.location.hash || '#body-scrub';
+      const targetId = hash.split('#')[1] || 'body-scrub';
+      
+      const categories = document.querySelectorAll('.spa-menu-category');
+      let found = false;
+      categories.forEach(cat => {
+        if (cat.id === targetId) {
+          cat.style.display = 'block';
+          found = true;
+        } else {
+          cat.style.display = 'none';
+        }
+      });
+
+      if (!found && categories.length > 0) {
+        categories[0].style.display = 'block';
+      }
+
+      const tabButtons = document.querySelectorAll('.spa-tab-btn');
+      tabButtons.forEach(btn => {
+        if (btn.getAttribute('data-target') === targetId) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function scrollToTabs() {
+      const tabsNav = document.querySelector('.spa-tabs-nav');
+      if (tabsNav) {
+        const offset = 100;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = tabsNav.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    document.querySelectorAll('.spa-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        window.location.hash = target;
+      });
+    });
+
+    window.addEventListener('hashchange', () => {
+      filterSpaCategories();
+      scrollToTabs();
+    });
+    filterSpaCategories();
+
     // Smooth scroll for nav dropdown links with sticky header offset correction
     document.querySelectorAll('.nav-dropdown-menu a[href*="#"]').forEach(link => {
       link.addEventListener('click', (e) => {
@@ -2321,15 +2416,7 @@
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
           e.preventDefault();
-          const offset = 90; // sticky header height
-          const bodyRect = document.body.getBoundingClientRect().top;
-          const elementRect = targetElement.getBoundingClientRect().top;
-          const elementPosition = elementRect - bodyRect;
-          const offsetPosition = elementPosition - offset;
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+          window.location.hash = targetId;
         }
       });
     });
