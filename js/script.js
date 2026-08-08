@@ -1173,5 +1173,199 @@ document.addEventListener('DOMContentLoaded', () => {
     startAutoPlay();
   })();
 
+  /* ---------- 22. 3D OUR SERVICES AUTO-SLIDER ---------- */
+  (function services3dSlider() {
+    const section = document.getElementById('homeServices3d') || document.querySelector('.section--services-3d') || document.querySelector('.services-3d-wrapper');
+    if (!section) return;
+
+    const cards = document.querySelectorAll('.service-3d-card');
+    const prevBtn = document.getElementById('services3dPrev');
+    const nextBtn = document.getElementById('services3dNext');
+    const progressBar = document.getElementById('services3dProgressBar');
+    if (!cards.length) return;
+
+    let currentIndex = 0;
+    const total = cards.length;
+    let progressTimer = null;
+    let progress = 0;
+    const DURATION = 3500;
+    const INTERVAL_STEP = 50;
+
+    // Build dots dynamically for all cards
+    const dotsContainer = document.getElementById('services3dDots');
+    if (dotsContainer) {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = i === 0 ? 'services-dot active' : 'services-dot';
+        dot.setAttribute('data-dot', i);
+        dot.setAttribute('aria-label', `Slide ${i + 1}`);
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentIndex = i;
+          update3dPositions(currentIndex);
+          startAutoPlay();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+    const dots = document.querySelectorAll('.services-dot');
+
+    function update3dPositions(centerIndex) {
+      cards.forEach((card, i) => {
+        card.classList.remove('active');
+        
+        let diff = i - centerIndex;
+        if (diff > total / 2) diff -= total;
+        if (diff < -total / 2) diff += total;
+
+        const isMobile = window.innerWidth <= 768;
+
+        if (diff === 0) {
+          card.classList.add('active');
+          card.style.transform = `translate3d(0, 0, 0) scale(1) rotateY(0deg)`;
+          card.style.opacity = '1';
+          card.style.zIndex = '15';
+          card.style.pointerEvents = 'auto';
+        } else if (diff === 1) {
+          const translateX = isMobile ? '65%' : '440px';
+          card.style.transform = `translate3d(${translateX}, 0, -180px) rotateY(-22deg) scale(0.85)`;
+          card.style.opacity = '0.7';
+          card.style.zIndex = '8';
+          card.style.pointerEvents = 'auto';
+        } else if (diff === -1) {
+          const translateX = isMobile ? '-65%' : '-440px';
+          card.style.transform = `translate3d(${translateX}, 0, -180px) rotateY(22deg) scale(0.85)`;
+          card.style.opacity = '0.7';
+          card.style.zIndex = '8';
+          card.style.pointerEvents = 'auto';
+        } else if (diff === 2) {
+          const translateX = isMobile ? '110%' : '760px';
+          card.style.transform = `translate3d(${translateX}, 0, -320px) rotateY(-35deg) scale(0.7)`;
+          card.style.opacity = isMobile ? '0' : '0.25';
+          card.style.zIndex = '3';
+          card.style.pointerEvents = 'none';
+        } else if (diff === -2) {
+          const translateX = isMobile ? '-110%' : '-760px';
+          card.style.transform = `translate3d(${translateX}, 0, -320px) rotateY(35deg) scale(0.7)`;
+          card.style.opacity = isMobile ? '0' : '0.25';
+          card.style.zIndex = '3';
+          card.style.pointerEvents = 'none';
+        } else {
+          card.style.transform = `translate3d(0, 0, -500px) scale(0.5)`;
+          card.style.opacity = '0';
+          card.style.zIndex = '1';
+          card.style.pointerEvents = 'none';
+        }
+      });
+
+      dots.forEach((dot, idx) => {
+        if (idx === centerIndex) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+
+    function resetProgressBar() {
+      progress = 0;
+      if (progressBar) progressBar.style.width = '0%';
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      resetProgressBar();
+
+      progressTimer = setInterval(() => {
+        progress += (INTERVAL_STEP / DURATION) * 100;
+        if (progressBar) progressBar.style.width = `${Math.min(progress, 100)}%`;
+        
+        if (progress >= 100) {
+          goToNext();
+        }
+      }, INTERVAL_STEP);
+    }
+
+    function stopAutoPlay() {
+      if (progressTimer) clearInterval(progressTimer);
+    }
+
+    function goToNext() {
+      currentIndex = (currentIndex + 1) % total;
+      update3dPositions(currentIndex);
+      startAutoPlay();
+    }
+
+    function goToPrev() {
+      currentIndex = (currentIndex - 1 + total) % total;
+      update3dPositions(currentIndex);
+      startAutoPlay();
+    }
+
+    cards.forEach((card, idx) => {
+      card.addEventListener('click', () => {
+        if (idx !== currentIndex) {
+          currentIndex = idx;
+          update3dPositions(currentIndex);
+          startAutoPlay();
+        }
+      });
+    });
+
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); goToNext(); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); goToPrev(); });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        currentIndex = idx;
+        update3dPositions(currentIndex);
+        startAutoPlay();
+      });
+    });
+
+    const viewport = document.getElementById('services3dViewport');
+    if (viewport) {
+      viewport.addEventListener('mouseenter', stopAutoPlay);
+      viewport.addEventListener('mouseleave', startAutoPlay);
+
+      viewport.addEventListener('mousemove', (e) => {
+        const activeCard = section.querySelector('.service-3d-card.active');
+        if (!activeCard) return;
+
+        const rect = viewport.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = (-y / rect.height) * 14;
+        const rotateY = (x / rect.width) * 16;
+
+        activeCard.style.transform = `translate3d(0, 0, 0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+      });
+
+      viewport.addEventListener('mouseleave', () => {
+        const activeCard = section.querySelector('.service-3d-card.active');
+        if (activeCard) {
+          activeCard.style.transform = `translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) scale(1)`;
+        }
+      });
+    }
+
+    let touchStartX = 0;
+    section.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    section.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 40) { goToNext(); }
+      else if (touchEndX - touchStartX > 40) { goToPrev(); }
+    }, { passive: true });
+
+    update3dPositions(currentIndex);
+    startAutoPlay();
+
+    window.addEventListener('resize', () => {
+      update3dPositions(currentIndex);
+    });
+  })();
+
 });
 
