@@ -2511,6 +2511,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 
 .services-main-head .text-gold,
+.services-main-head .text-yellow,
 .services-main-head .text-maroon,
 .text-maroon {
   color: #6E1027;
