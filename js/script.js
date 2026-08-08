@@ -169,6 +169,12 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function go(i) {
+      // Pause previous active slide video to save GPU/CPU performance
+      const prevVideo = slides[index].querySelector('.hero-video');
+      if (prevVideo) {
+        prevVideo.pause();
+      }
+
       slides[index].classList.remove('active');
       if (dots[index]) dots[index].classList.remove('active');
       index = i;
@@ -224,6 +230,18 @@ document.addEventListener('DOMContentLoaded', () => {
       nextBtn.addEventListener('click', () => { nextSlide(); startAutoplay(); });
     }
 
+    // Pause all video elements initially except for the active slide (index 0)
+    slides.forEach((slide, i) => {
+      const video = slide.querySelector('.hero-video');
+      if (video) {
+        if (i === 0) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }
+    });
+
     startAutoplay();
   })();
 
@@ -233,6 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const container = video.classList.contains('hero-video')
         ? video.closest('.hero-slide')
         : video.closest('.about-banner');
+      
+      // Handle race condition if video is already loaded/cached
+      if (video.readyState >= 3) {
+        video.classList.add('is-playing');
+        container?.classList.add('has-video');
+      }
       
       video.addEventListener('canplay', () => {
         video.classList.add('is-playing');
@@ -244,7 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
         video.remove();
       }, true);
       
-      video.play().catch(() => {});
+      if (video.classList.contains('hero-video')) {
+        const isActive = video.closest('.hero-slide')?.classList.contains('active');
+        if (isActive) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      } else {
+        video.play().catch(() => {});
+      }
     });
   })();
 
