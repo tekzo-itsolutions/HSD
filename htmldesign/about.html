@@ -399,21 +399,21 @@
   <div class="gallery-3d-viewport">
     <div class="gallery-3d-slides" id="about3dSlides">
       
-      <!-- Slide 1: Branded Room Kit -->
+      <!-- Slide 1: Luxury Suite Stay -->
       <div class="gallery-3d-slide active" data-index="0">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/about-slider-1.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/ChatGPT Image Aug 9, 2026, 02_41_30 PM.png');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Reception Lobby Lounge -->
+      <!-- Slide 2: Hotel Shree Daan Ambience -->
       <div class="gallery-3d-slide" data-index="1">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/about-slider-2.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/ChatGPT Image Aug 9, 2026, 03_00_06 PM.png');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Banquet Dining Hall -->
+      <!-- Slide 3: Deluxe Stay Experience -->
       <div class="gallery-3d-slide" data-index="2">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/about-slider-3.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png');"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
@@ -463,42 +463,109 @@
 <!-- ===== ABOUT BODY ===== -->
 <section class="section">
   <div class="about-body">
-    <div class="about-text reveal-up" style="margin-bottom: 45px;">
-      <p class="eyebrow">About Us</p>
-      <h2 style="font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--maroon); line-height: 1.2; margin-bottom: 12px;">Welcome To Hotel Shree Daan</h2>
-      <p class="about-lead" style="color: var(--gold); font-size: 1.35rem; font-style: italic; margin-bottom: 24px;">Best Experience lifetime happiness</p>
-      <p style="font-size: 1.08rem; line-height: 1.8; color: #5c534b; margin-bottom: 18px;">
-        Be it a business stay, social Stay, Leisure travel, meeting, workshop, seminar, training session or social events, there simply no occasion that hotel shree Daan cannot play the perfect host too.
-      </p>
-      <p style="font-size: 1.08rem; line-height: 1.8; color: #5c534b; margin-bottom: 30px;">
-        Equipped with all modern amenities that cater to different needs, we can customize our facilities to ensure that your is as unique an experience as you wish it ti be. All backed by state of the art communications systems and presentation facilities.
-      </p>
-    </div>
+    
+    <!-- 2-Column Grid Container -->
+    <div class="about-grid-container">
+      
+      <!-- LEFT COLUMN: HYPER-UNIQUE 3D ROTATING LUXURY PRISM SHOWCASE -->
+      <div class="about-3d-prism-showcase reveal-up">
+        
+        <div class="prism-3d-scene" id="prismScene">
+          <!-- Ambient Gold Glow Orb behind 3D Prism -->
+          <div class="prism-glow-orb"></div>
 
-    <!-- Key Amenities Row -->
-    <div class="about-amenities-highlight reveal-up" style="display: flex; gap: 40px; justify-content: center; margin-bottom: 60px; flex-wrap: wrap;">
-      <div class="amenity-highlight-item" style="text-align: center; padding: 24px 30px; background: rgba(110, 16, 39, 0.04); border: 1px solid rgba(110, 16, 39, 0.08); border-radius: 8px; min-width: 185px; flex: 1; max-width: 250px;">
-        <div style="font-size: 2.2rem; margin-bottom: 12px;">🍳</div>
-        <h4 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--maroon); margin-bottom: 4px;">Breakfast</h4>
-        <p style="font-size: 0.85rem; color: #7a6e65; line-height: 1.4;">Complimentary fresh morning buffet</p>
+          <!-- 3D Cube / Prism Track -->
+          <div class="prism-3d-cube" id="aboutPrismCube">
+            
+            <!-- Face 1 (Front: 0deg) -->
+            <div class="cube-face face-front active">
+              <div class="face-img-box">
+                <img src="../assets/images/ChatGPT Image Aug 9, 2026, 02_41_30 PM.png" alt="Hotel Shree Daan Luxury Suite">
+                <div class="face-gold-border"></div>
+              </div>
+            </div>
+
+            <!-- Face 2 (Right: 90deg) -->
+            <div class="cube-face face-right">
+              <div class="face-img-box">
+                <img src="../assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png" alt="Hotel Shree Daan Reception &amp; Lobby">
+                <div class="face-gold-border"></div>
+              </div>
+            </div>
+
+            <!-- Face 3 (Back: 180deg) -->
+            <div class="cube-face face-back">
+              <div class="face-img-box">
+                <img src="../assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png" alt="Hotel Shree Daan Deluxe Stay">
+                <div class="face-gold-border"></div>
+              </div>
+            </div>
+
+            <!-- Face 4 (Left: 270deg) -->
+            <div class="cube-face face-left">
+              <div class="face-img-box">
+                <img src="../assets/images/ChatGPT Image Aug 9, 2026, 03_00_06 PM.png" alt="Hotel Shree Daan Ambience">
+                <div class="face-gold-border"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3D Controls -->
+          <button class="prism-nav-btn prev-btn" id="prismPrev" aria-label="Rotate Previous">‹</button>
+          <button class="prism-nav-btn next-btn" id="prismNext" aria-label="Rotate Next">›</button>
+
+        </div>
+
       </div>
-      <div class="amenity-highlight-item" style="text-align: center; padding: 24px 30px; background: rgba(110, 16, 39, 0.04); border: 1px solid rgba(110, 16, 39, 0.08); border-radius: 8px; min-width: 185px; flex: 1; max-width: 250px;">
-        <div style="font-size: 2.2rem; margin-bottom: 12px;">🚘</div>
-        <h4 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--maroon); margin-bottom: 4px;">Pick &amp; Drop</h4>
-        <p style="font-size: 0.85rem; color: #7a6e65; line-height: 1.4;">Reliable luxury travel service</p>
+
+      <!-- RIGHT COLUMN: ABOUT TEXT & KEY AMENITIES -->
+      <div class="about-content-col reveal-up">
+        <p class="eyebrow">About Us</p>
+        <h2 class="about-main-title">
+          <span class="welcome-text">Welcome To</span> Hotel Shree Daan
+        </h2>
+        <p class="about-lead" style="color: var(--gold); font-size: 1.3rem; font-style: italic; margin-bottom: 18px;">Best Experience lifetime happiness</p>
+        <p class="about-desc">
+          Be it a business stay, social Stay, Leisure travel, meeting, workshop, seminar, training session or social events, there simply no occasion that hotel shree Daan cannot play the perfect host too.
+        </p>
+        <p class="about-desc">
+          Equipped with all modern amenities that cater to different needs, we can customize our facilities to ensure that your is as unique an experience as you wish it ti be. All backed by state of the art communications systems and presentation facilities.
+        </p>
+
+        <!-- Key Amenities Row -->
+        <div class="about-amenities-highlight">
+          <div class="amenity-highlight-item">
+            <div class="amenity-icon">🍳</div>
+            <h4>Breakfast</h4>
+            <p>Complimentary fresh morning buffet</p>
+          </div>
+          <div class="amenity-highlight-item">
+            <div class="amenity-icon">🚘</div>
+            <h4>Pick &amp; Drop</h4>
+            <p>Reliable luxury travel service</p>
+          </div>
+          <div class="amenity-highlight-item">
+            <div class="amenity-icon">📶</div>
+            <h4>Free WiFi</h4>
+            <p>High-speed fiber connectivity</p>
+          </div>
+        </div>
       </div>
-      <div class="amenity-highlight-item" style="text-align: center; padding: 24px 30px; background: rgba(110, 16, 39, 0.04); border: 1px solid rgba(110, 16, 39, 0.08); border-radius: 8px; min-width: 185px; flex: 1; max-width: 250px;">
-        <div style="font-size: 2.2rem; margin-bottom: 12px;">📶</div>
-        <h4 style="font-family: var(--font-display); font-size: 1.2rem; color: var(--maroon); margin-bottom: 4px;">Free WiFi</h4>
-        <p style="font-size: 0.85rem; color: #7a6e65; line-height: 1.4;">High-speed fiber connectivity</p>
-      </div>
+
     </div>
 
     
-    <!-- Couple Friendly & Pet Friendly Rooms Callout -->
-    <div class="about-rooms-callout reveal-up" style="text-align: center; margin: 60px auto 20px; max-width: 800px; padding: 40px 20px; border-top: 1px solid rgba(110, 16, 39, 0.12); border-bottom: 1px solid rgba(110, 16, 39, 0.12);">
-      <h3 style="font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--maroon); font-weight: 400; line-height: 1.35; letter-spacing: 0.02em; margin: 0;">
-        We have Couple Friendly Rooms <span style="color: var(--gold); font-family: sans-serif; font-size: 0.85em; vertical-align: middle; margin: 0 10px;">&amp;</span> Pet Friendly Rooms
+    <!-- Couple Friendly & Pet Friendly Rooms Callout (Spa Dark Theme + Animated Dog Effect) -->
+    <div class="about-rooms-callout reveal-up">
+      <div class="callout-header-tag">
+        <span class="tag-couple">🥂 Couple Friendly</span>
+        <span class="tag-dot">✦</span>
+        <span class="tag-pet">🐶 Pet Friendly Luxury</span>
+      </div>
+
+      <h3>
+        We have Couple Friendly Rooms <span class="amp-symbol">&amp;</span> <span class="pet-highlight">Pet Friendly Rooms <span class="animated-dog-paw" title="Pets Welcome!">🐶</span></span>
       </h3>
     </div>
   </div>
@@ -976,6 +1043,93 @@
       }
     })();
   });
+</script>
+
+<!-- Hyper-Unique 3D Rotating Luxury Prism Showcase Script -->
+<script>
+  (function() {
+    function init3DPrism() {
+      const cube = document.getElementById('aboutPrismCube');
+      if (!cube) return;
+
+      const faces = Array.from(cube.querySelectorAll('.cube-face'));
+      const dots = Array.from(document.querySelectorAll('#prismDots .dot-item'));
+      const prevBtn = document.getElementById('prismPrev');
+      const nextBtn = document.getElementById('prismNext');
+      const scene = document.getElementById('prismScene');
+
+      let currentIndex = 0;
+      let autoTimer = null;
+      let tiltX = 0, tiltY = 0;
+
+      function updateCube(index) {
+        currentIndex = (index + faces.length) % faces.length;
+
+        let tz = 250;
+        if (window.innerWidth <= 576) tz = 130;
+        else if (window.innerWidth <= 992) tz = 180;
+        else if (window.innerWidth <= 1200) tz = 200;
+
+        const angle = -currentIndex * 90;
+        cube.style.transform = `translateZ(-${tz}px) rotateY(${angle + tiltY}deg) rotateX(${tiltX}deg)`;
+
+        faces.forEach((face, i) => {
+          face.classList.toggle('active', i === currentIndex);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentIndex);
+        });
+      }
+
+      function nextFace() { updateCube(currentIndex + 1); }
+      function prevFace() { updateCube(currentIndex - 1); }
+
+      if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); nextFace(); resetTimer(); });
+      if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prevFace(); resetTimer(); });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const faceIdx = parseInt(dot.getAttribute('data-face'), 10);
+          updateCube(faceIdx);
+          resetTimer();
+        });
+      });
+
+      // 3D Parallax Tilt on Mouse Move
+      if (scene) {
+        scene.addEventListener('mousemove', (e) => {
+          const rect = scene.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          tiltY = (x / rect.width) * 15;
+          tiltX = -(y / rect.height) * 15;
+          updateCube(currentIndex);
+        });
+
+        scene.addEventListener('mouseleave', () => {
+          tiltX = 0;
+          tiltY = 0;
+          updateCube(currentIndex);
+          startTimer();
+        });
+
+        scene.addEventListener('mouseenter', () => clearInterval(autoTimer));
+      }
+
+      function startTimer() { autoTimer = setInterval(nextFace, 3600); }
+      function resetTimer() { clearInterval(autoTimer); startTimer(); }
+
+      updateCube(0);
+      startTimer();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init3DPrism);
+    } else {
+      init3DPrism();
+    }
+  })();
 </script>
 </body>
 </html>

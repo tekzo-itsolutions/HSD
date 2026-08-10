@@ -2511,6 +2511,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 
 .services-main-head .text-gold,
+.services-main-head .text-yellow,
 .services-main-head .text-maroon,
 .text-maroon {
   color: #6E1027;
@@ -2804,8 +2805,441 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   .services-3d-next { right: 15px; }
 }
 
-@media (max-width: 640px) {
-  .services-3d-viewport { height: 360px; }
-  .service-3d-card { width: 310px; height: 230px; margin-top: -115px; margin-left: -155px; }
-  .services-3d-arrow { width: 42px; height: 42px; font-size: 1.3rem; }
+
+/* ===== PET & COUPLE ROOMS CALLOUT (SPA THEME + DOG/PET ANIMATED EFFECT) ===== */
+.about-rooms-callout {
+  text-align: center;
+  margin: 60px auto 30px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 40px 30px;
+  background: radial-gradient(ellipse at 50% 50%, #243425 0%, #1c261d 45%, #14090C 100%);
+  border-top: 1.5px solid transparent;
+  border-bottom: 1.5px solid transparent;
+  border-image: linear-gradient(90deg, transparent 0%, var(--gold) 20%, var(--gold-glow) 50%, var(--gold) 80%, transparent 100%) 1;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+  
+  /* Smooth stylish gradient fade on left and right sides */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
+  
+  transition: all 0.4s var(--ease);
 }
+
+.about-rooms-callout:hover {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.callout-header-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tag-couple, .tag-pet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(232, 199, 102, 0.08);
+  border: 1px solid rgba(232, 199, 102, 0.25);
+  border-radius: 20px;
+  color: var(--gold-glow);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.tag-pet {
+  border-color: rgba(232, 199, 102, 0.45);
+  box-shadow: 0 0 12px rgba(232, 199, 102, 0.18);
+}
+
+.about-rooms-callout:hover .tag-pet {
+  background: rgba(232, 199, 102, 0.2);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 0 20px rgba(232, 199, 102, 0.4);
+}
+
+.tag-dot {
+  color: var(--gold);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+
+.about-rooms-callout h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--ivory);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 2;
+}
+
+.pet-highlight {
+  position: relative;
+  display: inline-block;
+  color: var(--ivory);
+  transition: color 0.3s ease;
+}
+
+.about-rooms-callout:hover .pet-highlight {
+  color: #FFFFFF;
+}
+
+/* Animated Playful Dog Paw Icon */
+.animated-dog-paw {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 1.15em;
+  vertical-align: middle;
+  color: var(--gold-glow);
+  filter: drop-shadow(0 0 8px rgba(232, 199, 102, 0.85));
+  animation: dogPawPlayful 2.8s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  transform-origin: bottom center;
+  cursor: pointer;
+}
+
+@keyframes dogPawPlayful {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    filter: drop-shadow(0 0 8px rgba(232, 199, 102, 0.85));
+  }
+  20% {
+    transform: translateY(-6px) rotate(-14deg) scale(1.22);
+    filter: drop-shadow(0 0 16px rgba(232, 199, 102, 1));
+  }
+  40% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  60% {
+    transform: translateY(-6px) rotate(14deg) scale(1.22);
+    filter: drop-shadow(0 0 16px rgba(232, 199, 102, 1));
+  }
+  80% {
+    transform: translateY(-2px) rotate(0deg) scale(1.05);
+  }
+}
+
+/* Ambient Background Floating Paw Watermarks */
+.bg-paw {
+  position: absolute;
+  font-size: 2.8rem;
+  color: var(--gold-glow);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+  animation: floatPaw 6s infinite ease-in-out alternate;
+  z-index: 1;
+}
+
+.bg-paw.paw-left {
+  top: 20%;
+  left: 10%;
+  transform: rotate(-20deg);
+}
+
+.bg-paw.paw-right {
+  bottom: 20%;
+  right: 10%;
+  transform: rotate(25deg);
+  animation-delay: 3s;
+}
+
+@keyframes floatPaw {
+  0% { transform: translateY(0) rotate(-20deg) scale(1); opacity: 0.07; }
+  100% { transform: translateY(-10px) rotate(-10deg) scale(1.15); opacity: 0.14; }
+}
+
+.about-rooms-callout .amp-symbol {
+  color: var(--gold-glow);
+  font-family: sans-serif;
+  font-size: 0.85em;
+  vertical-align: middle;
+  margin: 0 10px;
+  text-shadow: 0 0 12px rgba(232, 199, 102, 0.6);
+}
+
+/* ===== 2-COLUMN ABOUT LAYOUT WITH 3D IMAGE SHOWCASE ===== */
+.about-grid-container {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 40px;
+  align-items: center;
+  max-width: 1320px;
+  margin: 0 auto 60px;
+  padding: 0 20px;
+}
+
+/* ===== HYPER-UNIQUE 3D ROTATING LUXURY PRISM SHOWCASE ===== */
+.about-3d-prism-showcase {
+  position: relative;
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prism-3d-scene {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  perspective: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient Gold Glow behind 3D Prism */
+.prism-glow-orb {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232, 199, 102, 0.35) 0%, rgba(110, 16, 39, 0.15) 50%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 3D Cube Container - 4:3 ASPECT RATIO FIT (500px x 375px) */
+.prism-3d-cube {
+  position: relative;
+  width: 500px;
+  height: 375px;
+  transform-style: preserve-3d;
+  transform: translateZ(-250px) rotateY(0deg);
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.35, 1);
+  z-index: 1;
+}
+
+/* 3D Cube Faces */
+.cube-face {
+  position: absolute;
+  width: 500px;
+  height: 375px;
+  top: 0;
+  left: 0;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 55px rgba(20, 9, 12, 0.28), 0 0 25px rgba(0,0,0,0.12);
+  background: var(--ivory);
+  backface-visibility: hidden;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.cube-face.face-front { transform: rotateY(0deg) translateZ(250px); }
+.cube-face.face-right { transform: rotateY(90deg) translateZ(250px); }
+.cube-face.face-back  { transform: rotateY(180deg) translateZ(250px); }
+.cube-face.face-left  { transform: rotateY(270deg) translateZ(250px); }
+
+.face-img-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ivory);
+}
+
+/* 100% FULL IMAGE CONTENT FIT (All staff members, arms, lion statue, and details fully visible!) */
+.face-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  transition: transform 0.6s var(--ease);
+}
+
+.face-gold-border {
+  position: absolute;
+  inset: 0;
+  border: 2px solid rgba(201, 162, 39, 0.45);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.cube-face.active .face-gold-border {
+  border-color: var(--gold-glow);
+  box-shadow: inset 0 0 35px rgba(232, 199, 102, 0.35);
+}
+
+.cube-face.active:hover img {
+  transform: scale(1.04);
+}
+
+/* 3D Nav Buttons */
+.prism-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(20, 9, 12, 0.8);
+  backdrop-filter: blur(8px);
+  color: var(--gold-glow);
+  font-size: 1.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(232, 199, 102, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.prism-nav-btn.prev-btn { left: -15px; }
+.prism-nav-btn.next-btn { right: -15px; }
+
+.prism-nav-btn:hover {
+  background: var(--maroon);
+  color: var(--ivory);
+  border-color: var(--gold-glow);
+  transform: translateY(-50%) scale(1.12);
+  box-shadow: 0 0 18px rgba(232, 199, 102, 0.5);
+}
+
+/* Dots Indicator */
+.prism-dots-nav {
+  display: none !important;
+}
+
+.prism-dots-nav .dot-item {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(110, 16, 39, 0.2);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prism-dots-nav .dot-item.active {
+  width: 34px;
+  border-radius: 10px;
+  background: var(--maroon);
+  border-color: var(--gold-glow);
+  box-shadow: 0 0 12px rgba(232, 199, 102, 0.45);
+}
+
+/* Right Content Column Styling */
+.about-content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  color: var(--maroon);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.about-main-title .welcome-text {
+  color: #000000;
+}
+
+.about-desc {
+  font-size: 1.02rem;
+  line-height: 1.75;
+  color: #5c534b;
+  margin-bottom: 16px;
+}
+
+/* Amenities Row inside Right Column */
+.about-content-col .about-amenities-highlight {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.about-content-col .amenity-highlight-item {
+  text-align: center;
+  padding: 16px 14px;
+  background: rgba(110, 16, 39, 0.04);
+  border: 1px solid rgba(110, 16, 39, 0.1);
+  border-radius: 10px;
+  flex: 1;
+  min-width: 130px;
+  transition: all 0.3s ease;
+}
+
+.about-content-col .amenity-highlight-item:hover {
+  background: rgba(110, 16, 39, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(110, 16, 39, 0.08);
+}
+
+.about-content-col .amenity-icon {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.about-content-col .amenity-highlight-item h4 {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  color: var(--maroon);
+  margin-bottom: 2px;
+}
+
+.about-content-col .amenity-highlight-item p {
+  font-size: 0.78rem;
+  color: #7a6e65;
+  line-height: 1.35;
+}
+
+/* Responsive adjustments for 2-column layout */
+@media (max-width: 1200px) {
+  .prism-3d-scene { height: 420px; }
+  .prism-3d-cube, .cube-face { width: 400px; height: 360px; }
+  .cube-face.face-front { transform: rotateY(0deg) translateZ(200px); }
+  .cube-face.face-right { transform: rotateY(90deg) translateZ(200px); }
+  .cube-face.face-back  { transform: rotateY(180deg) translateZ(200px); }
+  .cube-face.face-left  { transform: rotateY(270deg) translateZ(200px); }
+}
+
+@media (max-width: 992px) {
+  .about-grid-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .prism-3d-scene { height: 380px; }
+  .prism-3d-cube, .cube-face { width: 360px; height: 320px; }
+  .cube-face.face-front { transform: rotateY(0deg) translateZ(180px); }
+  .cube-face.face-right { transform: rotateY(90deg) translateZ(180px); }
+  .cube-face.face-back  { transform: rotateY(180deg) translateZ(180px); }
+  .cube-face.face-left  { transform: rotateY(270deg) translateZ(180px); }
+}
+
+@media (max-width: 576px) {
+  .prism-3d-scene { height: 280px; }
+  .prism-3d-cube, .cube-face { width: 260px; height: 240px; }
+  .cube-face.face-front { transform: rotateY(0deg) translateZ(130px); }
+  .cube-face.face-right { transform: rotateY(90deg) translateZ(130px); }
+  .cube-face.face-back  { transform: rotateY(180deg) translateZ(130px); }
+  .cube-face.face-left  { transform: rotateY(270deg) translateZ(130px); }
+  .prism-nav-btn { width: 38px; height: 38px; font-size: 1.2rem; }
+}
+
