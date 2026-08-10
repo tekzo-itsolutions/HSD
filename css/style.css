@@ -288,7 +288,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 .logo { display: flex; align-items: center; gap: 12px; color: var(--white); }
 .logo-img {
-  height: 46px;
+  height: 55px;
   width: auto;
   display: block;
   object-fit: contain;
