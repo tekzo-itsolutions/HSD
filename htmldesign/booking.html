@@ -1138,46 +1138,60 @@
             <h3>CHECK AVAILABILITY</h3>
           </div>
 
-          <div class="field" style="margin-bottom: 10px;">
-            <label for="guestName">GUEST FULL NAME</label>
-            <input type="text" id="guestName" required placeholder="Enter guest name">
+          <div id="bookingFormFields">
+            <div class="field" style="margin-bottom: 10px;">
+              <label for="guestName">GUEST FULL NAME</label>
+              <input type="text" id="guestName" required placeholder="Enter guest name">
+            </div>
+
+            <div class="field-row" style="margin-bottom: 10px;">
+              <div class="field">
+                <label for="guestPhone">PHONE NUMBER</label>
+                <input type="tel" id="guestPhone" required placeholder="Enter phone number">
+              </div>
+              <div class="field">
+                <label for="guestEmail">EMAIL ADDRESS</label>
+                <input type="email" id="guestEmail" placeholder="Enter email address">
+              </div>
+            </div>
+
+            <div class="field-row" style="margin-bottom: 10px;">
+              <div class="field">
+                <label for="checkIn">CHECK IN DATE</label>
+                <input type="date" id="checkIn" required>
+              </div>
+              <div class="field">
+                <label for="checkOut">CHECK OUT DATE</label>
+                <input type="date" id="checkOut" required>
+              </div>
+            </div>
+
+            <div class="field-row" id="guestsRow" style="margin-bottom: 10px;">
+              <div class="field">
+                <label for="adults">NO. OF ADULTS</label>
+                <select id="adults">
+                  <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="children">NO. OF CHILDREN'S</label>
+                <select id="children">
+                  <option selected>0</option><option>1</option><option>2</option><option>3</option>
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div class="field-row" style="margin-bottom: 10px;">
-            <div class="field">
-              <label for="guestPhone">PHONE NUMBER</label>
-              <input type="tel" id="guestPhone" required placeholder="Enter phone number">
+          <div id="banquetContactNotice" style="display: none; text-align: center; padding: 30px 15px; background: rgba(110, 16, 39, 0.03); border: 1px dashed rgba(110, 16, 39, 0.2); border-radius: 8px;">
+            <p style="font-size: 1.15rem; line-height: 1.6; color: var(--maroon); font-weight: 600; margin-bottom: 15px;">
+              To book the Banquet Hall, please contact the hotel directly:
+            </p>
+            <div style="font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; color: var(--maroon); margin-bottom: 15px;">
+              <a href="tel:+917874050009" style="color: inherit; text-decoration: none;">+91 78740 50009</a>
             </div>
-            <div class="field">
-              <label for="guestEmail">EMAIL ADDRESS</label>
-              <input type="email" id="guestEmail" placeholder="Enter email address">
-            </div>
-          </div>
-
-          <div class="field-row" style="margin-bottom: 10px;">
-            <div class="field">
-              <label for="checkIn">CHECK IN DATE</label>
-              <input type="date" id="checkIn" required>
-            </div>
-            <div class="field">
-              <label for="checkOut">CHECK OUT DATE</label>
-              <input type="date" id="checkOut" required>
-            </div>
-          </div>
-
-          <div class="field-row" id="guestsRow" style="margin-bottom: 10px;">
-            <div class="field">
-              <label for="adults">NO. OF ADULTS</label>
-              <select id="adults">
-                <option>1</option><option selected>2</option><option>3</option><option>4</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="children">NO. OF CHILDREN'S</label>
-              <select id="children">
-                <option selected>0</option><option>1</option><option>2</option><option>3</option>
-              </select>
-            </div>
+            <p style="font-size: 0.92rem; color: #5c534b; line-height: 1.5; margin: 0;">
+              Our dedicated events team will assist you with custom quotes, capacity setups, and layout planning.
+            </p>
           </div>
 
           <!-- Hidden roomType select for tariff calculation & invoicing -->
@@ -1187,7 +1201,7 @@
             <option value="standard-double" data-price="2200">Standard Double — ₹2,200/night</option>
             <option value="executive-double" data-price="2600">Executive Double — ₹2,600/night</option>
             <option value="standard-single" data-price="2000">Standard Single — ₹2,000/night</option>
-            <option value="banquet-hall" data-price="4000">Banquet Hall — ₹4,000/night</option>
+            <option value="banquet-hall" data-price="0">Banquet Hall — Contact Hotel</option>
           </select>
         </div>
 
@@ -1200,7 +1214,7 @@
           <h3 id="displayRoomName">PREMIER SUITE</h3>
           <div class="price-line">
             <strong id="displayRoomPrice">₹ 3,600</strong>
-            <span>/ NIGHT</span>
+            <span id="perNightLabel">/ NIGHT</span>
           </div>
           <p id="displayRoomMeta" class="room-meta-sub">Luxury Suite with Private Oasis View</p>
         </div>
@@ -1256,7 +1270,7 @@
 </section>
 
 <!-- ===== ROOM FEATURES / SPECIFICATIONS SECTION (ULTRA PREMIUM STYLED) ===== -->
-<section class="room-features-section">
+<section class="room-features-section" id="roomFeaturesSection">
   <div class="room-features-container">
     <div class="features-premium-header">
       <div class="features-eyebrow">
@@ -1750,7 +1764,6 @@
               "BREAKFAST INCLUDED - YES",
               "ROOM SERVICE - 24 X 7",
               "A/C INCLUDED",
-              "REFRIGERATOR",
               "MAX - 3 PEOPLE",
               "ELECTRONIC SAFE",
               "ROOM SIZE - 180 SQ. FT."
@@ -1798,7 +1811,6 @@
               "BREAKFAST INCLUDED - YES",
               "ROOM SERVICE - 24 X 7",
               "A/C INCLUDED",
-              "REFRIGERATOR",
               "MAX - 3 PEOPLE",
               "ELECTRONIC SAFE",
               "ROOM SIZE - 180 SQ. FT."
@@ -1830,26 +1842,14 @@
           },
           'banquet-hall': {
             name: 'Banquet Hall',
-            price: '₹4,000',
+            price: 'Contact Hotel',
             meta: 'Grand Event Space for Weddings, Conferences & Exhibitions',
             slides: [
               '../assets/images/test_rooms/shree Bord Rooms 1.jpg',
               '../assets/images/test_rooms/shree Bord Rooms 2.jpg'
             ],
-            featuresTitle: "BANQUET HALL'S / FEATURES",
-            features: [
-              "CAPACITY - 50 TO 300 PAX",
-              "IDEAL FOR - WEDDINGS, CORPORATE EVENTS & PARTY",
-              "ADVANCED AV SYSTEM & LED SCREEN",
-              "CUSTOM STAGE & SEATING SETUP",
-              "GOURMET IN-HOUSE CATERING AREA",
-              "CENTRALIZED A/C COVERAGE",
-              "HIGH-SPEED WIFI INCLUDED",
-              "100% POWER BACKUP & GENERATOR",
-              "AMPLE GUEST PARKING AREA",
-              "DEDICATED EVENT MANAGEMENT SERVICE",
-              "HALL SIZE - 3,500 SQ. FT."
-            ]
+            featuresTitle: "",
+            features: []
           }
         };
 
