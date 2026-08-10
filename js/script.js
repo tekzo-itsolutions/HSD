@@ -426,9 +426,15 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="room-body">
           <h3>${r.name}</h3>
-          <p class="room-price">₹${r.price.toLocaleString('en-IN')} <span>/ night</span></p>
+          <p class="room-price">
+            ${r.id === 'banquet-hall' 
+              ? 'Contact Hotel' 
+              : `₹${r.price.toLocaleString('en-IN')} <span>/ night</span>`}
+          </p>
           <div class="room-facilities">${r.facilities.map(f => `<span>${f}</span>`).join('')}</div>
-          <button class="btn btn-gold" data-room="${r.id}">Book Now</button>
+          <button class="btn btn-gold" data-room="${r.id}">
+            ${r.id === 'banquet-hall' ? 'Contact Hotel' : 'Book Now'}
+          </button>
         </div>
       </div>
     `).join('');
@@ -613,14 +619,25 @@ document.addEventListener('DOMContentLoaded', () => {
       if (summaryRoom) summaryRoom.textContent = selectedOption.textContent.split(' — ')[0];
       if (summaryTotal) summaryTotal.textContent = `₹${total.toLocaleString('en-IN')}`;
 
-      // Dynamically toggle Adults/Children field row for Banquet Hall
-      const guestsRow = document.getElementById('guestsRow');
-      if (guestsRow) {
-        if (roomTypeEl.value === 'banquet-hall') {
-          guestsRow.style.display = 'none';
-        } else {
-          guestsRow.style.display = '';
-        }
+      // Dynamically toggle elements for Banquet Hall vs standard rooms
+      const bookingFormFields = document.getElementById('bookingFormFields');
+      const banquetContactNotice = document.getElementById('banquetContactNotice');
+      const roomFeaturesSection = document.getElementById('roomFeaturesSection');
+      const perNightLabel = document.getElementById('perNightLabel');
+      const bookActionBlock = document.querySelector('.book-action-block');
+
+      if (roomTypeEl.value === 'banquet-hall') {
+        if (bookingFormFields) bookingFormFields.style.display = 'none';
+        if (banquetContactNotice) banquetContactNotice.style.display = 'block';
+        if (roomFeaturesSection) roomFeaturesSection.style.display = 'none';
+        if (perNightLabel) perNightLabel.style.display = 'none';
+        if (bookActionBlock) bookActionBlock.style.display = 'none';
+      } else {
+        if (bookingFormFields) bookingFormFields.style.display = '';
+        if (banquetContactNotice) banquetContactNotice.style.display = 'none';
+        if (roomFeaturesSection) roomFeaturesSection.style.display = '';
+        if (perNightLabel) perNightLabel.style.display = '';
+        if (bookActionBlock) bookActionBlock.style.display = '';
       }
 
       // Keep checkout min a day after checkin
