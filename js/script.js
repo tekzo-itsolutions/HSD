@@ -767,102 +767,172 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   function formatDate(str) {
     if (!str) return '—';
     const d = new Date(str);
     return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
-  /* ---------- 15. GALLERY (15 SQUARE PHOTOS WITH LIGHTBOX) ---------- */
+  /* ---------- 15. GALLERY (9 HOTEL PHOTOS WITH LIGHTBOX) ---------- */
   const GALLERY_ITEMS = [
     {
-      label: 'Premier Suite Canopy Bed',
-      category: 'premier-suite',
-      src: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
-    },
-    {
-      label: 'Premier Suite Luxury Seating',
-      category: 'premier-suite',
-      src: 'https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
-    },
-    {
-      label: 'Premier Master Bath & Shower',
-      category: 'premier-suite',
-      src: '../assets/images/heritage_hotel_suite_1784609202334.jpg',
-      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
-    },
-    {
-      label: 'Executive King Bed Room',
+      label: 'Executive Rooms',
       category: 'executive-rooms',
-      src: 'https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png',
       gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Executive Workspace Desk',
+      label: 'Executive Rooms',
       category: 'executive-rooms',
-      src: 'https://images.pexels.com/photos/2215067/pexels-photo-2215067.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_23_57 AM.png',
       gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Executive Room Window Lounge',
+      label: 'Premier Suite',
+      category: 'premier-suite',
+      src: '../assets/images/ChatGPT Image Aug 11, 2026, 10_40_10 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Executive Rooms',
       category: 'executive-rooms',
-      src: 'https://images.pexels.com/photos/2079293/pexels-photo-2079293.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_25_56 AM.png',
       gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
     },
     {
-      label: 'Standard Double Bed Comfort',
+      label: 'Standard Rooms',
       category: 'standard-rooms',
-      src: 'https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_26_16 AM.png',
       gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
     },
     {
-      label: 'Standard Twin Bedroom Setup',
+      label: 'Standard Rooms',
       category: 'standard-rooms',
-      src: 'https://images.pexels.com/photos/262048/pexels-photo-262048.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png',
       gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
     },
     {
-      label: 'Standard Cozy Queen Room',
+      label: 'Standard Rooms',
       category: 'standard-rooms',
-      src: 'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 01_37_14 PM.png',
       gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
     },
     {
-      label: 'Grand Executive Boardroom',
+      label: 'Banquet Halls',
       category: 'banquet-halls',
-      src: 'https://images.pexels.com/photos/260686/pexels-photo-260686.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 11, 2026, 11_30_47 PM.png',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
-      label: 'Corporate Meeting Room',
+      label: 'Banquet Halls',
       category: 'banquet-halls',
-      src: 'https://images.pexels.com/photos/1181398/pexels-photo-1181398.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png',
       gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
     },
     {
-      label: 'Mini Discussion Boardroom',
-      category: 'banquet-halls',
-      src: 'https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800',
-      gradient: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)'
-    },
-    {
-      label: 'Premium Tea & Coffee Kit',
+      label: 'Room Kit',
       category: 'room-kit',
-      src: 'https://images.pexels.com/photos/3259624/pexels-photo-3259624.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 05_59_38 PM.png',
       gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
     },
     {
-      label: 'Herbal Bathroom Toiletries Kit',
+      label: 'Room Kit',
       category: 'room-kit',
-      src: 'https://images.pexels.com/photos/5472286/pexels-photo-5472286.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 03_10_52 PM.png',
+      gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
+    }
+  ];
+
+  const PREMIER_SUITE_ITEMS = [
+    {
+      label: 'Premier Suite',
+      category: 'premier-suite',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 02_20_56 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Premier Suite',
+      category: 'premier-suite',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 02_23_15 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Premier Suite',
+      category: 'premier-suite',
+      src: '../assets/images/ChatGPT Image Aug 11, 2026, 10_40_10 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    },
+    {
+      label: 'Premier Suite',
+      category: 'premier-suite',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 02_25_34 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)'
+    }
+  ];
+
+  const EXECUTIVE_ROOMS_ITEMS = [
+    {
+      label: 'Executive Rooms',
+      category: 'executive-rooms',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
+    },
+    {
+      label: 'Executive Rooms',
+      category: 'executive-rooms',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_23_57 AM.png',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
+    },
+    {
+      label: 'Executive Rooms',
+      category: 'executive-rooms',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_25_56 AM.png',
+      gradient: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)'
+    }
+  ];
+
+  const STANDARD_ROOMS_ITEMS = [
+    {
+      label: 'Standard Rooms',
+      category: 'standard-rooms',
+      src: '../assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Standard Rooms',
+      category: 'standard-rooms',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 01_37_14 PM.png',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    },
+    {
+      label: 'Standard Rooms',
+      category: 'standard-rooms',
+      src: '../assets/images/ChatGPT Image Aug 10, 2026, 12_26_16 AM.png',
+      gradient: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)'
+    }
+  ];
+
+  const ROOM_KIT_ITEMS = [
+    {
+      label: 'Room Kit',
+      category: 'room-kit',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 05_59_38 PM.png',
       gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
     },
     {
-      label: 'Luxury Embroidered Spa Robes',
+      label: 'Room Kit',
       category: 'room-kit',
-      src: 'https://images.pexels.com/photos/6419128/pexels-photo-6419128.jpeg?auto=compress&cs=tinysrgb&w=800',
+      src: '../assets/images/ChatGPT Image Aug 12, 2026, 03_10_52 PM.png',
       gradient: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)'
     }
   ];
@@ -873,8 +943,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderGallery() {
     if (!galleryGrid) return;
     galleryGrid.innerHTML = filteredGalleryItems.map((item, i) => `
-      <div class="gallery-item reveal-up in-view" data-index="${i}" style="background:${item.gradient};">
-        <img src="${item.src}" alt="${escapeHtml(item.label)}" class="gallery-item-img" loading="lazy" onerror="this.style.display='none';">
+      <div class="gallery-item reveal-up in-view" data-index="${i}" data-category="${item.category}" onclick="openLightbox(${i})" style="background:${item.gradient};">
+        <img src="${item.src}" alt="${escapeHtml(item.label)}" class="gallery-item-img" loading="lazy">
         <span class="g-label">
           <span>${escapeHtml(item.label)}</span>
         </span>
@@ -893,12 +963,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (filterVal === 'all') {
           filteredGalleryItems = [...GALLERY_ITEMS];
+        } else if (filterVal === 'premier-suite') {
+          filteredGalleryItems = [...PREMIER_SUITE_ITEMS];
+        } else if (filterVal === 'executive-rooms') {
+          filteredGalleryItems = [...EXECUTIVE_ROOMS_ITEMS];
+        } else if (filterVal === 'standard-rooms') {
+          filteredGalleryItems = [...STANDARD_ROOMS_ITEMS];
+        } else if (filterVal === 'room-kit') {
+          filteredGalleryItems = [...ROOM_KIT_ITEMS];
         } else {
           filteredGalleryItems = GALLERY_ITEMS.filter(item => item.category === filterVal);
         }
         renderGallery();
       });
     });
+
+    // Check if initial active filter is premier-suite, executive-rooms, standard-rooms, or room-kit
+    const initialActive = document.querySelector('.gallery-filter-bar .filter-btn.active');
+    if (initialActive) {
+      const initialFilterVal = initialActive.dataset.filter;
+      if (initialFilterVal === 'premier-suite') {
+        filteredGalleryItems = [...PREMIER_SUITE_ITEMS];
+      } else if (initialFilterVal === 'executive-rooms') {
+        filteredGalleryItems = [...EXECUTIVE_ROOMS_ITEMS];
+      } else if (initialFilterVal === 'standard-rooms') {
+        filteredGalleryItems = [...STANDARD_ROOMS_ITEMS];
+      } else if (initialFilterVal === 'room-kit') {
+        filteredGalleryItems = [...ROOM_KIT_ITEMS];
+      } else if (initialFilterVal !== 'all') {
+        filteredGalleryItems = GALLERY_ITEMS.filter(item => item.category === initialFilterVal);
+      }
+    }
   }
 
   // Delegated click handler for gallery items
@@ -929,32 +1024,53 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
+  window.openLightbox = openLightbox;
   
   function renderLightbox() {
     const item = filteredGalleryItems[lightboxIndex];
-    if (item) {
-      if (lightboxImg) {
-        lightboxImg.src = item.src;
-        lightboxImg.alt = item.label;
-      }
+    if (item && lightboxImg) {
+      lightboxImg.classList.remove('zoomed');
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.label;
+
+      // Re-trigger animation
+      lightboxImg.style.animation = 'none';
+      lightboxImg.offsetHeight; // trigger reflow
+      lightboxImg.style.animation = '';
+
       if (lightboxTitle) lightboxTitle.textContent = item.label;
       if (lightboxCounter) lightboxCounter.textContent = `Photo ${lightboxIndex + 1} of ${filteredGalleryItems.length}`;
     }
   }
 
+  // Toggle maximum zoom when clicking on the modal image
+  if (lightboxImg) {
+    lightboxImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      lightboxImg.classList.toggle('zoomed');
+    });
+  }
+
   const lightboxClose = document.getElementById('lightboxClose');
   if (lightboxClose) {
-    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeLightbox();
+    });
   }
+  
   if (lightbox) {
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox || e.target.id === 'lightboxContainer') closeLightbox();
+      if (e.target === lightbox || e.target.id === 'lightbox') {
+        closeLightbox();
+      }
     });
   }
   
   function closeLightbox() {
     if (!lightbox) return;
     lightbox.classList.add('hidden');
+    if (lightboxImg) lightboxImg.classList.remove('zoomed');
     document.body.style.overflow = '';
   }
 
@@ -982,6 +1098,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowLeft' && lightboxPrev) lightboxPrev.click();
     if (e.key === 'ArrowRight' && lightboxNext) lightboxNext.click();
   });
+
+  // Mobile swipe support for Lightbox
+  let lbTouchStartX = 0;
+  if (lightbox) {
+    lightbox.addEventListener('touchstart', (e) => {
+      lbTouchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+      if (lightbox.classList.contains('hidden')) return;
+      const touchEndX = e.changedTouches[0].screenX;
+      if (lbTouchStartX - touchEndX > 40 && lightboxNext) lightboxNext.click();
+      if (touchEndX - lbTouchStartX > 40 && lightboxPrev) lightboxPrev.click();
+    }, { passive: true });
+  }
 
   /* ---------- 16. CONTACT FORM ---------- */
   const contactForm = document.getElementById('contactForm');
