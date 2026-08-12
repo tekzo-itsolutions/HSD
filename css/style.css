@@ -1113,10 +1113,54 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 .room-card:hover .room-image .room-bg {
   transform: scale(1.08);
 }
+/* Card Image Slider */
+.card-slider-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.card-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+  transform: scale(1.05);
+}
+.card-slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+.card-slider-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 4;
+}
+.card-slider-dots .card-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.card-slider-dots .card-dot.active {
+  background: var(--gold, #c9a227);
+  width: 18px;
+  border-radius: 4px;
+}
 .room-image::after {
   content: '';
   position: absolute; inset: 0;
   background: linear-gradient(180deg, transparent 40%, rgba(20,9,12,0.65) 100%);
+  pointer-events: none;
 }
 .room-rating {
   position: absolute; top: 14px; right: 14px; z-index: 3;

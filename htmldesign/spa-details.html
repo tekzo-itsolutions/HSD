@@ -104,9 +104,27 @@
   .spa-booking-section {
     background: var(--ink);
     color: var(--ivory);
-    padding: 100px 40px;
+    padding: 70px 40px;
     position: relative;
     overflow: hidden;
+    max-width: 1200px;
+    margin: 60px auto;
+    border-radius: 24px;
+    border: 1px solid rgba(201, 162, 39, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+  @media (max-width: 1280px) {
+    .spa-booking-section {
+      margin: 50px 24px;
+      width: auto;
+    }
+  }
+  @media (max-width: 576px) {
+    .spa-booking-section {
+      margin: 30px 16px;
+      padding: 50px 20px;
+      border-radius: 16px;
+    }
   }
 
   /* ==========================================================================
@@ -611,6 +629,61 @@
     object-fit: cover;
     transition: opacity 0.3s ease;
   }
+  /* Body Scrub Showcase Auto-Slider */
+  .body-scrub-slider-wrapper {
+    position: relative;
+    height: 230px;
+    overflow: hidden;
+    background: #0d0608;
+  }
+  .body-scrub-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .body-scrub-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    transform: scale(1.05);
+  }
+  .body-scrub-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+  .body-scrub-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .body-scrub-slider-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+  }
+  .body-scrub-slider-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .body-scrub-slider-dots .dot.active {
+    background: #c9a227;
+    width: 22px;
+    border-radius: 4px;
+  }
   .spa-showcase-content {
     padding: 22px;
   }
@@ -645,26 +718,34 @@
     color: #8a8078;
     text-transform: uppercase;
   }
-  .spa-showcase-rates-list {
+  .spa-showcase-rates-container {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     width: 100%;
     margin-bottom: 16px;
-    padding: 10px 14px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 4px;
-    border: 1px solid rgba(201, 162, 39, 0.1);
+    padding: 12px 14px;
+    background: rgba(201, 162, 39, 0.05);
+    border-radius: 6px;
+    border: 1px solid rgba(201, 162, 39, 0.2);
   }
   .showcase-rate-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.82rem;
-    color: #a89f97;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #d1c7bd;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed rgba(201, 162, 39, 0.15);
+  }
+  .showcase-rate-row:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
   }
   .showcase-rate-row strong {
-    color: var(--gold-glow);
+    color: var(--gold-glow, #f3e5ab);
     font-family: var(--font-display);
+    font-size: 0.95rem;
   }
   .spa-showcase-desc {
     font-size: 0.88rem;
@@ -1094,8 +1175,23 @@
         
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
-          <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_home_1.jpg" alt="Body Scrub Showcase">
+          <div class="spa-showcase-img-wrapper body-scrub-slider-wrapper">
+            <div class="body-scrub-slider" id="bodyScrubSlider">
+              <div class="body-scrub-slide active">
+                <img src="../assets/images/ChatGPT Image Aug 12, 2026, 08_45_41 PM.png" alt="Body Scrub Treatment 1">
+              </div>
+              <div class="body-scrub-slide">
+                <img src="../assets/images/Gemini_Generated_Image_lmp0zhlmp0zhlmp0.png" alt="Body Scrub Treatment 2">
+              </div>
+              <div class="body-scrub-slide">
+                <img src="../assets/images/ChatGPT Image Aug 12, 2026, 08_49_18 PM.png" alt="Body Scrub Treatment 3">
+              </div>
+            </div>
+            <div class="body-scrub-slider-dots" id="bodyScrubDots">
+              <span class="dot active" data-index="0"></span>
+              <span class="dot" data-index="1"></span>
+              <span class="dot" data-index="2"></span>
+            </div>
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1198,7 +1294,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_luxury_bath.jpg" alt="Luxury Bath Showcase">
+            <img class="spa-showcase-img" src="../assets/images/IMG_20210816_142523_028.jpg.jpeg" alt="Luxury Bath Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1221,7 +1317,7 @@
                data-duration="3 Hours" 
                data-price="₹6,000" 
                data-desc="Kind of bath that originated in the Middle East and combines therapy, steam, cold & hot bath helps remove dead skins, reduce stress, deep relaxation, brighten & softens skins. Reconnect with yourself and soak away the cares of the day." 
-               data-image="../assets/images/spa_luxury_bath.jpg"
+               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
                data-service="turkish-hammam">
             <div class="spa-item-text">
               <h5>Turkish Hammam</h5>
@@ -1265,7 +1361,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_rejuvenate.jpg" alt="Rejuvenate Showcase">
+            <img class="spa-showcase-img" src="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png" alt="Rejuvenate Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1288,7 +1384,7 @@
                data-duration="2 Hours" 
                data-price="₹6,000" 
                data-desc="A couple massage is a treatment that involves two people receiving a massage at the same time, in the same room, by two different massage therapists. The goal of a couple massage is to provide a relaxing and rejuvenating experience for both partners." 
-               data-image="../assets/images/spa_home_1.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png"
                data-service="couple-connect">
             <div class="spa-item-text">
               <h5>Couple Connect</h5>
@@ -1306,7 +1402,7 @@
                data-duration="2 Hours" 
                data-price="₹5,000" 
                data-desc="Pizhichil is a perfect mix of Snehana (Oleation Therapy) and Swedana (Sudation Therapy). This treatment improves blood circulation and immunity. It is very effective in the treatment of ailments like muscle cramps, paralysis, rheumatic diseases, arthritis and blood pressure issues." 
-               data-image="../assets/images/IMG_20210816_142523_028.jpg.jpeg"
+               data-image="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png"
                data-service="pizhichil">
             <div class="spa-item-text">
               <h5>Pizhichil Therapy</h5>
@@ -1325,7 +1421,7 @@
                data-price="From ₹3,500" 
                data-desc="Relaxing & soothing bath, incorporate the use of a milk and scrub. Leaves a silky, smooth shimmering veil on the body." 
                data-rates='[{"duration":"90 Minutes","price":"₹3,500"},{"duration":"2 Hours","price":"₹4,000"}]'
-               data-image="../assets/images/pic 37.jpg.jpeg"
+               data-image="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png"
                data-service="hamam">
             <div class="spa-item-text">
               <h5>Royal Hammam Bath</h5>
@@ -1344,7 +1440,7 @@
                data-price="From ₹3,000" 
                data-desc="Flowers and flowering herbs have incredible healing properties and when added to a tub filled with warm water, epsom salts, and essential oils you can connect your own personal time ritual that is equally beneficial for your physical and mental well-being." 
                data-rates='[{"duration":"60 Minutes","price":"₹3,000"},{"duration":"90 Minutes","price":"₹3,500"}]'
-               data-image="../assets/images/pic 37.jpg.jpeg"
+               data-image="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png"
                data-service="flower-bath">
             <div class="spa-item-text">
               <h5>Aromatic Flower Bath</h5>
@@ -1586,8 +1682,19 @@
         
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
-          <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_ayurveda.jpg" alt="Ayurveda Showcase">
+          <div class="spa-showcase-img-wrapper body-scrub-slider-wrapper">
+            <div class="body-scrub-slider" id="ayurvedaSlider">
+              <div class="body-scrub-slide active">
+                <img src="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png" alt="Ayurveda Treatment 1">
+              </div>
+              <div class="body-scrub-slide">
+                <img src="../assets/images/Gemini_Generated_Image_lwf1gxlwf1gxlwf1.png" alt="Ayurveda Treatment 2">
+              </div>
+            </div>
+            <div class="body-scrub-slider-dots" id="ayurvedaDots">
+              <span class="dot active" data-index="0"></span>
+              <span class="dot" data-index="1"></span>
+            </div>
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1610,7 +1717,7 @@
                data-duration="75 Min" 
                data-price="₹4,000" 
                data-desc="A powerful treatment which relaxes deeply and is one of the most preferred & popular traditional Ayurvedic treatment. Lukewarm herbal oil is poured in a continuous stream onto the forehead to promote sleep, and is known to relieve stress, anxiety, tension, headaches and insomnia." 
-               data-image="../assets/images/spa_ayurveda.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="shirodhara">
             <div class="spa-item-text">
               <h5>Shirodhara</h5>
@@ -1628,7 +1735,7 @@
                data-duration="30 Min" 
                data-price="₹1,200" 
                data-desc="A head massage has always played a pivotal role in an Indian life and was featured in early Ayurveda texts that date back nearly 4000 years, as the head is the crown of the body. The epicentre of all thought, action, and life." 
-               data-image="../assets/images/spa-hero-1.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="head-massage">
             <div class="spa-item-text">
               <h5>Indian Head Massage</h5>
@@ -1646,7 +1753,7 @@
                data-duration="90 Min" 
                data-price="₹5,000" 
                data-desc="This package is designed to keep your body, mind, and soul in perfect harmony, restore your body's natural healing potential, and rediscover the feeling of overall well-being. Includes Abhyanga Massage & Shirodhara." 
-               data-image="../assets/images/spa-long.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="ayurveda-stress">
             <div class="spa-item-text">
               <h5>Ayurveda Stress Reduction Package</h5>
@@ -1664,7 +1771,7 @@
                data-duration="90 Min" 
                data-price="₹5,000" 
                data-desc="This therapy begins with the application of warm oil to the entire body by two therapists in a rhythmic manner. A herbal bundle or a pouch is prepared with herbs, which is then warmed up on muscular areas. This is a very relaxing treatment as it relieves the tension from the muscles." 
-               data-image="../assets/images/spa_ayurveda.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="herbal-pouch">
             <div class="spa-item-text">
               <h5>Herbal Pouch Massage</h5>
@@ -1682,7 +1789,7 @@
                data-duration="40 Min" 
                data-price="₹2,000" 
                data-desc="Traditional Ayurvedic massage of hands and feet done with warm medicated oil, featuring relaxing and tranquilizing strokes focusing on vital marma points." 
-               data-image="../assets/images/spa-sort.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="hasta-padbhyangam">
             <div class="spa-item-text">
               <h5>Hasta-Padbhyangam</h5>
@@ -1700,7 +1807,7 @@
                data-duration="45 Min" 
                data-price="₹2,100" 
                data-desc="This treatment uses warm herbal oils to stimulate circulation and detoxify on both physical and mental levels. Long strokes are applied in a rhythmic manner either by one or two therapists." 
-               data-image="../assets/images/spa_ayurveda.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="abhyangam">
             <div class="spa-item-text">
               <h5>Abhyangam Therapy</h5>
@@ -1716,10 +1823,10 @@
           <div class="spa-menu-item" 
                data-title="Traditional Shirodhaara Circuits" 
                data-duration="90 Min" 
-               data-price="₹4,500" 
+               data-price="From ₹4,500" 
                data-desc="Continuous flowing liquids onto the forehead using specific natural formulations for profound mental balance and stress release." 
-               data-rates='[{"duration":"90 Min (Butter Milk)","price":"₹4,500"},{"duration":"90 Min (Decoction)","price":"₹4,500"},{"duration":"90 Min (Milk)","price":"₹4,500"},{"duration":"90 Min (Oil + Abhyangam)","price":"₹4,500"}]'
-               data-image="../assets/images/spa_ayurveda.jpg"
+               data-rates='[{"duration":"Shirodhaara (Butter Milk)","price":"90 Min — ₹4,500"},{"duration":"Shirodhaara (Decoction)","price":"90 Min — ₹4,500"},{"duration":"Shirodhaara (Milk)","price":"90 Min — ₹4,500"},{"duration":"Shirodhara + Abhyangam (Oil)","price":"90 Min — ₹4,500"}]'
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="shirodhara-circuits">
             <div class="spa-item-text">
               <h5>Traditional Shirodhaara Circuits</h5>
@@ -1737,7 +1844,7 @@
                data-duration="60 Min" 
                data-price="₹6,000" 
                data-desc="Casa Rituals offers a therapeutic approach focused on heart-led, embodied awakening, utilizing sacred rituals to help individuals return to themselves and find inner peace. Their approach blends ancient wisdom and sound healing with quantum tools to facilitate transformation and nervous system regulation." 
-               data-image="../assets/images/spa_packages.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png"
                data-service="casa-vasta">
             <div class="spa-item-text">
               <h5>Casa Vasta Rituals Therapy</h5>
@@ -1763,7 +1870,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_packages.jpg" alt="Spa Escapes Showcase">
+            <img class="spa-showcase-img" src="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png" alt="Spa Escapes Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1786,7 +1893,7 @@
                data-duration="2h 30m" 
                data-price="₹6,500" 
                data-desc="Program that grounds the senses and balances the mind. Beginning with a sweet sandalwood body polish, your body and mind are prepared for a profound relaxation experience of Abhyanga Massage and Shirodhara. Includes Foot Bath, Sandal Body Polish, Abhyanga Massage, and Shirodhara." 
-               data-image="../assets/images/spa_packages.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="space-aakash">
             <div class="spa-item-text">
               <h5>Space Aakash</h5>
@@ -1804,7 +1911,7 @@
                data-duration="2h 30m" 
                data-price="₹5,500" 
                data-desc="A heated compress invites back muscles to relax and ease before a Swedish Massage leaves you feeling physically rested and mentally uplifted, followed by a facial of your choice, ensuring you present your best to the world." 
-               data-image="../assets/images/spa-long.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="fire-tejas">
             <div class="spa-item-text">
               <h5>Fire Tejas</h5>
@@ -1822,7 +1929,7 @@
                data-duration="1h 30m" 
                data-price="₹3,500" 
                data-desc="A meditative and contemplative package of life enhancement therapy and massage to impart whole mind and body relaxation. This meditative experience includes Aroma Fusion Massage and ends with a foot reflexology, leaving you in a state of pure bliss. Includes Foot bath, Aroma fusion therapy and Foot Reflexology." 
-               data-image="../assets/images/spa_rejuvenate.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="earth-ira">
             <div class="spa-item-text">
               <h5>Earth Ira</h5>
@@ -1840,7 +1947,7 @@
                data-duration="3 Hours" 
                data-price="₹7,500" 
                data-desc="A calming combination of water treatments using marine-based ingredients. Experience Ocean body scrub, Indocean relaxing body wrap with a cream smooth texture, and Aroma fusion massage to take away knots and tension, followed by a moisture surge facial. Includes Foot bath, ocean body scrub, Indocean body wrap, Aroma Fusion therapy, and Hydrating facial." 
-               data-image="../assets/images/spa_luxury_bath.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="water-jal">
             <div class="spa-item-text">
               <h5>Water Jal</h5>
@@ -1858,7 +1965,7 @@
                data-duration="2 Hours" 
                data-price="₹4,500" 
                data-desc="An energy-enhancing combination of a massage and sandal shea polish with shea butter, sesame oil, and jojoba beads. Aromatic sandalwood, used in Indian temples, is the perfect complement to this temple massage which aims to stimulate energy flow throughout the body, thereby improving your whole body wellness." 
-               data-image="../assets/images/spa-hero-1.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="wind-vayu">
             <div class="spa-item-text">
               <h5>Wind Vayu</h5>
@@ -1876,7 +1983,7 @@
                data-duration="3 Hours" 
                data-price="₹7,500" 
                data-desc="This glorious spa journey will let your body discover vital relaxation. Enter a unique world of sensorial pleasure and let yourself be guided to discover 4 experiences from 4 different cultures: Mediterranean De-tan scrub, Egypt Precious milk bath, India Sandalwood cedar oil massage, and China Sublime cream wrap." 
-               data-image="../assets/images/spa_packages.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_hajgxihajgxihajg.png"
                data-service="indoceane">
             <div class="spa-item-text">
               <h5>Indoceane Spa Ritual</h5>
@@ -1902,7 +2009,7 @@
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
           <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/spa_facial.jpg" alt="Facial Showcase">
+            <img class="spa-showcase-img" src="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png" alt="Facial Showcase">
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1925,7 +2032,7 @@
                data-duration="40 Min" 
                data-price="₹800" 
                data-desc="It delivers rich nutrients to the skin and provides intense moisture and fairness. It contains various extracts of Grape, Pomegranate, Acai berry, and Blueberry which gives vitality and elasticity to dull skin." 
-               data-image="../assets/images/spa_facial.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png"
                data-service="berries-facial">
             <div class="spa-item-text">
               <h5>Berries Facial</h5>
@@ -1943,7 +2050,7 @@
                data-duration="40 Min" 
                data-price="₹900" 
                data-desc="Charcoal mask for the face is a great exfoliator that deeply cleanses the skin pores by absorbing excess oil and sebum, which reduces the size of open pores, making your skin feel relieved, brightened, and clean." 
-               data-image="../assets/images/spa-sort1.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png"
                data-service="charcoal-facial">
             <div class="spa-item-text">
               <h5>Charcoal Facial</h5>
@@ -1961,7 +2068,7 @@
                data-duration="40 Min" 
                data-price="₹1,000" 
                data-desc="A de-tan pack is used to cleanse and purify the skin by removing the dead tanned skin and revealing a healthy, glowy layer underneath to help reduce the appearance of acne, blackheads, whiteheads, and other skin blemishes." 
-               data-image="../assets/images/spa_facial.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png"
                data-service="detan-facial">
             <div class="spa-item-text">
               <h5>De-Tan Facial</h5>
@@ -1979,7 +2086,7 @@
                data-duration="40 Min" 
                data-price="₹1,100" 
                data-desc="A diamond facial in itself is a good anti-ageing procedure. It is also good for tightening and firming up the skin. It helps make up for the skin's lost collagen and elasticity." 
-               data-image="../assets/images/spa-sort.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png"
                data-service="diamond-facial">
             <div class="spa-item-text">
               <h5>Diamond Facial</h5>
@@ -1997,7 +2104,7 @@
                data-duration="40 Min" 
                data-price="₹1,200" 
                data-desc="A gold facial can be recommended if you have early signs of ageing or are going through the ageing process with skin concerns like dark circles, puffiness, lines, wrinkles, and crow's feet." 
-               data-image="../assets/images/spa_facial.jpg"
+               data-image="../assets/images/Gemini_Generated_Image_ajrgljajrgljajrg.png"
                data-service="gold-facial">
             <div class="spa-item-text">
               <h5>Gold Facial</h5>
@@ -2367,11 +2474,14 @@
           const showcaseBook = parentCategory.querySelector('.btn-showcase-book');
 
           if (showcaseImg) {
-            showcaseImg.style.opacity = 0.3;
-            setTimeout(() => {
-              showcaseImg.src = image;
-              showcaseImg.style.opacity = 1;
-            }, 150);
+            const currentSrc = showcaseImg.getAttribute('src');
+            if (currentSrc !== image) {
+              showcaseImg.style.opacity = 0.3;
+              setTimeout(() => {
+                showcaseImg.src = image;
+                showcaseImg.style.opacity = 1;
+              }, 150);
+            }
           }
           if (showcaseTitle) showcaseTitle.textContent = title;
           if (showcaseDesc) showcaseDesc.textContent = desc;
@@ -2672,6 +2782,100 @@
       }, { passive: true });
 
       updateSlides(0);
+      startAutoPlay();
+    })();
+
+    /* ---------- BODY SCRUB AUTO SLIDER CONTROLLER ---------- */
+    (function initBodyScrubSlider() {
+      const slider = document.getElementById('bodyScrubSlider');
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.body-scrub-slide');
+      const dots = document.querySelectorAll('#bodyScrubDots .dot');
+      if (!slides.length) return;
+
+      let currentSlide = 0;
+      const slideInterval = 3500;
+      let timer = null;
+
+      function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        timer = setInterval(nextSlide, slideInterval);
+      }
+
+      function stopAutoPlay() {
+        if (timer) clearInterval(timer);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'), 10);
+          goToSlide(idx);
+          startAutoPlay();
+        });
+      });
+
+      slider.addEventListener('mouseenter', stopAutoPlay);
+      slider.addEventListener('mouseleave', startAutoPlay);
+
+      startAutoPlay();
+    })();
+
+    /* ---------- AYURVEDA AUTO SLIDER CONTROLLER ---------- */
+    (function initAyurvedaSlider() {
+      const slider = document.getElementById('ayurvedaSlider');
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.body-scrub-slide');
+      const dots = document.querySelectorAll('#ayurvedaDots .dot');
+      if (!slides.length) return;
+
+      let currentSlide = 0;
+      const slideInterval = 3500;
+      let timer = null;
+
+      function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        timer = setInterval(nextSlide, slideInterval);
+      }
+
+      function stopAutoPlay() {
+        if (timer) clearInterval(timer);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'), 10);
+          goToSlide(idx);
+          startAutoPlay();
+        });
+      });
+
+      slider.addEventListener('mouseenter', stopAutoPlay);
+      slider.addEventListener('mouseleave', startAutoPlay);
+
       startAutoPlay();
     })();
   });
