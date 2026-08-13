@@ -431,7 +431,6 @@ document.addEventListener('DOMContentLoaded', () => {
               ? 'Contact Hotel' 
               : `₹${r.price.toLocaleString('en-IN')} <span>/ night</span>`}
           </p>
-          <div class="room-facilities">${r.facilities.map(f => `<span>${f}</span>`).join('')}</div>
           <button class="btn btn-gold" data-room="${r.id}">
             ${r.id === 'banquet-hall' ? 'Contact Hotel' : 'Book Now'}
           </button>

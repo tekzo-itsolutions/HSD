@@ -1623,6 +1623,20 @@
       const duration = 5000;
 
       function updateSlides(index) {
+        const slidesCount = parseInt(roomSlider.dataset.slidesCount || '2', 10);
+        if (slidesCount === 1) {
+          slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'prev-slide', 'next-slide');
+            if (i === 0) slide.classList.add('active');
+          });
+          dots.forEach((dot, i) => {
+            if (i === 0) dot.classList.add('active');
+            else dot.classList.remove('active');
+          });
+          if (progressBar) progressBar.style.width = '0%';
+          return;
+        }
+
         slides.forEach((slide, i) => {
           slide.classList.remove('active', 'prev-slide', 'next-slide');
           if (i === index) {
@@ -1643,17 +1657,26 @@
       }
 
       function goToNext() {
+        const slidesCount = parseInt(roomSlider.dataset.slidesCount || '2', 10);
+        if (slidesCount === 1) return;
         currentIndex = (currentIndex + 1) % totalSlides;
         updateSlides(currentIndex);
       }
 
       function goToPrev() {
+        const slidesCount = parseInt(roomSlider.dataset.slidesCount || '2', 10);
+        if (slidesCount === 1) return;
         currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
         updateSlides(currentIndex);
       }
 
       function startAutoPlay() {
         stopAutoPlay();
+        const slidesCount = parseInt(roomSlider.dataset.slidesCount || '2', 10);
+        if (slidesCount === 1) {
+          if (progressBar) progressBar.style.width = '0%';
+          return;
+        }
         progressVal = 0;
         if (progressBar) progressBar.style.width = '0%';
         
@@ -1725,8 +1748,7 @@
             price: '₹3,600',
             meta: 'Luxury Suite with Private Oasis View',
             slides: [
-              '../assets/images/test_rooms/shree premier suite 1.jpg',
-              '../assets/images/test_rooms/shree premier suite 2.jpg'
+              '../assets/images/test_rooms/shree premier suite 1.jpg'
             ],
             featuresTitle: "PREMIER SUITE ROOM'S / FEATURES",
             features: [
@@ -1751,8 +1773,7 @@
             price: '₹2,400',
             meta: 'Executive Comfort with City View & Workspace',
             slides: [
-              '../assets/images/test_rooms/executive.jpg',
-              '../assets/images/test_rooms/premier-suite2.jpg'
+              '../assets/images/test_rooms/executive.jpg'
             ],
             featuresTitle: "EXECUTIVE SINGLE ROOM'S / FEATURES",
             features: [
@@ -1774,7 +1795,6 @@
             price: '₹2,200',
             meta: 'Spacious Deluxe Room for Couples',
             slides: [
-              '../assets/images/test_rooms/standard-double.jpg',
               '../assets/images/test_rooms/standard-double.jpg'
             ],
             featuresTitle: "STANDARD DOUBLE ROOM'S / FEATURES",
@@ -1798,8 +1818,7 @@
             price: '₹2,600',
             meta: 'Courtyard View with Private Lounge',
             slides: [
-              '../assets/images/test_rooms/executive-double.jpg',
-              '../assets/images/test_rooms/executive.jpg'
+              '../assets/images/test_rooms/executive-double.jpg'
             ],
             featuresTitle: "EXECUTIVE DOUBLE ROOM'S / FEATURES",
             features: [
@@ -1821,8 +1840,7 @@
             price: '₹2,000',
             meta: 'Cosy Room with Private Balcony',
             slides: [
-              '../assets/images/test_rooms/standard-single.jpg',
-              '../assets/images/test_rooms/standard-double.jpg'
+              '../assets/images/test_rooms/standard-single.jpg'
             ],
             featuresTitle: "STANDARD SINGLE ROOM'S / FEATURES",
             features: [
@@ -1873,6 +1891,30 @@
           if (bg2 && info.slides[1]) bg2.style.backgroundImage = `url('${encodeURI(info.slides[1])}')`;
           if (bgBlur1 && info.slides[0]) bgBlur1.style.backgroundImage = `url('${encodeURI(info.slides[0])}')`;
           if (bgBlur2 && info.slides[1]) bgBlur2.style.backgroundImage = `url('${encodeURI(info.slides[1])}')`;
+
+          const roomSlider = document.getElementById('roomDetailSlider');
+          if (roomSlider) {
+            roomSlider.dataset.slidesCount = info.slides.length;
+            const slide1El = roomSlider.querySelector('.room-slide[data-slide="1"]');
+            const dotsContainerEl = document.getElementById('roomDetailDots');
+            const progressBarEl = document.getElementById('roomProgressBar');
+            const prevArrowEl = document.getElementById('roomDetailPrev');
+            const nextArrowEl = document.getElementById('roomDetailNext');
+
+            if (info.slides.length === 1) {
+              if (slide1El) slide1El.style.display = 'none';
+              if (dotsContainerEl) dotsContainerEl.style.display = 'none';
+              if (progressBarEl) progressBarEl.parentElement.style.display = 'none';
+              if (prevArrowEl) prevArrowEl.style.display = 'none';
+              if (nextArrowEl) nextArrowEl.style.display = 'none';
+            } else {
+              if (slide1El) slide1El.style.display = '';
+              if (dotsContainerEl) dotsContainerEl.style.display = '';
+              if (progressBarEl) progressBarEl.parentElement.style.display = '';
+              if (prevArrowEl) prevArrowEl.style.display = '';
+              if (nextArrowEl) nextArrowEl.style.display = '';
+            }
+          }
 
           if (featuresTitleEl && info.featuresTitle) {
             featuresTitleEl.innerHTML = info.featuresTitle.replace('FEATURES', '<span class="gold-text">FEATURES</span>');
