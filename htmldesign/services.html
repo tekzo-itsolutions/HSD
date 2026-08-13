@@ -85,27 +85,21 @@
 
   .gallery-slide-bg {
     position: absolute;
-    inset: -3%;
-    width: 106%;
-    height: 106%;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
-    background-position: center center;
+    background-position: center 75%;
     transform: translateZ(-50px);
     transition: transform 0.8s ease-out;
-    animation: gallery3dKenBurns 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes gallery3dKenBurns {
-    0% { transform: scale(1.0) translate(0, 0); }
-    50% { transform: scale(1.06) translate(-0.8%, -0.8%); }
-    100% { transform: scale(1.02) translate(0.8%, 0.4%); }
+    animation: none !important;
   }
 
   .gallery-slide-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 45%, rgba(20, 9, 12, 0.2) 0%, rgba(20, 9, 12, 0.65) 75%, rgba(13, 6, 8, 0.88) 100%),
-                linear-gradient(180deg, rgba(20, 9, 12, 0.7) 0%, transparent 45%, rgba(20, 9, 12, 0.85) 100%);
+    background: radial-gradient(ellipse at 50% 45%, rgba(20, 9, 12, 0.08) 0%, rgba(20, 9, 12, 0.45) 75%, rgba(13, 6, 8, 0.75) 100%),
+                linear-gradient(180deg, rgba(20, 9, 12, 0.45) 0%, transparent 45%, rgba(20, 9, 12, 0.6) 100%);
     z-index: 2;
   }
 
@@ -480,21 +474,15 @@
   <div class="gallery-3d-viewport">
     <div class="gallery-3d-slides" id="services3dSlides">
       
-      <!-- Slide 1: Luxury Bedroom Suite -->
+      <!-- Slide 1: Executive Suite & Amenities (Full Room Framing) -->
       <div class="gallery-3d-slide active" data-index="0">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/service-slider-1.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png'); background-position: center bottom;"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Reception Lobby / Lounge -->
+      <!-- Slide 2: Deluxe Stay & Luxury Services (Full Room Framing) -->
       <div class="gallery-3d-slide" data-index="1">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/service-slider-2.jpg');"></div>
-        <div class="gallery-slide-overlay"></div>
-      </div>
-
-      <!-- Slide 3: Fine Dining Breakfast -->
-      <div class="gallery-3d-slide" data-index="2">
-        <div class="gallery-slide-bg" style="background-image: url('../assets/images/service-slider-3.jpg');"></div>
+        <div class="gallery-slide-bg" style="background-image: url('../assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png'); background-position: center bottom;"></div>
         <div class="gallery-slide-overlay"></div>
       </div>
 
@@ -533,7 +521,6 @@
     <div class="gallery-3d-dots" id="services3dDots">
       <button class="gallery-dot active" data-slide="0"><span>01</span></button>
       <button class="gallery-dot" data-slide="1"><span>02</span></button>
-      <button class="gallery-dot" data-slide="2"><span>03</span></button>
     </div>
     <div class="gallery-3d-progress">
       <div class="gallery-progress-bar" id="servicesProgressBar"></div>

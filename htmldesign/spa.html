@@ -78,9 +78,27 @@
   .spa-booking-section {
     background: var(--ink);
     color: var(--ivory);
-    padding: 100px 40px;
+    padding: 70px 40px;
     position: relative;
     overflow: hidden;
+    max-width: 1200px;
+    margin: 60px auto;
+    border-radius: 24px;
+    border: 1px solid rgba(201, 162, 39, 0.25);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+  @media (max-width: 1280px) {
+    .spa-booking-section {
+      margin: 50px 24px;
+      width: auto;
+    }
+  }
+  @media (max-width: 576px) {
+    .spa-booking-section {
+      margin: 30px 16px;
+      padding: 50px 20px;
+      border-radius: 16px;
+    }
   }
 
   /* ==========================================================================
