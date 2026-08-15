@@ -207,31 +207,18 @@
   .spa-slide-overlay {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 50% 40%, rgba(20, 9, 12, 0.25) 0%, rgba(20, 9, 12, 0.75) 75%, rgba(13, 6, 8, 0.95) 100%),
-                linear-gradient(180deg, rgba(20, 9, 12, 0.75) 0%, transparent 40%, rgba(20, 9, 12, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
     z-index: 2;
   }
 
   .spa-3d-light-sweep {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(115deg, transparent 35%, rgba(201, 162, 39, 0.12) 50%, transparent 65%);
-    z-index: 3;
-    pointer-events: none;
-    animation: spaLightSweep 8s ease-in-out infinite;
-    mix-blend-mode: screen;
-  }
-
-  @keyframes spaLightSweep {
-    0% { transform: translateX(-60%) rotate(0deg); }
-    50% { transform: translateX(60%) rotate(2deg); }
-    100% { transform: translateX(-60%) rotate(0deg); }
+    display: none !important;
   }
 
   .spa-3d-vignette {
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2);
     z-index: 4;
     pointer-events: none;
   }
@@ -657,10 +644,14 @@
     visibility: visible;
     transform: scale(1);
   }
-  .body-scrub-slide img {
+  .body-scrub-slide img,
+  .body-scrub-slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
   .body-scrub-slider-dots {
     position: absolute;
@@ -1078,24 +1069,40 @@
       
       <!-- Slide 1: Video 1 (spa 1) -->
       <div class="spa-3d-slide active" data-index="0">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
           <source src="../assets/videos/spa 1.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Video 2 (spa 2) -->
+      <!-- Slide 2: Video 2 (IMG_4696) -->
       <div class="spa-3d-slide" data-index="1">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+          <source src="../assets/videos/IMG_4696.mp4" type="video/mp4">
+        </video>
+        <div class="spa-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 3: Video 3 (spa 2) -->
+      <div class="spa-3d-slide" data-index="2">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
           <source src="../assets/videos/spa 2.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Video 3 (entrance 3) -->
-      <div class="spa-3d-slide" data-index="2">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
-          <source src="../assets/videos/entrance 3.mp4" type="video/mp4">
+      <!-- Slide 4: Video 4 (IMG_4709) -->
+      <div class="spa-3d-slide" data-index="3">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+          <source src="../assets/videos/IMG_4709.mp4" type="video/mp4">
+        </video>
+        <div class="spa-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 5: Video 5 (spa 3) -->
+      <div class="spa-3d-slide" data-index="4">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+          <source src="../assets/videos/spa 3.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
       </div>
@@ -1136,6 +1143,8 @@
       <button class="spa-dot active" data-slide="0"><span>01</span></button>
       <button class="spa-dot" data-slide="1"><span>02</span></button>
       <button class="spa-dot" data-slide="2"><span>03</span></button>
+      <button class="spa-dot" data-slide="3"><span>04</span></button>
+      <button class="spa-dot" data-slide="4"><span>05</span></button>
     </div>
     <div class="spa-3d-progress">
       <div class="spa-progress-bar" id="spaProgressBar"></div>
@@ -1366,8 +1375,21 @@
         
         <!-- Left Showcase Card -->
         <div class="spa-showcase-column">
-          <div class="spa-showcase-img-wrapper">
-            <img class="spa-showcase-img" src="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png" alt="Rejuvenate Showcase">
+          <div class="spa-showcase-img-wrapper body-scrub-slider-wrapper">
+            <div class="body-scrub-slider" id="rejuvenateSlider">
+              <div class="body-scrub-slide active">
+                <video autoplay muted loop playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+                  <source src="../assets/videos/IMG_4707.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="body-scrub-slide">
+                <img src="../assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png" alt="Rejuvenate Treatment 1">
+              </div>
+            </div>
+            <div class="body-scrub-slider-dots" id="rejuvenateDots">
+              <span class="dot active" data-index="0"></span>
+              <span class="dot" data-index="1"></span>
+            </div>
           </div>
           <div class="spa-showcase-content">
             <div class="spa-showcase-title-row">
@@ -1691,10 +1713,12 @@
           <div class="spa-showcase-img-wrapper body-scrub-slider-wrapper">
             <div class="body-scrub-slider" id="ayurvedaSlider">
               <div class="body-scrub-slide active">
-                <img src="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png" alt="Ayurveda Treatment 1">
+                <video autoplay muted loop playsinline preload="auto" style="width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+                  <source src="../assets/videos/IMG_4707.mp4" type="video/mp4">
+                </video>
               </div>
               <div class="body-scrub-slide">
-                <img src="../assets/images/Gemini_Generated_Image_lwf1gxlwf1gxlwf1.png" alt="Ayurveda Treatment 2">
+                <img src="../assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png" alt="Ayurveda Treatment 1">
               </div>
             </div>
             <div class="body-scrub-slider-dots" id="ayurvedaDots">
@@ -2871,15 +2895,26 @@
       if (!slides.length) return;
 
       let currentSlide = 0;
-      const slideInterval = 3500;
+      const slideInterval = 4000;
       let timer = null;
 
       function goToSlide(index) {
-        slides[currentSlide].classList.remove('active');
-        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+        slides.forEach(slide => {
+          slide.classList.remove('active');
+          const vid = slide.querySelector('video');
+          if (vid) vid.pause();
+        });
+        dots.forEach(dot => dot.classList.remove('active'));
+
         currentSlide = (index + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
         if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+
+        const activeVid = slides[currentSlide].querySelector('video');
+        if (activeVid) {
+          activeVid.currentTime = 0;
+          activeVid.play().catch(() => {});
+        }
       }
 
       function nextSlide() {
@@ -2906,6 +2941,66 @@
       slider.addEventListener('mouseenter', stopAutoPlay);
       slider.addEventListener('mouseleave', startAutoPlay);
 
+      goToSlide(0);
+      startAutoPlay();
+    })();
+
+    /* ---------- REJUVENATE AUTO SLIDER CONTROLLER ---------- */
+    (function initRejuvenateSlider() {
+      const slider = document.getElementById('rejuvenateSlider');
+      if (!slider) return;
+      const slides = slider.querySelectorAll('.body-scrub-slide');
+      const dots = document.querySelectorAll('#rejuvenateDots .dot');
+      if (!slides.length) return;
+
+      let currentSlide = 0;
+      const slideInterval = 4000;
+      let timer = null;
+
+      function goToSlide(index) {
+        slides.forEach(slide => {
+          slide.classList.remove('active');
+          const vid = slide.querySelector('video');
+          if (vid) vid.pause();
+        });
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+
+        const activeVid = slides[currentSlide].querySelector('video');
+        if (activeVid) {
+          activeVid.currentTime = 0;
+          activeVid.play().catch(() => {});
+        }
+      }
+
+      function nextSlide() {
+        goToSlide(currentSlide + 1);
+      }
+
+      function startAutoPlay() {
+        stopAutoPlay();
+        timer = setInterval(nextSlide, slideInterval);
+      }
+
+      function stopAutoPlay() {
+        if (timer) clearInterval(timer);
+      }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const idx = parseInt(e.target.getAttribute('data-index'), 10);
+          goToSlide(idx);
+          startAutoPlay();
+        });
+      });
+
+      slider.addEventListener('mouseenter', stopAutoPlay);
+      slider.addEventListener('mouseleave', startAutoPlay);
+
+      goToSlide(0);
       startAutoPlay();
     })();
   });

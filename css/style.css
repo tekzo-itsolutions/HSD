@@ -547,16 +547,18 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   object-fit: cover;
   object-position: center;
   transform: scale(1.02);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-.hero-slide:has(.hero-video.is-playing) .plane-far,
-.hero-slide.has-video .plane-far,
-.hero-slide:has(.hero-video.is-playing) .plane-mid,
-.hero-slide.has-video .plane-mid { opacity: 0.35; mix-blend-mode: overlay; }
-.hero-slide:has(.hero-video.is-playing) .plane-near,
-.hero-slide.has-video .plane-near { opacity: 0.7; }
-.hero-slide:has(.hero-video.is-playing) .plane-texture,
-.hero-slide.has-video .plane-texture { opacity: 0.5; }
+.hero-slide .plane-far,
+.hero-slide .plane-mid,
+.hero-slide .plane-near,
+.plane-texture,
+.plane-floor,
+.plane-light {
+  display: none !important;
+}
 
 .hero-slides { position: absolute; inset: 0; perspective: 1000px; }
 .hero-slide {
@@ -566,8 +568,6 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   overflow: hidden;
 }
 .hero-slide.active { opacity: 1; }
-.hero-slide.active .depth-plane { animation-play-state: running; }
-.hero-slide:not(.active) .depth-plane { animation-play-state: paused; }
 
 .hero-caption {
   position: absolute;
@@ -583,43 +583,6 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   transition: opacity 0.8s var(--ease) 0.6s, transform 0.8s var(--ease) 0.6s;
 }
 .hero-slide.active .hero-caption { opacity: 1; transform: translateY(0); }
-
-.depth-plane { position: absolute; inset: 0; will-change: transform; }
-
-.plane-far {
-  inset: -10%;
-  animation: dollyFar 9s ease-in-out infinite alternate;
-}
-.plane-mid {
-  animation: dollyMid 9s ease-in-out infinite alternate;
-}
-.plane-near {
-  animation: dollyNear 9s ease-in-out infinite alternate;
-}
-@keyframes dollyFar  { from { transform: scale(1.0)  translateZ(0); } to { transform: scale(1.14) translateZ(0); } }
-@keyframes dollyMid  { from { transform: scale(1.0)  translateY(0); } to { transform: scale(1.22) translateY(-1.5%); } }
-@keyframes dollyNear { from { transform: scale(1.0); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
-
-.plane-light {
-  position: absolute; inset: 0;
-  background: linear-gradient(100deg, transparent 30%, rgba(232,199,102,0.10) 45%, transparent 60%);
-  animation: lightSweep 6s linear infinite;
-  mix-blend-mode: screen;
-}
-@keyframes lightSweep { from { transform: translateX(-40%); } to { transform: translateX(40%); } }
-
-.plane-floor {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 40%;
-  background: linear-gradient(180deg, transparent 0%, rgba(20,9,12,0.5) 100%);
-}
-.plane-floor::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(90deg, rgba(232,199,102,0.06) 0 2px, transparent 2px 90px);
-  transform: perspective(300px) rotateX(60deg) scale(2);
-  transform-origin: bottom;
-  animation: floorRush 3.5s linear infinite;
-}
 @keyframes floorRush { from { background-position-x: 0; } to { background-position-x: -90px; } }
 
 /* --- FACADE: arriving at the entrance at dusk --- */
@@ -692,8 +655,9 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 
 .hero-gradient {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(20,9,12,0.55) 0%, rgba(20,9,12,0.35) 40%, rgba(20,9,12,0.85) 100%);
+  background: linear-gradient(180deg, rgba(20,9,12,0.2) 0%, transparent 40%, rgba(20,9,12,0.4) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 
 #particleCanvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
