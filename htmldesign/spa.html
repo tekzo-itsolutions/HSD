@@ -181,30 +181,18 @@
   .spa-slide-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(13, 6, 8, 0.35) 0%, rgba(13, 6, 8, 0.05) 50%, rgba(13, 6, 8, 0.45) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 40%, rgba(0, 0, 0, 0.3) 100%);
     z-index: 2;
   }
 
   .spa-3d-light-sweep {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(115deg, transparent 35%, rgba(201, 162, 39, 0.12) 50%, transparent 65%);
-    z-index: 3;
-    pointer-events: none;
-    animation: spaLightSweep 8s ease-in-out infinite;
-    mix-blend-mode: screen;
-  }
-
-  @keyframes spaLightSweep {
-    0% { transform: translateX(-60%) rotate(0deg); }
-    50% { transform: translateX(60%) rotate(2deg); }
-    100% { transform: translateX(-60%) rotate(0deg); }
+    display: none !important;
   }
 
   .spa-3d-vignette {
     position: absolute;
     inset: 0;
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2);
     z-index: 4;
     pointer-events: none;
   }
@@ -930,23 +918,39 @@
       
       <!-- Slide 1: Video 1 (spa 1) -->
       <div class="spa-3d-slide active" data-index="0">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
           <source src="../assets/videos/spa 1.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 2: Video 2 (spa 2) -->
+      <!-- Slide 2: Video 2 (IMG_4696) -->
       <div class="spa-3d-slide" data-index="1">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+          <source src="../assets/videos/IMG_4696.mp4" type="video/mp4">
+        </video>
+        <div class="spa-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 3: Video 3 (spa 2) -->
+      <div class="spa-3d-slide" data-index="2">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
           <source src="../assets/videos/spa 2.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
       </div>
 
-      <!-- Slide 3: Video 3 (entrance 3) -->
-      <div class="spa-3d-slide" data-index="2">
-        <video autoplay muted loop playsinline style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;">
+      <!-- Slide 4: Video 4 (IMG_4709) -->
+      <div class="spa-3d-slide" data-index="3">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
+          <source src="../assets/videos/IMG_4709.mp4" type="video/mp4">
+        </video>
+        <div class="spa-slide-overlay"></div>
+      </div>
+
+      <!-- Slide 5: Video 5 (spa 3) -->
+      <div class="spa-3d-slide" data-index="4">
+        <video autoplay muted loop playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; backface-visibility: hidden; transform: translateZ(0);">
           <source src="../assets/videos/spa 3.mp4" type="video/mp4">
         </video>
         <div class="spa-slide-overlay"></div>
@@ -987,6 +991,8 @@
       <button class="spa-dot active" data-slide="0"><span>01</span></button>
       <button class="spa-dot" data-slide="1"><span>02</span></button>
       <button class="spa-dot" data-slide="2"><span>03</span></button>
+      <button class="spa-dot" data-slide="3"><span>04</span></button>
+      <button class="spa-dot" data-slide="4"><span>05</span></button>
     </div>
     <div class="spa-3d-progress">
       <div class="spa-progress-bar" id="spaProgressBar"></div>
