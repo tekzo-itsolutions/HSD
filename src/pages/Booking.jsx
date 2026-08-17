@@ -80,6 +80,26 @@ export default function Booking() {
     setSlideIndex(0);
   };
 
+  // Auto scroll smoothly to booking desk boxes with navbar offset
+  useEffect(() => {
+    if (searchParams.get('room')) {
+      const timer = setTimeout(() => {
+        const deskContainer = document.querySelector('.room-booking-container');
+        if (deskContainer) {
+          const offset = 95;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = deskContainer.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - offset),
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [roomCode]);
+
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     const d = new Date(dateStr);
@@ -154,32 +174,72 @@ export default function Booking() {
     setChildren('0');
   };
 
-  // Staggered features list reveal animation on component update
+  // Scroll staggered cascading reveal animation for Room Features
   useEffect(() => {
-    const items = document.querySelectorAll('.feature-line-item');
-    items.forEach(item => item.classList.remove('revealed'));
-    const timer = setTimeout(() => {
-      items.forEach((item, index) => {
-        setTimeout(() => {
-          item.classList.add('revealed');
-        }, index * 60);
-      });
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [roomCode]);
+    const gridEl = document.getElementById('displayRoomFeaturesGrid');
+    if (!gridEl) return;
 
-  // Staggered policies reveal animation
-  useEffect(() => {
-    const items = document.querySelectorAll('.note-line-item');
+    const items = gridEl.querySelectorAll('.feature-line-item');
+    if (!items.length) return;
+
+    // Reset initial state
     items.forEach(item => item.classList.remove('revealed'));
-    const timer = setTimeout(() => {
-      items.forEach((item, index) => {
-        setTimeout(() => {
-          item.classList.add('revealed');
-        }, index * 60);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          items.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('revealed');
+            }, index * 80); // 80ms cascading delay per item
+          });
+          observer.unobserve(entry.target);
+        }
       });
-    }, 100);
-    return () => clearTimeout(timer);
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    observer.observe(gridEl);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [roomCode, activeRoom]);
+
+  // Scroll staggered cascading reveal animation for Kindly Note
+  useEffect(() => {
+    const noteList = document.getElementById('kindlyNoteList');
+    if (!noteList || roomCode !== 'standard-double') return;
+
+    const noteItems = noteList.querySelectorAll('.note-line-item');
+    if (!noteItems.length) return;
+
+    // Reset initial state
+    noteItems.forEach(item => item.classList.remove('revealed'));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          noteItems.forEach((item, index) => {
+            setTimeout(() => {
+              item.classList.add('revealed');
+            }, index * 80);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    observer.observe(noteList);
+
+    return () => {
+      observer.disconnect();
+    };
   }, [roomCode]);
 
   return (
@@ -262,15 +322,15 @@ export default function Booking() {
       </section>
 
       {/* ===== BOOKING DESK & ROOM DETAIL SECTION ===== */}
-      <section id="booking" className="section section--booking section--booking-light" style={{ minHeight: '70vh', padding: '70px 0' }}>
+      <section id="booking" className="section section--booking section--booking-light" style={{ minHeight: '70vh', padding: '60px 0 80px' }}>
         <div className="jaali-bg"></div>
         
-        <div className="section-head reveal-up" style={{ marginBottom: '40px' }}>
+        <div className="section-head reveal-up in-view" style={{ marginBottom: '32px' }}>
           <p className="eyebrow">Book Your Stay</p>
           <h2>Check Availability &amp; Reserve</h2>
         </div>
 
-        <div className="room-booking-container reveal-up">
+        <div className="room-booking-container reveal-up in-view">
           {!confirmedBooking ? (
             <form id="bookingForm" onSubmit={handleFormSubmit}>
               {/* ROW 1: TWO SIDE-BY-SIDE BOXES */}
@@ -404,17 +464,14 @@ export default function Booking() {
                         </div>
                       </div>
 
-                      <div className="field" style={{ marginBottom: '10px' }}>
-                        <label htmlFor="roomSelect">SELECT ROOM TYPE</label>
-                        <select id="roomSelect" value={roomCode} onChange={handleRoomSelectChange} style={{ background: 'var(--white)', border: '1px solid rgba(20,9,12,0.12)', height: '42px', padding: '0 12px', fontSize: '0.9rem', width: '100%', outline: 'none' }}>
-                          <option value="premier">Premier Suite — ₹3,600/night</option>
-                          <option value="executive-single">Executive Single — ₹2,400/night</option>
-                          <option value="standard-double">Standard Double — ₹2,200/night</option>
-                          <option value="executive-double">Executive Double — ₹2,600/night</option>
-                          <option value="standard-single">Standard Single — ₹2,000/night</option>
-                          <option value="banquet-hall">Banquet Hall — Contact Hotel</option>
-                        </select>
-                      </div>
+                      <select id="roomSelect" value={roomCode} onChange={handleRoomSelectChange} style={{ display: 'none' }}>
+                        <option value="premier">Premier Suite — ₹3,600/night</option>
+                        <option value="executive-single">Executive Single — ₹2,400/night</option>
+                        <option value="standard-double">Standard Double — ₹2,200/night</option>
+                        <option value="executive-double">Executive Double — ₹2,600/night</option>
+                        <option value="standard-single">Standard Single — ₹2,000/night</option>
+                        <option value="banquet-hall">Banquet Hall — Contact Hotel</option>
+                      </select>
                     </div>
                   ) : (
                     <div id="banquetContactNotice" style={{ padding: '30px 15px', background: 'rgba(110, 16, 39, 0.03)', border: '1px dashed rgba(110, 16, 39, 0.2)', borderRadius: '8px', textAlign: 'center' }}>

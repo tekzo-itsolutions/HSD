@@ -200,16 +200,27 @@ export default function SpaDetails() {
     }
   };
 
-  // Scroll to hash element if exists on mount
+  const scrollToTabs = (smooth = true) => {
+    const tabsNav = document.querySelector('.spa-tabs-nav');
+    if (tabsNav) {
+      const offset = 85;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = tabsNav.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      window.scrollTo({
+        top: Math.max(0, elementPosition - offset),
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+    }
+  };
+
+  // Scroll to tabs navigation when hash is present or changes
   useEffect(() => {
     if (hash) {
-      const id = hash.replace('#', '');
-      const el = document.getElementById(id);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
-      }
+      const timer = setTimeout(() => {
+        scrollToTabs(true);
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [hash]);
 
@@ -347,11 +358,20 @@ export default function SpaDetails() {
         </div>
       </section>
 
-      {/* ===== TREATMENT BOOKLET LISTS ===== */}
-      <section className="section" style={{ padding: '80px 0' }}>
-        <div className="section-head reveal-up">
-          <p className="eyebrow">Interactive Booklet</p>
-          <h2>Spa Treatment Panel</h2>
+      {/* ===== SPA PACKAGES ===== */}
+      <section className="section section--tinted" style={{ padding: '80px 0' }}>
+        <div className="section-head reveal-up in-view">
+          <p className="eyebrow">Luxury Wellness</p>
+          <h2>Shree Golden Sparsh Spa &amp; Academy</h2>
+        </div>
+
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', marginBottom: '40px' }} className="reveal-up in-view">
+          <p style={{ fontSize: '1.15rem', lineHeight: '1.8', color: '#5c534b' }}>
+            Explore our comprehensive treatment menu below. Scroll through the chapters to view details, timing, and pricing for our massage therapies, hammams, and advanced facials.
+          </p>
+          <div style={{ marginTop: '15px', fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: 'var(--maroon)', fontWeight: 600, letterSpacing: '0.05em' }}>
+            <span className="badge-sparkle">✦</span> TIMING: 8:30 AM to 8:30 PM
+          </div>
         </div>
 
         {/* Premium Category Tabs Navigation */}
@@ -360,7 +380,10 @@ export default function SpaDetails() {
             <button
               key={catKey}
               className={`spa-tab-btn ${activeTab === catKey ? 'active' : ''}`}
-              onClick={() => { window.location.hash = catKey; }}
+              onClick={() => {
+                window.location.hash = catKey;
+                scrollToTabs(true);
+              }}
             >
               {category.title}
             </button>
@@ -375,7 +398,7 @@ export default function SpaDetails() {
               const activeItem = category.items[activeIdx];
 
             return (
-              <div key={catKey} id={catKey} className="spa-menu-category reveal-up">
+              <div key={catKey} id={catKey} className="spa-menu-category in-view">
                 <AyurvedicLeaves />
                 <div className="spa-category-header">{category.title}</div>
                 <div className="spa-category-layout">
