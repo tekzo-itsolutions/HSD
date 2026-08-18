@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const GALLERY_HERO_IMAGES = [
+  '/assets/images/hero-gallery-1.jpg',
+  '/assets/images/hero-about-3.jpg',
+  '/assets/images/pic 73.jpg.jpeg'
+];
+
+if (typeof window !== 'undefined') {
+  GALLERY_HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function Gallery() {
   // ==================== 1. 3D HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
-  const heroImages = [
-    '/assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png',
-    '/assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png',
-    '/assets/images/pic 73.jpg.jpeg'
-  ];
+  const heroImages = GALLERY_HERO_IMAGES;
 
   useEffect(() => {
     setHeroProgress(0);
@@ -37,17 +46,17 @@ export default function Gallery() {
 
   // ==================== 2. GALLERY LIGHTBOX ====================
   const galleryItems = [
-    { src: '/assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 10, 2026, 12_23_57 AM.png', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 11, 2026, 10_40_10 PM.png', title: 'Premier Suite', category: 'premier-suite', style: { background: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 10, 2026, 12_25_56 AM.png', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 10, 2026, 12_26_16 AM.png', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 12, 2026, 01_37_14 PM.png', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 11, 2026, 11_30_47 PM.png', title: 'Banquet Halls', category: 'banquet-halls', style: { background: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png', title: 'Banquet Halls', category: 'banquet-halls', style: { background: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 12, 2026, 05_59_38 PM.png', title: 'Room Kit', category: 'room-kit', style: { background: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)' } },
-    { src: '/assets/images/ChatGPT Image Aug 12, 2026, 03_10_52 PM.png', title: 'Room Kit', category: 'room-kit', style: { background: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)' } }
+    { src: '/assets/images/chatgpt-image-aug-10-2026-11_46_14-pm.jpg', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-10-2026-12_23_57-am.jpg', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-11-2026-10_40_10-pm.jpg', title: 'Premier Suite', category: 'premier-suite', style: { background: 'radial-gradient(ellipse at 50% 50%, #6E1027, #3d0e1c 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-10-2026-12_25_56-am.jpg', title: 'Executive Rooms', category: 'executive-rooms', style: { background: 'radial-gradient(ellipse at 40% 50%, #8a5a1f, #3d270e 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-10-2026-12_26_16-am.jpg', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-9-2026-02_46_57-pm.jpg', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-12-2026-01_37_14-pm.jpg', title: 'Standard Rooms', category: 'standard-rooms', style: { background: 'radial-gradient(ellipse at 50% 40%, #3f5240, #1c261d 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-11-2026-11_30_47-pm.jpg', title: 'Banquet Halls', category: 'banquet-halls', style: { background: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-9-2026-02_52_30-pm.jpg', title: 'Banquet Halls', category: 'banquet-halls', style: { background: 'radial-gradient(ellipse at 60% 30%, #2f5a63, #14262c 60%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-12-2026-05_59_38-pm.jpg', title: 'Room Kit', category: 'room-kit', style: { background: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)' } },
+    { src: '/assets/images/chatgpt-image-aug-12-2026-03_10_52-pm.jpg', title: 'Room Kit', category: 'room-kit', style: { background: 'radial-gradient(ellipse at 40% 60%, #C9A227, #4A0A1A 55%, #14090C)' } }
   ];
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -103,7 +112,14 @@ export default function Gallery() {
 
               return (
                 <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')` }}></div>
+                  <img
+                    src={src}
+                    alt="Hotel Shree Daan Visuals & Gallery"
+                    className="gallery-slide-img"
+                    loading="eager"
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -111,9 +127,8 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
+        {/* Ambient 3D Lighting Sweep Overlay */}
         <div className="gallery-3d-light-sweep"></div>
-        <div className="gallery-3d-vignette"></div>
 
         {/* Hero Content Overlay */}
         <div className="gallery-hero-content">
@@ -175,7 +190,7 @@ export default function Gallery() {
               onClick={() => openLightbox(idx)}
               style={{ ...item.style, cursor: 'pointer', position: 'relative', overflow: 'hidden', borderRadius: '8px', paddingBottom: '75%' }}
             >
-              <img src={item.src} alt={item.title} className="gallery-item-img" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={item.src} alt={item.title} className="gallery-item-img" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
               <span className="g-label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <span>{item.title}</span>
               </span>

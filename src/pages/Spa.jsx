@@ -6,11 +6,14 @@ function SpaCardSlider({ images }) {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (!images || !images.length) return;
     const timer = setInterval(() => {
       setIdx(prev => (prev + 1) % images.length);
     }, 3500);
     return () => clearInterval(timer);
   }, [images]);
+
+  if (!images || !images.length) return null;
 
   return (
     <div className="card-slider-wrapper">
@@ -42,12 +45,11 @@ export default function Spa() {
 
   // ==================== 1. 3D HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
-  const heroVideoRefs = [useRef(null), useRef(null), useRef(null)];
-  const heroDuration = 5000;
+  const heroVideoRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [heroProgress, setHeroProgress] = useState(0);
 
   useEffect(() => {
-    // Play active slide video, pause others
+    // Play active slide video from start, pause and reset others
     heroVideoRefs.forEach((ref, idx) => {
       const video = ref.current;
       if (video) {
@@ -56,32 +58,30 @@ export default function Spa() {
           video.play().catch(() => {});
         } else {
           video.pause();
+          video.currentTime = 0;
         }
       }
     });
-
-    // Reset progress and start interval
     setHeroProgress(0);
-    const step = 100 / (heroDuration / 50);
-    const progressInterval = setInterval(() => {
-      setHeroProgress(prev => {
-        if (prev >= 100) return 100;
-        return prev + step;
-      });
-    }, 50);
-
-    const autoInterval = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % 3);
-    }, heroDuration);
-
-    return () => {
-      clearInterval(progressInterval);
-      clearInterval(autoInterval);
-    };
   }, [heroIndex]);
 
-  const goNextHero = () => setHeroIndex(prev => (prev + 1) % 3);
-  const goPrevHero = () => setHeroIndex(prev => (prev - 1 + 3) % 3);
+  const goNextHero = () => setHeroIndex(prev => (prev + 1) % 5);
+  const goPrevHero = () => setHeroIndex(prev => (prev - 1 + 5) % 5);
+
+  const handleVideoTimeUpdate = (e, idx) => {
+    if (idx === heroIndex) {
+      const video = e.target;
+      if (video.duration && video.duration > 0) {
+        setHeroProgress((video.currentTime / video.duration) * 100);
+      }
+    }
+  };
+
+  const handleVideoEnded = (idx) => {
+    if (idx === heroIndex) {
+      goNextHero();
+    }
+  };
 
   return (
     <>
@@ -89,25 +89,81 @@ export default function Spa() {
       <section id="spaHeroSlider" className="spa-hero-3d">
         <div className="spa-3d-viewport">
           <div className="spa-3d-slides" id="spa3dSlides">
-            {/* Slide 1: Video 1 */}
+            {/* Slide 1: Video 1 (spa 1) */}
             <div className={`spa-3d-slide ${heroIndex === 0 ? 'active' : ''}`} data-index="0">
-              <video ref={heroVideoRefs[0]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+              <video
+                ref={heroVideoRefs[0]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
+                onEnded={() => handleVideoEnded(0)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
                 <source src="/assets/videos/spa 1.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
             </div>
 
-            {/* Slide 2: Video 2 */}
+            {/* Slide 2: Video 2 (IMG_4696) */}
             <div className={`spa-3d-slide ${heroIndex === 1 ? 'active' : ''}`} data-index="1">
-              <video ref={heroVideoRefs[1]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+              <video
+                ref={heroVideoRefs[1]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
+                onEnded={() => handleVideoEnded(1)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
+                <source src="/assets/videos/IMG_4696.mp4" type="video/mp4" />
+              </video>
+              <div className="spa-slide-overlay"></div>
+            </div>
+
+            {/* Slide 3: Video 3 (spa 2) */}
+            <div className={`spa-3d-slide ${heroIndex === 2 ? 'active' : ''}`} data-index="2">
+              <video
+                ref={heroVideoRefs[2]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
+                onEnded={() => handleVideoEnded(2)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
                 <source src="/assets/videos/spa 2.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
             </div>
 
-            {/* Slide 3: Video 3 */}
-            <div className={`spa-3d-slide ${heroIndex === 2 ? 'active' : ''}`} data-index="2">
-              <video ref={heroVideoRefs[2]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+            {/* Slide 4: Video 4 (IMG_4709) */}
+            <div className={`spa-3d-slide ${heroIndex === 3 ? 'active' : ''}`} data-index="3">
+              <video
+                ref={heroVideoRefs[3]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
+                onEnded={() => handleVideoEnded(3)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
+                <source src="/assets/videos/IMG_4709.mp4" type="video/mp4" />
+              </video>
+              <div className="spa-slide-overlay"></div>
+            </div>
+
+            {/* Slide 5: Video 5 (spa 3) */}
+            <div className={`spa-3d-slide ${heroIndex === 4 ? 'active' : ''}`} data-index="4">
+              <video
+                ref={heroVideoRefs[4]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
+                onEnded={() => handleVideoEnded(4)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
                 <source src="/assets/videos/spa 3.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
@@ -115,9 +171,7 @@ export default function Spa() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
-        <div className="spa-3d-light-sweep"></div>
-        <div className="spa-3d-vignette"></div>
+
 
         {/* Hero Content Overlay */}
         <div className="spa-hero-content">
@@ -145,7 +199,7 @@ export default function Spa() {
         {/* Dots & Progress */}
         <div className="spa-3d-controls">
           <div className="spa-3d-dots" id="spa3dDots">
-            {[0, 1, 2].map(idx => (
+            {[0, 1, 2, 3, 4].map(idx => (
               <button
                 key={idx}
                 className={`spa-dot ${heroIndex === idx ? 'active' : ''}`}

@@ -114,10 +114,17 @@ function SiteLayout() {
   );
 }
 
+export const LoaderContext = React.createContext({ triggerLoader: () => {} });
+
 // App Root
 function App() {
   const [loading, setLoading] = useState(true);
   const [pct, setPct] = useState(0);
+
+  const triggerLoader = () => {
+    setPct(0);
+    setLoading(true);
+  };
 
   useEffect(() => {
     if (!loading) return;
@@ -125,7 +132,7 @@ function App() {
     document.body.style.overflow = 'hidden';
     const interval = setInterval(() => {
       setPct(prev => {
-        const next = prev + Math.floor(Math.random() * 12) + 4;
+        const next = prev + Math.floor(Math.random() * 14) + 6;
         if (next >= 100) {
           clearInterval(interval);
           setTimeout(() => {
@@ -136,7 +143,7 @@ function App() {
         }
         return next;
       });
-    }, 80);
+    }, 60);
 
     return () => {
       clearInterval(interval);
@@ -145,29 +152,31 @@ function App() {
   }, [loading]);
 
   return (
-    <Router>
-      <ScrollToTop />
-      {loading && (
-        <div id="loader" className={pct === 100 ? 'loaded' : ''}>
-          <div className="loader-jaali"></div>
-          <div className="loader-content">
-            <img src="/assets/images/hsd-logo.png" alt="Hotel Shree Daan" className="loader-logo" />
-            <div className="loader-full-line-container">
-              <div className="loader-line loader-line-left" style={{ width: `${pct / 2}%` }}></div>
-              <div className="loader-line loader-line-right" style={{ width: `${pct / 2}%` }}></div>
+    <LoaderContext.Provider value={{ triggerLoader }}>
+      <Router>
+        <ScrollToTop />
+        {loading && (
+          <div id="loader" className={pct === 100 ? 'loaded' : ''}>
+            <div className="loader-jaali"></div>
+            <div className="loader-content">
+              <img src="/assets/images/hsd-logo.png" alt="Hotel Shree Daan" className="loader-logo" />
+              <div className="loader-full-line-container">
+                <div className="loader-line loader-line-left" style={{ width: `${pct / 2}%` }}></div>
+                <div className="loader-line loader-line-right" style={{ width: `${pct / 2}%` }}></div>
+              </div>
+              <div className="loader-pct"><span>{pct}</span>%</div>
             </div>
-            <div className="loader-pct"><span>{pct}</span>%</div>
           </div>
-        </div>
-      )}
-      <Routes>
-        {/* Admin Dashboard */}
-        <Route path="/admin" element={<LayoutWrapper><Admin /></LayoutWrapper>} />
-        <Route path="/admin.html" element={<LayoutWrapper><Admin /></LayoutWrapper>} />
-        {/* All Other Site Pages */}
-        <Route path="/*" element={<SiteLayout />} />
-      </Routes>
-    </Router>
+        )}
+        <Routes>
+          {/* Admin Dashboard */}
+          <Route path="/admin" element={<LayoutWrapper><Admin /></LayoutWrapper>} />
+          <Route path="/admin.html" element={<LayoutWrapper><Admin /></LayoutWrapper>} />
+          {/* All Other Site Pages */}
+          <Route path="/*" element={<SiteLayout />} />
+        </Routes>
+      </Router>
+    </LoaderContext.Provider>
   );
 }
 

@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { LoaderContext } from '../App';
 
 export default function Footer() {
+  const { triggerLoader } = useContext(LoaderContext);
+
+  const handleHomeClick = () => {
+    triggerLoader();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleSpaClick = () => {
+    triggerLoader();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
   return (
     <footer id="siteFooter">
       <div className="footer-top">
         <div className="footer-brand">
-          <Link to="/" className="footer-logo">
+          <Link to="/" className="footer-logo" onClick={handleHomeClick}>
             <img src="/assets/images/hsd-logo.png" alt="Hotel Shree Daan" className="logo-img" />
           </Link>
           <p>Luxury stay begins here.</p>
-          <p class="footer-address">Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191<br />
+          <p className="footer-address">Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191<br />
             <a href="tel:+917874050009">+91 78740 50009</a></p>
         </div>
 
         <div className="footer-col">
           <h5>Quick Links</h5>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={handleHomeClick}>Home</Link>
           <Link to="/about">About Us</Link>
           <Link to="/rooms">Rooms</Link>
           <Link to="/contact">Contact Us</Link>
@@ -27,7 +40,7 @@ export default function Footer() {
           <Link to="/services">Services</Link>      
           <Link to="/attractions">Near By Attractions</Link>      
           <Link to="/gallery">Gallery</Link>      
-          <Link to="/spa">Golden Sparsh Spa</Link>      
+          <Link to="/spa" onClick={handleSpaClick}>Golden Sparsh Spa</Link>      
           <Link to="/booking">Book Room</Link>
         </div>
 

@@ -1058,32 +1058,33 @@
       const nextBtn = document.getElementById('prismNext');
       const scene = document.getElementById('prismScene');
 
-      let currentIndex = 0;
+      let currentStep = 0;
       let autoTimer = null;
       let tiltX = 0, tiltY = 0;
 
-      function updateCube(index) {
-        currentIndex = (index + faces.length) % faces.length;
+      function updateCube(step) {
+        currentStep = step;
+        const currentFaceIndex = ((currentStep % faces.length) + faces.length) % faces.length;
 
         let tz = 250;
         if (window.innerWidth <= 576) tz = 130;
         else if (window.innerWidth <= 992) tz = 180;
         else if (window.innerWidth <= 1200) tz = 200;
 
-        const angle = -currentIndex * 90;
+        const angle = -currentStep * 90;
         cube.style.transform = `translateZ(-${tz}px) rotateY(${angle + tiltY}deg) rotateX(${tiltX}deg)`;
 
         faces.forEach((face, i) => {
-          face.classList.toggle('active', i === currentIndex);
+          face.classList.toggle('active', i === currentFaceIndex);
         });
 
         dots.forEach((dot, i) => {
-          dot.classList.toggle('active', i === currentIndex);
+          dot.classList.toggle('active', i === currentFaceIndex);
         });
       }
 
-      function nextFace() { updateCube(currentIndex + 1); }
-      function prevFace() { updateCube(currentIndex - 1); }
+      function nextFace() { updateCube(currentStep + 1); }
+      function prevFace() { updateCube(currentStep - 1); }
 
       if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); nextFace(); resetTimer(); });
       if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prevFace(); resetTimer(); });
@@ -1104,13 +1105,13 @@
           const y = e.clientY - rect.top - rect.height / 2;
           tiltY = (x / rect.width) * 15;
           tiltX = -(y / rect.height) * 15;
-          updateCube(currentIndex);
+          updateCube(currentStep);
         });
 
         scene.addEventListener('mouseleave', () => {
           tiltX = 0;
           tiltY = 0;
-          updateCube(currentIndex);
+          updateCube(currentStep);
           startTimer();
         });
 

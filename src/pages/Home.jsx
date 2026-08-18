@@ -7,9 +7,9 @@ export default function Home() {
   const navigate = useNavigate();
 
   // ==================== 1. HERO VIDEO SLIDER ====================
+  // ==================== 1. HERO VIDEO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
   const heroVideoRefs = [useRef(null), useRef(null), useRef(null)];
-  const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
   const [isTextActive, setIsTextActive] = useState(true);
   const [videosLoaded, setVideosLoaded] = useState([false, false, false]);
@@ -38,7 +38,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    // Play active slide video, pause others
+    // Play active slide video from start, pause and reset others
     heroVideoRefs.forEach((ref, idx) => {
       const video = ref.current;
       if (video) {
@@ -47,6 +47,7 @@ export default function Home() {
           video.play().catch(() => {});
         } else {
           video.pause();
+          video.currentTime = 0;
         }
       }
     });
@@ -57,29 +58,30 @@ export default function Home() {
       setIsTextActive(true);
     }, 400);
 
-    // Reset progress and start interval
     setHeroProgress(0);
-    const step = 100 / (heroDuration / 50);
-    const progressInterval = setInterval(() => {
-      setHeroProgress(prev => {
-        if (prev >= 100) return 100;
-        return prev + step;
-      });
-    }, 50);
-
-    const autoInterval = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % 3);
-    }, heroDuration);
 
     return () => {
       clearTimeout(textTimer);
-      clearInterval(progressInterval);
-      clearInterval(autoInterval);
     };
   }, [heroIndex]);
 
   const goNextHero = () => setHeroIndex(prev => (prev + 1) % 3);
   const goPrevHero = () => setHeroIndex(prev => (prev - 1 + 3) % 3);
+
+  const handleVideoTimeUpdate = (e, idx) => {
+    if (idx === heroIndex) {
+      const video = e.target;
+      if (video.duration && video.duration > 0) {
+        setHeroProgress((video.currentTime / video.duration) * 100);
+      }
+    }
+  };
+
+  const handleVideoEnded = (idx) => {
+    if (idx === heroIndex) {
+      goNextHero();
+    }
+  };
 
   // ==================== 2. WELCOME 3D SLIDER ====================
   const welcomeImages = [
@@ -174,43 +176,58 @@ export default function Home() {
         <div className="hero-slides">
           {/* Slide 1 */}
           <div className={`hero-slide hero-bg--facade ${heroIndex === 0 ? 'active' : ''} ${videosLoaded[0] ? 'has-video' : ''}`} data-slide="0">
-            <video ref={heroVideoRefs[0]} className={`hero-video ${videosLoaded[0] ? 'is-playing' : ''}`} muted loop playsInline preload="auto" onCanPlay={() => handleVideoCanPlay(0)} data-fallback-plane>
-              <source src="/assets/videos/entrance 1-1.mov" type="video/mp4" />
+            <video
+              ref={heroVideoRefs[0]}
+              className={`hero-video ${videosLoaded[0] ? 'is-playing' : ''}`}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              onCanPlay={() => handleVideoCanPlay(0)}
+              onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
+              onEnded={() => handleVideoEnded(0)}
+              data-fallback-plane
+            >
+              <source src="/assets/videos/IMG_4688(1).mp4" type="video/mp4" />
             </video>
-            <div className="depth-plane plane-far"></div>
-            <div className="depth-plane plane-mid"></div>
-            <div className="plane-light"></div>
-            <div className="plane-floor"></div>
-            <div className="depth-plane plane-near"></div>
-            <div className="plane-texture"></div>
             <span className="hero-caption">Luxury Hotel Exterior</span>
           </div>
 
           {/* Slide 2 */}
           <div className={`hero-slide hero-bg--lobby ${heroIndex === 1 ? 'active' : ''} ${videosLoaded[1] ? 'has-video' : ''}`} data-slide="1">
-            <video ref={heroVideoRefs[1]} className={`hero-video ${videosLoaded[1] ? 'is-playing' : ''}`} muted loop playsInline preload="auto" onCanPlay={() => handleVideoCanPlay(1)} data-fallback-plane>
+            <video
+              ref={heroVideoRefs[1]}
+              className={`hero-video ${videosLoaded[1] ? 'is-playing' : ''}`}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              onCanPlay={() => handleVideoCanPlay(1)}
+              onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
+              onEnded={() => handleVideoEnded(1)}
+              data-fallback-plane
+            >
               <source src="/assets/videos/entrance 2.mp4" type="video/mp4" />
             </video>
-            <div className="depth-plane plane-far"></div>
-            <div className="depth-plane plane-mid"></div>
-            <div className="plane-light"></div>
-            <div className="plane-floor"></div>
-            <div className="depth-plane plane-near"></div>
-            <div className="plane-texture"></div>
             <span className="hero-caption">Luxury Hotel Lobby</span>
           </div>
 
           {/* Slide 3 */}
           <div className={`hero-slide hero-bg--room ${heroIndex === 2 ? 'active' : ''} ${videosLoaded[2] ? 'has-video' : ''}`} data-slide="2">
-            <video ref={heroVideoRefs[2]} className={`hero-video ${videosLoaded[2] ? 'is-playing' : ''}`} muted loop playsInline preload="auto" onCanPlay={() => handleVideoCanPlay(2)} data-fallback-plane>
+            <video
+              ref={heroVideoRefs[2]}
+              className={`hero-video ${videosLoaded[2] ? 'is-playing' : ''}`}
+              autoPlay
+              muted
+              playsInline
+              preload="auto"
+              onCanPlay={() => handleVideoCanPlay(2)}
+              onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
+              onEnded={() => handleVideoEnded(2)}
+              data-fallback-plane
+            >
               <source src="/assets/videos/entrance 3.mp4" type="video/mp4" />
             </video>
-            <div className="depth-plane plane-far"></div>
-            <div className="depth-plane plane-mid"></div>
-            <div className="plane-light"></div>
-            <div className="plane-floor"></div>
-            <div className="depth-plane plane-near"></div>
-            <div className="plane-texture"></div>
             <span className="hero-caption">Premium Rooms &amp; Suites</span>
           </div>
         </div>

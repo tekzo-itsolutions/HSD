@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+const HERO_IMAGES = [
+  '/assets/images/hero-about-1.jpg',
+  '/assets/images/hero-about-2.jpg',
+  '/assets/images/hero-about-3.jpg'
+];
+
+// Preload images into browser cache immediately for 0ms instant loading
+if (typeof window !== 'undefined') {
+  HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function About() {
   // ==================== 1. 3D ABOUT HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
-  const heroImages = [
-    '/assets/images/ChatGPT Image Aug 9, 2026, 02_41_30 PM.png',
-    '/assets/images/ChatGPT Image Aug 9, 2026, 03_00_06 PM.png',
-    '/assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png'
-  ];
+  const heroImages = HERO_IMAGES;
 
   useEffect(() => {
     setHeroProgress(0);
@@ -36,18 +46,20 @@ export default function About() {
   const goPrevHero = () => setHeroIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
 
   // ==================== 2. 3D ROTATING PRISM ====================
-  const [prismIndex, setPrismIndex] = useState(0);
+  const [prismStep, setPrismStep] = useState(0);
   const [tiltX, setTiltX] = useState(0);
   const [tiltY, setTiltY] = useState(0);
   const [prismAutoplay, setPrismAutoplay] = useState(true);
 
+  const currentPrismFace = ((prismStep % 4) + 4) % 4;
+
   useEffect(() => {
     if (!prismAutoplay) return;
     const interval = setInterval(() => {
-      setPrismIndex(prev => (prev + 1) % 4);
+      setPrismStep(prev => prev + 1);
     }, 3600);
     return () => clearInterval(interval);
-  }, [prismIndex, prismAutoplay]);
+  }, [prismAutoplay, prismStep]);
 
   const handlePrismMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -65,13 +77,15 @@ export default function About() {
   };
 
   const goNextPrism = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    setPrismIndex(prev => (prev + 1) % 4);
+    setPrismStep(prev => prev + 1);
   };
 
   const goPrevPrism = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    setPrismIndex(prev => (prev - 1 + 4) % 4);
+    setPrismStep(prev => prev - 1);
   };
 
   // Determine standard translateZ depth based on screen size
@@ -205,7 +219,14 @@ export default function About() {
 
               return (
                 <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')` }}></div>
+                  <img
+                    src={src}
+                    alt="Hotel Shree Daan Story"
+                    className="gallery-slide-img"
+                    loading="eager"
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -213,11 +234,10 @@ export default function About() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
-        <div className="gallery-3d-light-sweep"></div>
-        <div className="gallery-3d-vignette"></div>
 
-        {/* Hero Content Overlay */}
+
+        {/* Ambient 3D Lighting Sweep Overlay */}
+        <div className="gallery-3d-light-sweep"></div>
         <div className="gallery-hero-content">
           <div className="gallery-hero-badge">
             <span className="badge-sparkle">✦</span> WELCOME TO HOTEL SHREE DAAN <span className="badge-sparkle">✦</span>
@@ -276,12 +296,12 @@ export default function About() {
                   className="prism-3d-cube"
                   id="aboutPrismCube"
                   style={{
-                    transform: `translateZ(-${tz}px) rotateY(${-prismIndex * 90 + tiltY}deg) rotateX(${tiltX}deg)`,
-                    transition: tiltX || tiltY ? 'none' : 'transform 0.8s var(--ease)'
+                    transform: `translateZ(-${tz}px) rotateY(${-prismStep * 90 + tiltY}deg) rotateX(${tiltX}deg)`,
+                    transition: 'transform 0.85s cubic-bezier(0.25, 1, 0.35, 1)'
                   }}
                 >
                   {/* Face 1 */}
-                  <div className={`cube-face face-front ${prismIndex === 0 ? 'active' : ''}`}>
+                  <div className={`cube-face face-front ${currentPrismFace === 0 ? 'active' : ''}`}>
                     <div className="face-img-box">
                       <img src="/assets/images/ChatGPT Image Aug 9, 2026, 02_41_30 PM.png" alt="Hotel Shree Daan Luxury Suite" />
                       <div className="face-gold-border"></div>
@@ -289,7 +309,7 @@ export default function About() {
                   </div>
 
                   {/* Face 2 */}
-                  <div className={`cube-face face-right ${prismIndex === 1 ? 'active' : ''}`}>
+                  <div className={`cube-face face-right ${currentPrismFace === 1 ? 'active' : ''}`}>
                     <div className="face-img-box">
                       <img src="/assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png" alt="Hotel Shree Daan Reception &amp; Lobby" />
                       <div className="face-gold-border"></div>
@@ -297,7 +317,7 @@ export default function About() {
                   </div>
 
                   {/* Face 3 */}
-                  <div className={`cube-face face-back ${prismIndex === 2 ? 'active' : ''}`}>
+                  <div className={`cube-face face-back ${currentPrismFace === 2 ? 'active' : ''}`}>
                     <div className="face-img-box">
                       <img src="/assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png" alt="Hotel Shree Daan Deluxe Stay" />
                       <div className="face-gold-border"></div>
@@ -305,7 +325,7 @@ export default function About() {
                   </div>
 
                   {/* Face 4 */}
-                  <div className={`cube-face face-left ${prismIndex === 3 ? 'active' : ''}`}>
+                  <div className={`cube-face face-left ${currentPrismFace === 3 ? 'active' : ''}`}>
                     <div className="face-img-box">
                       <img src="/assets/images/ChatGPT Image Aug 9, 2026, 03_00_06 PM.png" alt="Hotel Shree Daan Ambience" />
                       <div className="face-gold-border"></div>

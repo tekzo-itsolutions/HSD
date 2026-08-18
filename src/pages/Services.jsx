@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const SERVICES_HERO_IMAGES = [
+  '/assets/images/hero-services-1.jpg',
+  '/assets/images/hero-about-3.jpg'
+];
+
+if (typeof window !== 'undefined') {
+  SERVICES_HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function Services() {
   // ==================== 1. 3D HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
-  const heroImages = [
-    '/assets/images/ChatGPT Image Aug 10, 2026, 11_46_14 PM.png',
-    '/assets/images/ChatGPT Image Aug 9, 2026, 02_52_30 PM.png'
-  ];
+  const heroImages = SERVICES_HERO_IMAGES;
 
   useEffect(() => {
     setHeroProgress(0);
@@ -53,7 +62,14 @@ export default function Services() {
 
               return (
                 <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')`, backgroundPosition: 'center bottom' }}></div>
+                  <img
+                    src={src}
+                    alt="Hotel Shree Daan Luxury Services"
+                    className="gallery-slide-img"
+                    loading="eager"
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -61,9 +77,8 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
+        {/* Ambient 3D Lighting Sweep Overlay */}
         <div className="gallery-3d-light-sweep"></div>
-        <div className="gallery-3d-vignette"></div>
 
         {/* Hero Content Overlay */}
         <div className="gallery-hero-content">

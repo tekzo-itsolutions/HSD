@@ -2,6 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ROOMS } from '../data/roomsData';
 
+const ROOMS_HERO_IMAGES = [
+  '/assets/images/hero-rooms-1.jpg',
+  '/assets/images/hero-rooms-2.jpg',
+  '/assets/images/hero-rooms-3.jpg'
+];
+
+// Preload rooms hero images into browser cache immediately
+if (typeof window !== 'undefined') {
+  ROOMS_HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function Rooms() {
   const navigate = useNavigate();
 
@@ -9,11 +23,7 @@ export default function Rooms() {
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
-  const heroImages = [
-    '/assets/images/ChatGPT Image Aug 10, 2026, 12_23_57 AM.png',
-    '/assets/images/ChatGPT Image Aug 9, 2026, 02_46_57 PM.png',
-    '/assets/images/ChatGPT Image Aug 10, 2026, 12_26_16 AM.png'
-  ];
+  const heroImages = ROOMS_HERO_IMAGES;
 
   useEffect(() => {
     setHeroProgress(0);
@@ -78,7 +88,14 @@ export default function Rooms() {
 
               return (
                 <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')` }}></div>
+                  <img
+                    src={src}
+                    alt="Hotel Shree Daan Luxury Room"
+                    className="gallery-slide-img"
+                    loading="eager"
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -86,9 +103,8 @@ export default function Rooms() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
+        {/* Ambient 3D Lighting Sweep Overlay */}
         <div className="gallery-3d-light-sweep"></div>
-        <div className="gallery-3d-vignette"></div>
 
         {/* Hero Content Overlay */}
         <div className="gallery-hero-content">

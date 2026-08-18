@@ -44,39 +44,219 @@ const SHORT_DESCS = {
   'gold-facial': 'Anti-ageing procedure targeting dark circles, lines & wrinkles...'
 };
 
-// Spa Card Slider for multi-image items
-function SpaCardSlider({ images }) {
+// Spa Card Media Slider for multi-image & video items
+function SpaCardSlider({ images, media }) {
+  const items = media || images || [];
   const [idx, setIdx] = useState(0);
+  const videoRefs = useRef({});
 
+  // Normalize items to { type: 'video' | 'image', src: string, poster?: string }
+  const normalizedItems = items.map(item => {
+    if (typeof item === 'string') {
+      const isVideo = item.toLowerCase().endsWith('.mp4') || item.toLowerCase().endsWith('.webm');
+      return { 
+        type: isVideo ? 'video' : 'image', 
+        src: item
+      };
+    }
+    return item;
+  });
+
+  const currentItem = normalizedItems[idx];
+
+  // Auto-advance logic
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIdx(prev => (prev + 1) % images.length);
-    }, 3500);
-    return () => clearInterval(timer);
-  }, [images]);
+    if (normalizedItems.length <= 1) return;
+
+    if (currentItem?.type === 'video') {
+      const currentVideo = videoRefs.current[idx];
+      if (currentVideo) {
+        currentVideo.currentTime = 0;
+        currentVideo.play().catch(() => {});
+      }
+      // Safety fallback timer in case onEnded doesn't fire
+      const fallbackTimer = setTimeout(() => {
+        setIdx(prev => (prev + 1) % normalizedItems.length);
+      }, 7000);
+      return () => clearTimeout(fallbackTimer);
+    } else {
+      const timer = setTimeout(() => {
+        setIdx(prev => (prev + 1) % normalizedItems.length);
+      }, 3800);
+      return () => clearTimeout(timer);
+    }
+  }, [idx, normalizedItems.length, currentItem?.type]);
+
+  const handleVideoEnded = () => {
+    setIdx(prev => (prev + 1) % normalizedItems.length);
+  };
+
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setIdx(prev => (prev - 1 + normalizedItems.length) % normalizedItems.length);
+  };
+
+  const handleNext = (e) => {
+    e.stopPropagation();
+    setIdx(prev => (prev + 1) % normalizedItems.length);
+  };
+
+  if (!normalizedItems.length) return null;
+
+  const firstImg = normalizedItems.find(it => it.type === 'image')?.src || '/assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png';
 
   return (
-    <div className="card-slider-wrapper" style={{ height: '100%' }}>
-      {images.map((src, i) => (
-        <div
-          key={i}
-          className={`card-slide ${idx === i ? 'active' : ''}`}
-          style={{ backgroundImage: `url('${src}')`, position: 'absolute', inset: 0, backgroundSize: 'cover', backgroundPosition: 'center', transition: 'opacity 0.8s ease-in-out' }}
-        />
-      ))}
-      <div className="card-slider-dots" style={{ position: 'absolute', bottom: '12px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '8px', zIndex: 5 }}>
-        {images.map((_, i) => (
-          <span
+    <div className="card-slider-wrapper" style={{ height: '100%', position: 'relative', overflow: 'hidden', backgroundColor: '#0d0608' }}>
+      {normalizedItems.map((item, i) => {
+        const isActive = idx === i;
+        const bgImg = item.type === 'video' ? (item.poster || firstImg) : item.src;
+        const posterImg = item.poster || firstImg;
+        return (
+          <div
             key={i}
-            className={`card-dot ${idx === i ? 'active' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIdx(i);
+            className={`card-slide ${isActive ? 'active' : ''}`}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              opacity: isActive ? 1 : 0,
+              visibility: isActive ? 'visible' : 'hidden',
+              transition: 'opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+              zIndex: isActive ? 2 : 1,
+              backgroundImage: bgImg ? `url('${bgImg}')` : undefined,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
             }}
-            style={{ width: idx === i ? '22px' : '8px', height: '8px', borderRadius: idx === i ? '4px' : '50%', background: idx === i ? '#c9a227' : 'rgba(255,255,255,0.4)', cursor: 'pointer', transition: 'all 0.3s ease' }}
-          />
-        ))}
-      </div>
+          >
+            {item.type === 'video' && (
+              <video
+                ref={el => { videoRefs.current[i] = el; }}
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                poster={posterImg}
+                onEnded={handleVideoEnded}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+              >
+                <source src={item.src} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        );
+      })}
+
+      {/* Navigation Arrows */}
+      {normalizedItems.length > 1 && (
+        <>
+          <button
+            type="button"
+            className="slider-nav-arrow slider-nav-prev"
+            onClick={handlePrev}
+            aria-label="Previous slide"
+            style={{
+              position: 'absolute',
+              left: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              background: 'rgba(15, 6, 8, 0.65)',
+              border: '1px solid rgba(201, 162, 39, 0.4)',
+              color: 'var(--gold-glow, #f3e5ab)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 5,
+              backdropFilter: 'blur(4px)',
+              transition: 'all 0.2s ease',
+              padding: 0
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className="slider-nav-arrow slider-nav-next"
+            onClick={handleNext}
+            aria-label="Next slide"
+            style={{
+              position: 'absolute',
+              right: '8px',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              background: 'rgba(15, 6, 8, 0.65)',
+              border: '1px solid rgba(201, 162, 39, 0.4)',
+              color: 'var(--gold-glow, #f3e5ab)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 5,
+              backdropFilter: 'blur(4px)',
+              transition: 'all 0.2s ease',
+              padding: 0
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </>
+      )}
+
+      {/* Dots Indicator */}
+      {normalizedItems.length > 1 && (
+        <div
+          className="card-slider-dots"
+          style={{
+            position: 'absolute',
+            bottom: '10px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            zIndex: 5,
+            background: 'rgba(0, 0, 0, 0.4)',
+            padding: '4px 8px',
+            borderRadius: '12px',
+            backdropFilter: 'blur(3px)'
+          }}
+        >
+          {normalizedItems.map((item, i) => (
+            <span
+              key={i}
+              className={`card-dot ${idx === i ? 'active' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIdx(i);
+              }}
+              title={item.type === 'video' ? 'Video' : `Image ${i + 1}`}
+              style={{
+                width: idx === i ? '20px' : '7px',
+                height: '7px',
+                borderRadius: idx === i ? '4px' : '50%',
+                background: idx === i ? '#c9a227' : 'rgba(255, 255, 255, 0.4)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease'
+              }}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -136,12 +316,19 @@ export default function SpaDetails() {
 
   // ==================== 1. 3D HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
-  const heroVideoRefs = [useRef(null), useRef(null), useRef(null)];
-  const heroDuration = 5000;
+  const heroVideoRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [heroProgress, setHeroProgress] = useState(0);
 
+  // Preload Ayurveda showcase video for instant zero-blank playback
   useEffect(() => {
-    // Play active slide video, pause others
+    const v = document.createElement('video');
+    v.src = '/assets/videos/IMG_4707.mp4';
+    v.preload = 'auto';
+    v.load();
+  }, []);
+
+  useEffect(() => {
+    // Play active slide video from start, pause and reset others
     heroVideoRefs.forEach((ref, idx) => {
       const video = ref.current;
       if (video) {
@@ -150,32 +337,30 @@ export default function SpaDetails() {
           video.play().catch(() => {});
         } else {
           video.pause();
+          video.currentTime = 0;
         }
       }
     });
-
-    // Reset progress and start interval
     setHeroProgress(0);
-    const step = 100 / (heroDuration / 50);
-    const progressInterval = setInterval(() => {
-      setHeroProgress(prev => {
-        if (prev >= 100) return 100;
-        return prev + step;
-      });
-    }, 50);
-
-    const autoInterval = setInterval(() => {
-      setHeroIndex(prev => (prev + 1) % 3);
-    }, heroDuration);
-
-    return () => {
-      clearInterval(progressInterval);
-      clearInterval(autoInterval);
-    };
   }, [heroIndex]);
 
-  const goNextHero = () => setHeroIndex(prev => (prev + 1) % 3);
-  const goPrevHero = () => setHeroIndex(prev => (prev - 1 + 3) % 3);
+  const goNextHero = () => setHeroIndex(prev => (prev + 1) % 5);
+  const goPrevHero = () => setHeroIndex(prev => (prev - 1 + 5) % 5);
+
+  const handleVideoTimeUpdate = (e, idx) => {
+    if (idx === heroIndex) {
+      const video = e.target;
+      if (video.duration && video.duration > 0) {
+        setHeroProgress((video.currentTime / video.duration) * 100);
+      }
+    }
+  };
+
+  const handleVideoEnded = (idx) => {
+    if (idx === heroIndex) {
+      goNextHero();
+    }
+  };
 
   // ==================== 2. MENU BOOKLET STATE ====================
   const [activeItems, setActiveItems] = useState({
@@ -288,7 +473,15 @@ export default function SpaDetails() {
           <div className="spa-3d-slides" id="spa3dSlides">
             {/* Slide 1 */}
             <div className={`spa-3d-slide ${heroIndex === 0 ? 'active' : ''}`} data-index="0">
-              <video ref={heroVideoRefs[0]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+              <video
+                ref={heroVideoRefs[0]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
+                onEnded={() => handleVideoEnded(0)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
                 <source src="/assets/videos/spa 1.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
@@ -296,15 +489,63 @@ export default function SpaDetails() {
 
             {/* Slide 2 */}
             <div className={`spa-3d-slide ${heroIndex === 1 ? 'active' : ''}`} data-index="1">
-              <video ref={heroVideoRefs[1]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
-                <source src="/assets/videos/spa 2.mp4" type="video/mp4" />
+              <video
+                ref={heroVideoRefs[1]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
+                onEnded={() => handleVideoEnded(1)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
+                <source src="/assets/videos/IMG_4696.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
             </div>
 
             {/* Slide 3 */}
             <div className={`spa-3d-slide ${heroIndex === 2 ? 'active' : ''}`} data-index="2">
-              <video ref={heroVideoRefs[2]} autoPlay muted loop playsInline style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+              <video
+                ref={heroVideoRefs[2]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
+                onEnded={() => handleVideoEnded(2)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
+                <source src="/assets/videos/spa 2.mp4" type="video/mp4" />
+              </video>
+              <div className="spa-slide-overlay"></div>
+            </div>
+
+            {/* Slide 4 (IMG_4709) */}
+            <div className={`spa-3d-slide ${heroIndex === 3 ? 'active' : ''}`} data-index="3">
+              <video
+                ref={heroVideoRefs[3]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
+                onEnded={() => handleVideoEnded(3)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
+                <source src="/assets/videos/IMG_4709.mp4" type="video/mp4" />
+              </video>
+              <div className="spa-slide-overlay"></div>
+            </div>
+
+            {/* Slide 5 (spa 3) */}
+            <div className={`spa-3d-slide ${heroIndex === 4 ? 'active' : ''}`} data-index="4">
+              <video
+                ref={heroVideoRefs[4]}
+                autoPlay
+                muted
+                playsInline
+                onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
+                onEnded={() => handleVideoEnded(4)}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              >
                 <source src="/assets/videos/spa 3.mp4" type="video/mp4" />
               </video>
               <div className="spa-slide-overlay"></div>
@@ -312,9 +553,7 @@ export default function SpaDetails() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
-        <div className="spa-3d-light-sweep"></div>
-        <div className="spa-3d-vignette"></div>
+
 
         {/* Hero Content Overlay */}
         <div className="spa-hero-content">
@@ -342,7 +581,7 @@ export default function SpaDetails() {
         {/* Dots & Progress */}
         <div className="spa-3d-controls">
           <div className="spa-3d-dots" id="spa3dDots">
-            {[0, 1, 2].map(idx => (
+            {[0, 1, 2, 3, 4].map(idx => (
               <button
                 key={idx}
                 className={`spa-dot ${heroIndex === idx ? 'active' : ''}`}
@@ -404,17 +643,23 @@ export default function SpaDetails() {
                 <div className="spa-category-layout">
                   {/* Left Column Showcase Card */}
                   <div className="spa-showcase-column">
-                    <div className="spa-showcase-img-wrapper" style={{ height: '230px', overflow: 'hidden', position: 'relative' }}>
-                      {catKey === 'body-scrub' && activeIdx === 0 ? (
+                    <div className="spa-showcase-img-wrapper" style={{ height: '260px', overflow: 'hidden', position: 'relative' }}>
+                      {catKey === 'body-scrub' ? (
                         <SpaCardSlider images={[
                           '/assets/images/ChatGPT Image Aug 12, 2026, 08_45_41 PM.png',
                           '/assets/images/Gemini_Generated_Image_lmp0zhlmp0zhlmp0.png',
                           '/assets/images/ChatGPT Image Aug 12, 2026, 08_49_18 PM.png'
                         ]} />
-                      ) : catKey === 'ayurveda' && activeIdx === 0 ? (
+                      ) : catKey === 'ayurveda' ? (
                         <SpaCardSlider images={[
+                          '/assets/videos/IMG_4707.mp4',
                           '/assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png',
                           '/assets/images/Gemini_Generated_Image_lwf1gxlwf1gxlwf1.png'
+                        ]} />
+                      ) : catKey === 'rejuvenate' ? (
+                        <SpaCardSlider images={[
+                          '/assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png',
+                          '/assets/videos/IMG_4707.mp4'
                         ]} />
                       ) : (
                         <img className="spa-showcase-img" src={activeItem.image} alt={activeItem.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -459,7 +704,6 @@ export default function SpaDetails() {
                       >
                         <div className="spa-item-text">
                           <h5 style={{ color: activeIdx === idx ? 'var(--gold-glow)' : 'var(--ivory)' }}>
-                            {activeIdx === idx && <span style={{ color: 'var(--gold)' }}>• </span>}
                             {item.title}
                           </h5>
                           <p>{SHORT_DESCS[item.id] || item.desc}</p>
@@ -621,7 +865,26 @@ export default function SpaDetails() {
           {activeItem && (
             <>
               <div className="spa-modal-img-box">
-                <img src={activeItem.image} alt={activeItem.title} />
+                {activeTab === 'body-scrub' ? (
+                  <SpaCardSlider images={[
+                    '/assets/images/ChatGPT Image Aug 12, 2026, 08_45_41 PM.png',
+                    '/assets/images/Gemini_Generated_Image_lmp0zhlmp0zhlmp0.png',
+                    '/assets/images/ChatGPT Image Aug 12, 2026, 08_49_18 PM.png'
+                  ]} />
+                ) : activeTab === 'ayurveda' ? (
+                  <SpaCardSlider images={[
+                    '/assets/videos/IMG_4707.mp4',
+                    '/assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png',
+                    '/assets/images/Gemini_Generated_Image_lwf1gxlwf1gxlwf1.png'
+                  ]} />
+                ) : activeTab === 'rejuvenate' ? (
+                  <SpaCardSlider images={[
+                    '/assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png',
+                    '/assets/videos/IMG_4707.mp4'
+                  ]} />
+                ) : (
+                  <img src={activeItem.image} alt={activeItem.title} />
+                )}
               </div>
               <div className="spa-modal-body">
                 <div className="spa-modal-header-row">

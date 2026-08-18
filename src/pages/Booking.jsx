@@ -2,6 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { roomData, ROOMS } from '../data/roomsData';
 
+const BOOKING_HERO_IMAGES = [
+  '/assets/images/hero-rooms-1.jpg',
+  '/assets/images/hero-rooms-2.jpg',
+  '/assets/images/hero-booking-3.jpg'
+];
+
+if (typeof window !== 'undefined') {
+  BOOKING_HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function Booking() {
   const [searchParams, setSearchParams] = useSearchParams();
   const roomCode = searchParams.get('room') || 'premier';
@@ -9,8 +22,37 @@ export default function Booking() {
   // Get current room details
   const activeRoom = roomData[roomCode] || roomData['premier'];
 
-  // Slide state for room images
+  // Slide state for individual room images in booking box
   const [slideIndex, setSlideIndex] = useState(0);
+
+  // ==================== 1. 3D HERO SLIDER ====================
+  const [heroIndex, setHeroIndex] = useState(0);
+  const heroDuration = 6000;
+  const [heroProgress, setHeroProgress] = useState(0);
+  const heroImages = BOOKING_HERO_IMAGES;
+
+  useEffect(() => {
+    setHeroProgress(0);
+    const step = 100 / (heroDuration / 50);
+    const progressInterval = setInterval(() => {
+      setHeroProgress(prev => {
+        if (prev >= 100) return 100;
+        return prev + step;
+      });
+    }, 50);
+
+    const autoInterval = setInterval(() => {
+      setHeroIndex(prev => (prev + 1) % heroImages.length);
+    }, heroDuration);
+
+    return () => {
+      clearInterval(progressInterval);
+      clearInterval(autoInterval);
+    };
+  }, [heroIndex]);
+
+  const goNextHero = () => setHeroIndex(prev => (prev + 1) % heroImages.length);
+  const goPrevHero = () => setHeroIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
 
   // Form inputs
   const [guestName, setGuestName] = useState('');
@@ -248,20 +290,27 @@ export default function Booking() {
       <section id="galleryHeroSlider" className="gallery-hero-3d">
         <div className="gallery-3d-viewport">
           <div className="gallery-3d-slides" id="gallery3dSlides">
-            {activeRoom.slides.map((src, idx) => {
-              let diff = idx - slideIndex;
-              const total = activeRoom.slides.length;
+            {heroImages.map((src, idx) => {
+              let diff = idx - heroIndex;
+              const total = heroImages.length;
               if (diff > total / 2) diff -= total;
               if (diff < -total / 2) diff += total;
 
               let className = 'gallery-3d-slide';
               if (diff === 0) className += ' active';
-              else if (diff === 1 || (slideIndex === total - 1 && idx === 0)) className += ' next-slide';
-              else if (diff === -1 || (slideIndex === 0 && idx === total - 1)) className += ' prev-slide';
+              else if (diff === 1 || (heroIndex === total - 1 && idx === 0)) className += ' next-slide';
+              else if (diff === -1 || (heroIndex === 0 && idx === total - 1)) className += ' prev-slide';
 
               return (
                 <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')` }}></div>
+                  <img
+                    src={src}
+                    alt="Hotel Shree Daan Reserve Stay"
+                    className="gallery-slide-img"
+                    loading="eager"
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    decoding="async"
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -269,9 +318,8 @@ export default function Booking() {
           </div>
         </div>
 
-        {/* Ambient 3D Lighting & Vignette Overlay */}
+        {/* Ambient 3D Lighting Sweep Overlay */}
         <div className="gallery-3d-light-sweep"></div>
-        <div className="gallery-3d-vignette"></div>
 
         {/* Hero Content Overlay */}
         <div className="gallery-hero-content">
@@ -288,37 +336,31 @@ export default function Booking() {
           </div>
         </div>
 
-        {/* 3D Navigation Arrows (only if slides count > 1) */}
-        {activeRoom.slides.length > 1 && (
-          <>
-            <button className="gallery-3d-arrow gallery-prev" onClick={() => setSlideIndex(prev => (prev - 1 + activeRoom.slides.length) % activeRoom.slides.length)} aria-label="Previous Slide">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button className="gallery-3d-arrow gallery-next" onClick={() => setSlideIndex(prev => (prev + 1) % activeRoom.slides.length)} aria-label="Next Slide">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-          </>
-        )}
+        {/* 3D Navigation Arrows */}
+        <button className="gallery-3d-arrow gallery-prev" onClick={goPrevHero} aria-label="Previous Slide">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button className="gallery-3d-arrow gallery-next" onClick={goNextHero} aria-label="Next Slide">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
 
-        {/* Slider Controls & Auto Progress Bar (only if slides count > 1) */}
-        {activeRoom.slides.length > 1 && (
-          <div className="gallery-3d-controls">
-            <div className="gallery-3d-dots" id="gallery3dDots">
-              {activeRoom.slides.map((_, idx) => (
-                <button
-                  key={idx}
-                  className={`gallery-dot ${slideIndex === idx ? 'active' : ''}`}
-                  onClick={() => setSlideIndex(idx)}
-                >
-                  <span>0{idx + 1}</span>
-                </button>
-              ))}
-            </div>
-            <div className="gallery-3d-progress">
-              <div className="gallery-progress-bar" style={{ width: '0%', transition: 'none' }}></div>
-            </div>
+        {/* Slider Controls & Auto Progress Bar */}
+        <div className="gallery-3d-controls">
+          <div className="gallery-3d-dots" id="gallery3dDots">
+            {heroImages.map((_, idx) => (
+              <button
+                key={idx}
+                className={`gallery-dot ${heroIndex === idx ? 'active' : ''}`}
+                onClick={() => setHeroIndex(idx)}
+              >
+                <span>0{idx + 1}</span>
+              </button>
+            ))}
           </div>
-        )}
+          <div className="gallery-3d-progress">
+            <div className="gallery-progress-bar" style={{ width: `${Math.min(heroProgress, 100)}%`, transition: 'width 0.05s linear' }}></div>
+          </div>
+        </div>
       </section>
 
       {/* ===== BOOKING DESK & ROOM DETAIL SECTION ===== */}

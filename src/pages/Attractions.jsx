@@ -1,17 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+const ATTRACTIONS_LIST = [
+  {
+    title: 'Daman Beach',
+    distance: '13 km away',
+    images: ['/assets/images/Daman1.jpg', '/assets/images/Daman2.jpg', '/assets/images/Daman3.jpg'],
+    desc: 'Relax on the golden sands of Daman Beach, enjoy stunning Arabian Sea views, peaceful sunsets, and a refreshing coastal escape just moments away.'
+  },
+  {
+    title: 'Dudhni Lake',
+    distance: '40 km away',
+    images: ['/assets/images/Dudhni1.jpg', '/assets/images/Dudhni2.jpg', '/assets/images/Dudhni3.jpg'],
+    desc: 'Experience the tranquil beauty of Dudhni Lake, known for its peaceful waters, exciting boating activities, and picturesque surroundings—an ideal destination for relaxation and adventure.'
+  },
+  {
+    title: 'Udvada',
+    distance: '15 km away',
+    images: ['/assets/images/udvada1.jpg', '/assets/images/udvada2.jpg', '/assets/images/udvada3.jpg'],
+    desc: 'A historic coastal town that serves as a major pilgrimage site for Parsis. It houses the Iranshah Atash Behram, which holds the oldest continuously burning sacred fire in India. It is also highly regarded for its authentic, traditional Parsi cuisine.'
+  },
+  {
+    title: 'Silvassa',
+    distance: '18 km away',
+    images: ['/assets/images/Silvassa1.jpg', '/assets/images/Silvassa2.jpg', '/assets/images/Silvassa3.jpg'],
+    desc: 'Silvassa offers lush greenery, adventure activities, and scenic lake views. Visit the Lion Safari, Vasona Deer Park, and Dudhni Lake just a few minutes away from Vapi.'
+  },
+  {
+    title: 'Valsad (Tithal Beach)',
+    distance: '35 km away',
+    images: ['/assets/images/tithal1.jpg', '/assets/images/tithal12.jpg', '/assets/images/tithal3.jpg'],
+    desc: 'Famous for stunning sunrise and sunset views, black-sand beaches, and the Swaminarayan temple near the coastline, perfect for peaceful beach walks and relaxation.'
+  },
+  {
+    title: 'Wilson Hills',
+    distance: '71 km away',
+    images: ['/assets/images/wilson hills1.jpg', '/assets/images/wilson hills2.jpg', '/assets/images/wilson hills3.jpg'],
+    desc: 'Escape to the scenic beauty of Wilson Hill, where lush greenery, cool breezes, and breathtaking panoramic views create the perfect getaway for nature lovers and adventure seekers.'
+  }
+];
+
 function AttractionCardSlider({ images, distance }) {
   const [idx, setIdx] = useState(0);
+  const totalSlides = images?.length || 0;
+
+  useEffect(() => {
+    if (totalSlides <= 1) return;
+    const timer = setInterval(() => {
+      setIdx(prev => (prev + 1) % totalSlides);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [totalSlides]);
 
   const goNext = (e) => {
     e.stopPropagation();
-    setIdx(prev => (prev + 1) % images.length);
+    setIdx(prev => (prev + 1) % totalSlides);
   };
 
   const goPrev = (e) => {
     e.stopPropagation();
-    setIdx(prev => (prev - 1 + images.length) % images.length);
+    setIdx(prev => (prev - 1 + totalSlides) % totalSlides);
   };
 
   return (
@@ -30,7 +78,8 @@ function AttractionCardSlider({ images, distance }) {
               height: '100%',
               objectFit: 'cover',
               opacity: idx === i ? 1 : 0,
-              transition: 'opacity 0.6s ease-in-out',
+              visibility: idx === i ? 'visible' : 'hidden',
+              transition: 'opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1)',
               zIndex: idx === i ? 2 : 1
             }}
           />
@@ -59,16 +108,25 @@ function AttractionCardSlider({ images, distance }) {
   );
 }
 
+const ATTRACTIONS_HERO_IMAGES = [
+  '/assets/images/damans1.jpg',
+  '/assets/images/silvasas1.jpg',
+  '/assets/images/wilsons hill2.jpg'
+];
+
+if (typeof window !== 'undefined') {
+  ATTRACTIONS_HERO_IMAGES.forEach(src => {
+    const img = new Image();
+    img.src = src;
+  });
+}
+
 export default function Attractions() {
   // ==================== 1. 3D HERO SLIDER ====================
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
-  const heroImages = [
-    '/assets/images/damans1.jpg',
-    '/assets/images/silvasas1.jpg',
-    '/assets/images/wilsons hill2.jpg'
-  ];
+  const heroImages = ATTRACTIONS_HERO_IMAGES;
 
   useEffect(() => {
     setHeroProgress(0);
@@ -93,46 +151,6 @@ export default function Attractions() {
   const goNextHero = () => setHeroIndex(prev => (prev + 1) % heroImages.length);
   const goPrevHero = () => setHeroIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
 
-  // Attractions list configurations
-  const list = [
-    {
-      title: 'Daman Beach',
-      distance: '13 km away',
-      images: ['/assets/images/Daman1.jpg', '/assets/images/Daman2.jpg', '/assets/images/Daman3.jpg'],
-      desc: 'Relax on the golden sands of Daman Beach, enjoy stunning Arabian Sea views, peaceful sunsets, and a refreshing coastal escape just moments away.'
-    },
-    {
-      title: 'Dudhni Lake',
-      distance: '40 km away',
-      images: ['/assets/images/Dudhni1.jpg', '/assets/images/Dudhni2.jpg', '/assets/images/Dudhni3.jpg'],
-      desc: 'Experience the tranquil beauty of Dudhni Lake, known for its peaceful waters, exciting boating activities, and picturesque surroundings—an ideal destination for relaxation and adventure.'
-    },
-    {
-      title: 'Udvada',
-      distance: '15 km away',
-      images: ['/assets/images/udvada1.jpg', '/assets/images/udvada2.jpg', '/assets/images/udvada3.jpg'],
-      desc: 'A historic coastal town that serves as a major pilgrimage site for Parsis. It houses the Iranshah Atash Behram, which holds the oldest continuously burning sacred fire in India. It is also highly regarded for its authentic, traditional Parsi cuisine.'
-    },
-    {
-      title: 'Silvassa',
-      distance: '18 km away',
-      images: ['/assets/images/Silvassa1.jpg', '/assets/images/Silvassa2.jpg', '/assets/images/Silvassa3.jpg'],
-      desc: 'Silvassa offers lush greenery, adventure activities, and scenic lake views. Visit the Lion Safari, Vasona Deer Park, and Dudhni Lake just a few minutes away from Vapi.'
-    },
-    {
-      title: 'Valsad (Tithal Beach)',
-      distance: '35 km away',
-      images: ['/assets/images/tithal1.jpg', '/assets/images/tithal12.jpg', '/assets/images/tithal3.jpg'],
-      desc: 'Famous for stunning sunrise and sunset views, black-sand beaches, and the Swaminarayan temple near the coastline, perfect for peaceful beach walks and relaxation.'
-    },
-    {
-      title: 'Wilson Hills',
-      distance: '71 km away',
-      images: ['/assets/images/wilson hills1.jpg', '/assets/images/wilson hills2.jpg', '/assets/images/wilson hills3.jpg'],
-      desc: 'Escape to the scenic beauty of Wilson Hill, where lush greenery, cool breezes, and breathtaking panoramic views create the perfect getaway for nature lovers and adventure seekers.'
-    }
-  ];
-
   return (
     <>
       {/* ===== 3D ATTRACTIONS HERO SLIDER ===== */}
@@ -151,8 +169,24 @@ export default function Attractions() {
               else if (diff === -1 || (heroIndex === 0 && idx === total - 1)) className += ' prev-slide';
 
               return (
-                <div key={idx} className={className} data-index={idx}>
-                  <div className="gallery-slide-bg" style={{ backgroundImage: `url('${src}')` }}></div>
+                <div key={idx} className={className} data-index={idx} style={{ backgroundColor: '#1a0f12' }}>
+                  <img
+                    src={src}
+                    alt={`Attraction slide ${idx + 1}`}
+                    fetchPriority={idx === 0 ? "high" : "auto"}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    decoding="sync"
+                    className="gallery-slide-bg"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                      display: 'block'
+                    }}
+                  />
                   <div className="gallery-slide-overlay"></div>
                 </div>
               );
@@ -219,7 +253,7 @@ export default function Attractions() {
         </div>
 
         <div className="attractions-grid">
-          {list.map((item, idx) => (
+          {ATTRACTIONS_LIST.map((item, idx) => (
             <div key={idx} className="attraction-card reveal-up">
               <AttractionCardSlider images={item.images} distance={item.distance} />
               <div className="attraction-content">
