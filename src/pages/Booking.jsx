@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { roomData, ROOMS } from '../data/roomsData';
+import { createRoomBooking } from '../api';
 
 const BOOKING_HERO_IMAGES = [
   '/assets/images/hero-rooms-1.jpg',
@@ -149,14 +150,14 @@ export default function Booking() {
     return `${d.getDate().toString().padStart(2, '0')} ${months[d.getMonth()]} ${d.getFullYear()}`;
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (nights <= 0) {
       alert('Please select a valid check-out date after your check-in date.');
       return;
     }
 
-    const bookingId = 'SD' + Date.now().toString().slice(-8);
+    const bookingId = 'SD-' + Date.now().toString().slice(-7);
     const formattedCheckIn = formatDate(checkIn);
     const formattedCheckOut = formatDate(checkOut);
 
@@ -180,13 +181,9 @@ export default function Booking() {
       dateCreated: new Date().toISOString().split('T')[0]
     };
 
-    // Save to LocalStorage for Admin Panel
+    // Save to MySQL Backend and LocalStorage
     try {
-      const existingBookings = JSON.parse(localStorage.getItem('hsd_room_bookings')) || [];
-      existingBookings.unshift(bookingPayload);
-      localStorage.setItem('hsd_room_bookings', JSON.stringify(existingBookings));
-      // Notify admin panel in the same tab via custom event
-      window.dispatchEvent(new StorageEvent('storage', { key: 'hsd_room_bookings' }));
+      await createRoomBooking(bookingPayload);
     } catch(err) {
       console.error('Error saving room booking:', err);
     }

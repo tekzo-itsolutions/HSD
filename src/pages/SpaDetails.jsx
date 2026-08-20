@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { SPA_TREATMENTS } from '../data/spaDetailsData';
+import { createSpaBooking } from '../api';
 
 const SHORT_DESCS = {
   'natural-scrub': 'Traditionally exfoliating ritual for body complexion...',
@@ -420,7 +421,7 @@ export default function SpaDetails() {
     setGuestDate(new Date().toISOString().split('T')[0]);
   }, []);
 
-  const handleBookingSubmit = (e) => {
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
     const selectEl = document.getElementById('spaService');
     const serviceText = selectEl ? selectEl.options[selectEl.selectedIndex].text : 'Spa Service';
@@ -428,23 +429,23 @@ export default function SpaDetails() {
     const price = serviceText.includes('₹') ? parseInt(serviceText.split('₹')[1].replace(/,/g, ''), 10) : 2000;
     const spaId = 'SPA-' + Math.floor(1000 + Math.random() * 9000);
 
+    const spaPayload = {
+      id: spaId,
+      name: guestName || 'Guest',
+      phone: guestPhone,
+      email: '',
+      service: serviceName,
+      serviceCode: guestService,
+      date: guestDate,
+      timeSlot: '03:00 PM',
+      duration: '60 mins',
+      price: price,
+      status: 'confirmed',
+      dateCreated: new Date().toISOString().split('T')[0]
+    };
+
     try {
-      const existingSpa = JSON.parse(localStorage.getItem('hsd_spa_bookings')) || [];
-      existingSpa.unshift({
-        id: spaId,
-        name: guestName || 'Guest',
-        phone: guestPhone,
-        email: '',
-        service: serviceName,
-        serviceCode: guestService,
-        date: guestDate,
-        timeSlot: '03:00 PM',
-        duration: '60 mins',
-        price: price,
-        status: 'confirmed',
-        dateCreated: new Date().toISOString().split('T')[0]
-      });
-      localStorage.setItem('hsd_spa_bookings', JSON.stringify(existingSpa));
+      await createSpaBooking(spaPayload);
     } catch(err) {
       console.error('Error saving spa booking:', err);
     }

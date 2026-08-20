@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/admin.css';
+import {
+  fetchRoomBookings,
+  createRoomBooking,
+  updateRoomStatus as apiUpdateRoomStatus,
+  deleteRoomBooking as apiDeleteRoomBooking,
+  fetchSpaBookings,
+  createSpaBooking,
+  updateSpaStatus as apiUpdateSpaStatus,
+  deleteSpaBooking as apiDeleteSpaBooking,
+  fetchMessages,
+  replyToMessage,
+  updateMessageStatus as apiUpdateMessageStatus,
+  deleteMessage as apiDeleteMessage,
+  checkHealth
+} from '../api';
 
 export default function Admin() {
   const ROOM_KEY = 'hsd_room_bookings';
@@ -10,6 +25,7 @@ export default function Admin() {
   // ==================== 1. STATE MANAGEMENT ====================
   const [activeTab, setActiveTab] = useState('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dbStatus, setDbStatus] = useState('checking');
 
   const [roomBookings, setRoomBookings] = useState([]);
   const [spaBookings, setSpaBookings] = useState([]);
@@ -67,164 +83,47 @@ export default function Admin() {
     return () => clearInterval(timer);
   }, []);
 
-  // ==================== 2. SEEDING & LOCAL STORAGE LOAD ====================
-  const loadFromStorage = () => {
-    const rData = localStorage.getItem(ROOM_KEY);
-    const sData = localStorage.getItem(SPA_KEY);
-    const mData = localStorage.getItem(MSG_KEY) || localStorage.getItem('hsd_contact_inquiries');
+  // ==================== 2. SEEDING & API / STORAGE LOAD ====================
+  const loadData = async () => {
+    try {
+      const health = await checkHealth();
+      if (health.status === 'ok' && health.database === 'connected') {
+        setDbStatus('connected');
+      } else {
+        setDbStatus('offline');
+      }
 
-    let parsedRooms = rData ? JSON.parse(rData) : [];
-    let parsedSpa = sData ? JSON.parse(sData) : [];
-    let parsedMsgs = mData ? JSON.parse(mData) : [];
+      const [rooms, spas, msgs] = await Promise.all([
+        fetchRoomBookings(),
+        fetchSpaBookings(),
+        fetchMessages()
+      ]);
 
-    if (parsedRooms.length === 0 && parsedSpa.length === 0 && parsedMsgs.length === 0) {
-      parsedRooms = [
-        {
-          id: 'SD-7859341',
-          name: 'Arjun Mehta',
-          email: 'arjun.mehta@example.com',
-          phone: '+91 98210 12345',
-          roomType: 'Premier Suite',
-          checkIn: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          checkOut: new Date(Date.now() + 3 * 86400000).toISOString().split('T')[0],
-          adults: 2,
-          children: 1,
-          nights: 2,
-          total: 15000,
-          status: 'confirmed',
-          payStatus: 'Paid',
-          dateCreated: new Date().toISOString().split('T')[0]
-        },
-        {
-          id: 'SD-7859342',
-          name: 'Priya Sharma',
-          email: 'priya.s@example.com',
-          phone: '+91 97110 54321',
-          roomType: 'Executive Double',
-          checkIn: new Date().toISOString().split('T')[0],
-          checkOut: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          adults: 2,
-          children: 0,
-          nights: 1,
-          total: 5500,
-          status: 'checked-in',
-          payStatus: 'Paid',
-          dateCreated: new Date().toISOString().split('T')[0]
-        },
-        {
-          id: 'SD-7859343',
-          name: 'Rajesh Singhania',
-          email: 'rajesh.singhania@corp.in',
-          phone: '+91 98450 87654',
-          roomType: 'Banquet Hall',
-          checkIn: new Date(Date.now() + 5 * 86400000).toISOString().split('T')[0],
-          checkOut: new Date(Date.now() + 6 * 86400000).toISOString().split('T')[0],
-          adults: 50,
-          children: 10,
-          nights: 1,
-          total: 25000,
-          status: 'confirmed',
-          payStatus: 'Advance 50%',
-          dateCreated: new Date().toISOString().split('T')[0]
-        }
-      ];
-
-      parsedSpa = [
-        {
-          id: 'SPA-8245',
-          name: 'Rohan Patel',
-          email: 'rohan@example.com',
-          phone: '+91 99000 98765',
-          service: 'Shirodhara Therapy',
-          serviceCode: 'shirodhara',
-          date: new Date().toISOString().split('T')[0],
-          timeSlot: '02:00 PM',
-          duration: '75 mins',
-          price: 4000,
-          status: 'confirmed',
-          dateCreated: new Date().toISOString().split('T')[0]
-        },
-        {
-          id: 'SPA-1934',
-          name: 'Anjali Desai',
-          email: 'anjali@example.com',
-          phone: '+91 98765 43210',
-          service: 'Natural Scrub',
-          serviceCode: 'natural-scrub',
-          date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          timeSlot: '11:30 AM',
-          duration: '30 Min',
-          price: 1000,
-          status: 'pending',
-          dateCreated: new Date().toISOString().split('T')[0]
-        },
-        {
-          id: 'SPA-3190',
-          name: 'Kavita Chawla',
-          email: 'kavita.c@gmail.com',
-          phone: '+91 98112 34567',
-          service: 'Signature Therapy',
-          serviceCode: 'signature',
-          date: new Date(Date.now() + 2 * 86400000).toISOString().split('T')[0],
-          timeSlot: '04:30 PM',
-          duration: '90 Min',
-          price: 6000,
-          status: 'confirmed',
-          dateCreated: new Date().toISOString().split('T')[0]
-        }
-      ];
-
-      parsedMsgs = [
-        {
-          id: 'MSG-4001',
-          name: 'Vikram Singh',
-          email: 'vikram.singh@gmail.com',
-          phone: '+91 96543 21098',
-          subject: 'Corporate Booking Inquiry for 15 Rooms',
-          message: 'Hello Hotel Shree Daan Team, we are planning a corporate executive retreat next month on the 15th. We require 15 executive rooms and banquet hall conference access for 2 days. Kindly share special group tariff packages and catering options.',
-          status: 'unread',
-          replied: false,
-          date: 'Today'
-        },
-        {
-          id: 'MSG-4002',
-          name: 'Sneha Gupta',
-          email: 'sneha.gupta@example.com',
-          phone: '+91 95432 10987',
-          subject: 'Golden Sparsh Spa Couple Package Inquiry',
-          message: 'Hi, I would like to book a Couple Connect rejuvenation therapy and luxury bath session for this Saturday anniversary celebration. Please confirm therapist availability and slot timings.',
-          status: 'read',
-          replied: true,
-          date: 'Yesterday'
-        }
-      ];
-
-      localStorage.setItem(ROOM_KEY, JSON.stringify(parsedRooms));
-      localStorage.setItem(SPA_KEY, JSON.stringify(parsedSpa));
-      localStorage.setItem(MSG_KEY, JSON.stringify(parsedMsgs));
-    }
-
-    setRoomBookings(parsedRooms);
-    setSpaBookings(parsedSpa);
-    setMessages(parsedMsgs);
-    if (parsedMsgs.length > 0 && !selectedMsgId) {
-      setSelectedMsgId(parsedMsgs[0].id);
+      setRoomBookings(rooms);
+      setSpaBookings(spas);
+      setMessages(msgs);
+      if (msgs.length > 0 && !selectedMsgId) {
+        setSelectedMsgId(msgs[0].id);
+      }
+    } catch (err) {
+      console.warn('Data load error:', err);
+      setDbStatus('offline');
     }
   };
 
   useEffect(() => {
-    loadFromStorage();
+    loadData();
     setNewRoomCheckIn(new Date().toISOString().split('T')[0]);
     setNewRoomCheckOut(new Date(Date.now() + 86400000).toISOString().split('T')[0]);
     setNewSpaDate(new Date().toISOString().split('T')[0]);
 
     const handleStorageChange = (e) => {
       if (!e.key || [ROOM_KEY, SPA_KEY, MSG_KEY, 'hsd_contact_inquiries'].includes(e.key)) {
-        loadFromStorage();
-        triggerToast('Guest desk data synchronised with browser storage.');
+        loadData();
+        triggerToast('Guest desk data synchronised.');
       }
     };
-    const handleFocus = () => loadFromStorage();
+    const handleFocus = () => loadData();
 
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener('focus', handleFocus);
@@ -233,22 +132,6 @@ export default function Admin() {
       window.removeEventListener('focus', handleFocus);
     };
   }, []);
-
-  // State Persistence Helpers
-  const saveRooms = (newRooms) => {
-    setRoomBookings(newRooms);
-    localStorage.setItem(ROOM_KEY, JSON.stringify(newRooms));
-  };
-
-  const saveSpa = (newSpas) => {
-    setSpaBookings(newSpas);
-    localStorage.setItem(SPA_KEY, JSON.stringify(newSpas));
-  };
-
-  const saveMessagesState = (newMsgs) => {
-    setMessages(newMsgs);
-    localStorage.setItem(MSG_KEY, JSON.stringify(newMsgs));
-  };
 
   // ==================== 3. COMPUTED METRICS ====================
   const activeRoomsCount = roomBookings.filter(r => r.status === 'confirmed' || r.status === 'checked-in').length;
@@ -269,66 +152,76 @@ export default function Admin() {
     : 0;
 
   // ==================== 4. CRUD OPERATIONS ====================
-  const deleteRoomBooking = (id) => {
+  const deleteRoomBooking = async (id) => {
     if (window.confirm(`Delete reservation record ${id} from registry?`)) {
+      await apiDeleteRoomBooking(id);
       const updated = roomBookings.filter(b => b.id !== id);
-      saveRooms(updated);
-      triggerToast(`Room booking ${id} removed.`);
+      setRoomBookings(updated);
+      triggerToast(`Room booking ${id} removed from database.`);
     }
   };
 
-  const updateRoomStatus = (id, status) => {
+  const updateRoomStatus = async (id, status) => {
+    await apiUpdateRoomStatus(id, status);
     const updated = roomBookings.map(b => b.id === id ? { ...b, status } : b);
-    saveRooms(updated);
-    triggerToast(`Room booking ${id} updated to ${status}.`);
+    setRoomBookings(updated);
+    triggerToast(`Room booking ${id} updated to ${status} in MySQL.`);
   };
 
-  const deleteSpaBooking = (id) => {
+  const deleteSpaBooking = async (id) => {
     if (window.confirm(`Delete spa appointment ${id}?`)) {
+      await apiDeleteSpaBooking(id);
       const updated = spaBookings.filter(s => s.id !== id);
-      saveSpa(updated);
-      triggerToast(`Spa appointment ${id} removed.`);
+      setSpaBookings(updated);
+      triggerToast(`Spa appointment ${id} removed from database.`);
     }
   };
 
-  const updateSpaStatus = (id, status) => {
+  const updateSpaStatus = async (id, status) => {
+    await apiUpdateSpaStatus(id, status);
     const updated = spaBookings.map(s => s.id === id ? { ...s, status } : s);
-    saveSpa(updated);
-    triggerToast(`Spa appointment ${id} updated to ${status}.`);
+    setSpaBookings(updated);
+    triggerToast(`Spa appointment ${id} updated to ${status} in MySQL.`);
   };
 
-  const deleteMessage = (id) => {
+  const deleteMessage = async (id) => {
     if (window.confirm('Delete this guest message inquiry?')) {
+      await apiDeleteMessage(id);
       const updated = messages.filter(m => m.id !== id);
       if (selectedMsgId === id) {
         setSelectedMsgId(updated.length > 0 ? updated[0].id : null);
       }
-      saveMessagesState(updated);
-      triggerToast('Guest inquiry deleted.');
+      setMessages(updated);
+      triggerToast('Guest inquiry deleted from database.');
     }
   };
 
-  const toggleMessageReadStatus = (id) => {
-    const updated = messages.map(m => m.id === id ? { ...m, status: m.status === 'unread' ? 'read' : 'unread' } : m);
-    saveMessagesState(updated);
-    triggerToast('Message status updated.');
+  const toggleMessageReadStatus = async (id) => {
+    const msg = messages.find(m => m.id === id);
+    const newStatus = msg && msg.status === 'unread' ? 'read' : 'unread';
+    await apiUpdateMessageStatus(id, newStatus);
+    const updated = messages.map(m => m.id === id ? { ...m, status: newStatus } : m);
+    setMessages(updated);
+    triggerToast('Message status updated in database.');
   };
 
-  const handleSendReply = (e) => {
+  const handleSendReply = async (e) => {
     e.preventDefault();
     if (!replyText.trim()) return;
-    const updated = messages.map(m => m.id === selectedMsgId ? { ...m, replied: true, status: 'read' } : m);
-    saveMessagesState(updated);
+    await replyToMessage(selectedMsgId, replyText);
+    const updated = messages.map(m => m.id === selectedMsgId ? { ...m, replied: true, status: 'read', replyText } : m);
+    setMessages(updated);
     setReplyText('');
-    triggerToast('Official response dispatched successfully to guest email!');
+    triggerToast('Official response recorded & dispatched to guest email!');
   };
 
-  const selectMessage = (id) => {
+  const selectMessage = async (id) => {
     setSelectedMsgId(id);
     const msg = messages.find(m => m.id === id);
     if (msg && msg.status === 'unread') {
+      await apiUpdateMessageStatus(id, 'read');
       const updated = messages.map(m => m.id === id ? { ...m, status: 'read' } : m);
-      saveMessagesState(updated);
+      setMessages(updated);
     }
   };
 
@@ -346,7 +239,7 @@ export default function Admin() {
     if (prices[val]) setNewRoomPrice(prices[val]);
   };
 
-  const handleAddRoomBookingSubmit = (e) => {
+  const handleAddRoomBookingSubmit = async (e) => {
     e.preventDefault();
     const inDate = new Date(newRoomCheckIn);
     const outDate = new Date(newRoomCheckOut);
@@ -361,6 +254,7 @@ export default function Admin() {
       email: newRoomEmail || 'guest@shreedaangroup.com',
       phone: newRoomPhone,
       roomType: newRoomType,
+      roomCode: newRoomType.toLowerCase().replace(/\s+/g, '-'),
       checkIn: newRoomCheckIn,
       checkOut: newRoomCheckOut,
       adults: parseInt(newRoomAdults, 10),
@@ -372,15 +266,16 @@ export default function Admin() {
       dateCreated: new Date().toISOString().split('T')[0]
     };
 
-    saveRooms([newBooking, ...roomBookings]);
+    await createRoomBooking(newBooking);
+    setRoomBookings([newBooking, ...roomBookings]);
     setAddRoomOpen(false);
     setNewRoomName('');
     setNewRoomPhone('');
     setNewRoomEmail('');
-    triggerToast(`Reservation ${bookingId} successfully confirmed for ${newRoomName}!`);
+    triggerToast(`Reservation ${bookingId} saved into MySQL database!`);
   };
 
-  const handleAddSpaBookingSubmit = (e) => {
+  const handleAddSpaBookingSubmit = async (e) => {
     e.preventDefault();
     const serviceMap = {
       'signature': { name: 'Signature Therapy', price: 6000, duration: '90 mins' },
@@ -407,12 +302,13 @@ export default function Admin() {
       dateCreated: new Date().toISOString().split('T')[0]
     };
 
-    saveSpa([newSpa, ...spaBookings]);
+    await createSpaBooking(newSpa);
+    setSpaBookings([newSpa, ...spaBookings]);
     setAddSpaOpen(false);
     setNewSpaName('');
     setNewSpaPhone('');
     setNewSpaEmail('');
-    triggerToast(`Spa slot ${spaId} successfully booked for ${newSpaName}!`);
+    triggerToast(`Spa slot ${spaId} saved into MySQL database!`);
   };
 
   // Print Invoice
@@ -710,6 +606,22 @@ export default function Admin() {
             </div>
 
             <div className="admin-topbar-right">
+              {/* Database Status Chip */}
+              <div 
+                className="admin-clock-chip" 
+                style={{ 
+                  background: dbStatus === 'connected' ? 'rgba(21, 128, 61, 0.1)' : 'rgba(180, 83, 9, 0.1)',
+                  borderColor: dbStatus === 'connected' ? '#bbf7d0' : '#fde68a',
+                  color: dbStatus === 'connected' ? '#15803d' : '#b45309'
+                }}
+                title={dbStatus === 'connected' ? 'Connected to MySQL: shreedan_hotel (Port 3306)' : 'Operating in offline localStorage fallback mode'}
+              >
+                <span style={{ fontSize: '0.7rem' }}>{dbStatus === 'connected' ? '🟢' : '🟠'}</span>
+                <span style={{ fontWeight: '700', fontSize: '0.78rem' }}>
+                  {dbStatus === 'connected' ? 'MySQL: shreedan_hotel' : 'Local Cache'}
+                </span>
+              </div>
+
               {/* Live Digital Clock */}
               <div className="admin-clock-chip" title="Current Local IST Time">
                 <span>🕒</span>
@@ -1385,8 +1297,8 @@ export default function Admin() {
                       <button className="btn-luxury btn-luxury-gold" onClick={exportFullBackupJSON}>
                         📥 Download Full JSON Backup
                       </button>
-                      <button className="btn-luxury btn-luxury-secondary" onClick={() => { loadFromStorage(); triggerToast('Data re-synchronized.'); }}>
-                        🔄 Refresh / Sync Cache
+                      <button className="btn-luxury btn-luxury-secondary" onClick={() => { loadData(); triggerToast('Database re-synchronized with MySQL.'); }}>
+                        🔄 Refresh / Sync Database
                       </button>
                     </div>
                   </div>

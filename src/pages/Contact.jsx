@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { createMessage } from '../api';
 import { Link } from 'react-router-dom';
 
 const CONTACT_HERO_IMAGES = [
@@ -51,21 +52,23 @@ export default function Contact() {
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate API request or store in localStorage inquiry log if needed
-    const inquiryId = 'INQ' + Math.floor(1000 + Math.random() * 9000);
+    const inquiryId = 'MSG-' + Math.floor(1000 + Math.random() * 9000);
+    
+    const payload = {
+      id: inquiryId,
+      name,
+      email,
+      phone,
+      subject: 'Website Contact Inquiry',
+      message,
+      status: 'unread',
+      dateCreated: new Date().toISOString().split('T')[0]
+    };
+
     try {
-      const existingInquiries = JSON.parse(localStorage.getItem('hsd_contact_inquiries')) || [];
-      existingInquiries.unshift({
-        id: inquiryId,
-        name,
-        email,
-        phone,
-        message,
-        dateCreated: new Date().toISOString().split('T')[0]
-      });
-      localStorage.setItem('hsd_contact_inquiries', JSON.stringify(existingInquiries));
+      await createMessage(payload);
     } catch(err) {
       console.error('Error saving inquiry:', err);
     }
