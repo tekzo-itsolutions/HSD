@@ -11,7 +11,7 @@ const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   port: Number(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'Jimil@2525',
+  password: process.env.DB_PASSWORD || 'abhi4585',
   database: process.env.DB_NAME || 'shreedan_hotel',
   waitForConnections: true,
   connectionLimit: 10,
