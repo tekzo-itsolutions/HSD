@@ -458,7 +458,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   align-items: center;
   justify-content: flex-start;
   text-align: left;
-  background: linear-gradient(90deg, rgba(13, 6, 8, 0.72) 0%, rgba(13, 6, 8, 0.45) 50%, rgba(13, 6, 8, 0.15) 100%);
+  background: linear-gradient(90deg, rgba(13, 6, 8, 0.42) 0%, rgba(13, 6, 8, 0.16) 35%, transparent 65%);
   pointer-events: none;
   padding-left: clamp(30px, 8vw, 120px);
   padding-right: 30px;
@@ -548,7 +548,11 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.02);
+  filter: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .hero-slide:has(.hero-video.is-playing) .depth-plane,
@@ -695,7 +699,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 
 .hero-gradient {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.22) 0%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.06) 0%, transparent 35%, rgba(0, 0, 0, 0.1) 100%);
   z-index: 1;
   pointer-events: none;
 }

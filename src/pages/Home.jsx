@@ -183,9 +183,12 @@ export default function Home() {
               muted
               playsInline
               preload="auto"
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(0)}
               onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
               onEnded={() => handleVideoEnded(0)}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               data-fallback-plane
             >
               <source src="/assets/videos/IMG_4688(1).mp4" type="video/mp4" />
@@ -202,9 +205,12 @@ export default function Home() {
               muted
               playsInline
               preload="auto"
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(1)}
               onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
               onEnded={() => handleVideoEnded(1)}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               data-fallback-plane
             >
               <source src="/assets/videos/entrance 2.mp4" type="video/mp4" />
@@ -221,12 +227,15 @@ export default function Home() {
               muted
               playsInline
               preload="auto"
+              disablePictureInPicture
+              controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(2)}
               onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
               onEnded={() => handleVideoEnded(2)}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               data-fallback-plane
             >
-              <source src="/assets/videos/entrance 3.mp4" type="video/mp4" />
+              <source src="/assets/videos/IMG_4753(1).mp4" type="video/mp4" />
             </video>
             <span className="hero-caption">Premium Rooms &amp; Suites</span>
           </div>

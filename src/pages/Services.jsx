@@ -176,8 +176,18 @@ export default function Services() {
 
           {/* Business Lounge / Banquet Hall Card */}
           <div className="premium-service-card reveal-up">
-            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden' }}>
-              <img src="/assets/images/service-slider-2.jpg" alt="Business Lounge / Banquet Hall" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              >
+                <source src="/assets/videos/entrance 2.mp4" type="video/mp4" />
+                Your browser does not support HTML5 video.
+              </video>
             </div>
             <div className="premium-service-content">
               <h3>BUSINESS LOUNGE / Banquet Hall</h3>
@@ -204,6 +214,32 @@ export default function Services() {
             <div className="premium-service-content">
               <h3>EQUIPPED WITH LED ROOMS</h3>
               <p>Hotel Shree Daan provide's the all rooms are equipped with install a LED TV with multilingual channels for all our customers.</p>
+            </div>
+          </div>
+
+          {/* Luxury Suites & Living Spaces Video Card */}
+          <div className="premium-service-card reveal-up">
+            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block'
+                }}
+              >
+                <source src="/assets/videos/IMG_4753(1).mp4" type="video/mp4" />
+                Your browser does not support HTML5 video.
+              </video>
+            </div>
+            <div className="premium-service-content">
+              <h3>LUXURY SUITES &amp; LIVING SPACES</h3>
+              <p>Experience opulent and elegantly crafted living spaces, premium executive rooms, and personalized comfort designed for your serene stay.</p>
             </div>
           </div>
         </div>
