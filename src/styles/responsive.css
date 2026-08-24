@@ -654,16 +654,71 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     width: 100%;
   }
   .invoice {
-    padding: 16px 12px;
+    padding: 20px 14px;
   }
-  .invoice-head {
+  .invoice-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  .invoice-brand-col {
+    gap: 10px;
+  }
+  .invoice-logo {
+    height: 44px;
+  }
+  .invoice-header-right {
+    align-items: flex-end;
+  }
+  .invoice-main-heading {
+    font-size: 1.1rem;
+  }
+  .invoice-main-sub {
+    font-size: 0.68rem;
+  }
+  .invoice-banner {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+  .invoice-voucher-title {
+    font-size: 0.9rem;
+  }
+  .invoice-grid-section {
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
   .invoice-row {
     font-size: 0.8rem;
     gap: 6px;
+  }
+  .invoice-billing-table {
+    overflow-x: auto;
+  }
+  .invoice-billing-head {
+    grid-template-columns: 1.8fr 0.6fr 0.9fr 1fr;
+    font-size: 0.7rem;
+    padding: 8px 10px;
+  }
+  .invoice-billing-row {
+    grid-template-columns: 1.8fr 0.6fr 0.9fr 1fr;
+    font-size: 0.76rem;
+    padding: 10px;
+  }
+  .invoice-status-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.78rem;
+  }
+  .invoice-footer-sign {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .invoice-stamp-area {
+    text-align: left;
   }
   .confirmation-actions {
     flex-direction: column;
@@ -815,3 +870,121 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
   }
 }
 
+/* 22. HOME PAGE — SPA PREVIEW SECTION */
+@media (max-width: 991px) {
+  .section--spa {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 70px 0 !important;
+  }
+  .spa-container {
+    flex-direction: column !important;
+    padding: 0 24px !important;
+    gap: 48px !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .spa-content {
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+  .spa-content h2 {
+    font-size: clamp(1.6rem, 6vw, 2.4rem) !important;
+  }
+  .spa-copy {
+    font-size: 0.97rem !important;
+    margin-bottom: 28px !important;
+  }
+  .spa-visual {
+    width: 100% !important;
+    max-width: 420px !important;
+    height: 320px !important;
+    margin: 0 auto !important;
+  }
+  .spa-card-3d {
+    width: 200px !important;
+    height: 140px !important;
+  }
+  .card-1 {
+    left: 0 !important;
+    top: 15px !important;
+    transform: rotate(-7deg) translateZ(-15px) !important;
+  }
+  .card-3 {
+    right: 0 !important;
+    bottom: 15px !important;
+    transform: rotate(6deg) translateZ(-8px) !important;
+  }
+  .card-2 {
+    transform: translate(-50%, -50%) rotate(-1deg) translateZ(10px) scale(1.04) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .section--spa {
+    padding: 55px 0 !important;
+  }
+  .spa-container {
+    padding: 0 16px !important;
+    gap: 36px !important;
+  }
+  .spa-content h2 {
+    font-size: clamp(1.4rem, 7vw, 1.9rem) !important;
+    margin-bottom: 14px !important;
+  }
+  .spa-copy {
+    font-size: 0.9rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+  }
+  .spa-visual {
+    max-width: 340px !important;
+    height: 260px !important;
+  }
+  .spa-card-3d {
+    width: 168px !important;
+    height: 115px !important;
+  }
+  .card-1 {
+    left: 2px !important;
+    top: 10px !important;
+    transform: rotate(-6deg) translateZ(-10px) !important;
+  }
+  .card-3 {
+    right: 2px !important;
+    bottom: 10px !important;
+    transform: rotate(5deg) translateZ(-5px) !important;
+  }
+  .card-2 {
+    transform: translate(-50%, -50%) rotate(-1deg) translateZ(8px) scale(1.03) !important;
+  }
+  .card-tag {
+    font-size: 0.65rem !important;
+    padding: 4px 10px !important;
+  }
+  .spa-price {
+    font-size: 0.95rem !important;
+  }
+  .spa-timing {
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .spa-visual {
+    max-width: 300px !important;
+    height: 230px !important;
+  }
+  .spa-card-3d {
+    width: 148px !important;
+    height: 100px !important;
+  }
+  .card-1 {
+    left: 0 !important;
+    top: 8px !important;
+  }
+  .card-3 {
+    right: 0 !important;
+    bottom: 8px !important;
+  }
+}
