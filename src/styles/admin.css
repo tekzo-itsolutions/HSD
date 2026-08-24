@@ -1391,12 +1391,125 @@
   }
 
   .admin-topbar-header {
-    padding: 0 16px;
+    min-height: 76px;
+    height: auto;
+    padding: 12px 16px;
+    gap: 12px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .admin-topbar-left {
+    min-width: 0;
+    flex: 1 1 100%;
+    gap: 10px;
+  }
+
+  .admin-title-wrap {
+    min-width: 0;
+  }
+
+  .admin-title-wrap h1 {
+    font-size: 1.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-title-wrap p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-topbar-right {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    gap: 8px;
+  }
+
+  .admin-clock-chip {
+    min-width: 0;
+    justify-content: center;
+    padding: 7px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-clock-chip span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .admin-search-box {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    width: 100%;
+    order: -1;
+  }
+
+  .admin-search-input,
+  .admin-search-input:focus {
+    width: 100%;
+  }
+
+  .admin-topbar-btn {
+    min-height: 40px;
+    justify-content: center;
+    padding: 8px 10px;
   }
 
   .admin-hero-banner {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+
+  .admin-content-viewport {
+    overflow-x: hidden;
+  }
+
+  .admin-table-wrap,
+  .admin-data-table-wrap,
+  .admin-table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 550px) {
+  .admin-content-viewport {
+    padding: 16px 12px;
+  }
+
+  .admin-topbar-header {
+    padding: 10px 12px;
+  }
+
+  .admin-title-wrap h1 {
+    font-size: 1.18rem;
+  }
+
+  .admin-title-wrap p {
+    font-size: 0.68rem;
+  }
+
+  .admin-topbar-right {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-topbar-right .admin-clock-chip:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .admin-topbar-btn {
+    width: 100%;
+  }
+
+  .admin-hero-banner {
+    padding: 20px 18px;
   }
 }
