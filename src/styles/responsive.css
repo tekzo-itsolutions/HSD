@@ -926,7 +926,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
   }
   .spa-container {
     padding: 0 16px !important;
-    gap: 36px !important;
+    gap: 64px !important;
   }
   .spa-content h2 {
     font-size: clamp(1.4rem, 7vw, 1.9rem) !important;
@@ -938,12 +938,34 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     margin-bottom: 20px !important;
   }
   .spa-visual {
-    max-width: 340px !important;
-    height: 260px !important;
+    width: min(100%, 360px) !important;
+    max-width: 360px !important;
+    height: 150px !important;
+    margin-top: 4px !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    perspective: none !important;
   }
   .spa-card-3d {
-    width: 168px !important;
-    height: 115px !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    border-radius: 8px !important;
+    transform: none !important;
+  }
+  .spa-card-3d.card-1,
+  .spa-card-3d.card-2,
+  .spa-card-3 {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    z-index: 1 !important;
+  }
+  .spa-card-3d img {
+    object-fit: cover !important;
   }
   .card-1 {
     left: 2px !important;
@@ -968,6 +990,9 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
   .spa-timing {
     font-size: 0.82rem !important;
   }
+  .spa-content > .btn {
+    margin-bottom: 2px;
+  }
 }
 
 @media (max-width: 390px) {
@@ -976,8 +1001,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     height: 230px !important;
   }
   .spa-card-3d {
-    width: 148px !important;
-    height: 100px !important;
+    height: 110px !important;
   }
   .card-1 {
     left: 0 !important;

@@ -425,7 +425,7 @@ export default function Home() {
             <h2 className="reveal-up">Golden Sparsh Spa</h2>
             <p className="spa-copy reveal-up">Immerse yourself in hot steam, quiet saunas, and traditional Ayurvedic massage rituals drawn from age-old Vedic practices, offered in low-lit tranquil luxury.</p>
             <div style={{ marginBottom: '30px', display: 'flex', flexDirection: 'column', gap: '8px' }} className="reveal-up">
-              <span className="spa-price" style={{ marginLeft: 0, fontSize: '1.1rem', color: 'var(--gold-glow)' }}>Signature therapies starting from ₹1,400</span>
+              <span className="spa-price" style={{ marginLeft: 0, fontSize: '1.1rem', color: 'var(--gold-glow)' }}></span>
               <span className="spa-timing" style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.05em' }}><span className="badge-sparkle">✦</span> TIMING: 8:30 AM to 8:30 PM</span>
             </div>
             <Link to="/spa" className="btn btn-gold reveal-up">View Spa Services</Link>
