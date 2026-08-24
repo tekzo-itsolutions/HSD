@@ -182,7 +182,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
+              poster="/assets/images/about1.jpg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(0)}
@@ -204,7 +205,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="none"
+              poster="/assets/images/RECEPTION.jpg.jpeg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(1)}
@@ -226,7 +228,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="none"
+              poster="/assets/images/hero-rooms-1.jpg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(2)}

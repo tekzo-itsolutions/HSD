@@ -96,6 +96,8 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
+                preload="metadata"
+                poster="/assets/images/pic 73.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
                 onEnded={() => handleVideoEnded(0)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -112,6 +114,8 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/pic 37.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
                 onEnded={() => handleVideoEnded(1)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -128,6 +132,8 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/pic 60.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
                 onEnded={() => handleVideoEnded(2)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -144,6 +150,8 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/spa-long.jpg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
                 onEnded={() => handleVideoEnded(3)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -160,6 +168,8 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/spa_home_1.jpg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
                 onEnded={() => handleVideoEnded(4)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}

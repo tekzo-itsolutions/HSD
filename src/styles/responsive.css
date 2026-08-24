@@ -1,120 +1,817 @@
 /* ==========================================================================
-   SHREE DAAN HOTEL — RESPONSIVE BREAKPOINTS & MOBILE DESIGN SYSTEM
+   SHREE DAAN HOTEL — COMPREHENSIVE RESPONSIVE DESIGN SYSTEM
+   Supports: 320px, 375px, 390px, 414px, 768px, 992px, 1200px+
+   Preserves desktop UI 100% identically while making all devices fully responsive.
    ========================================================================== */
 
-/* 1. ACCESSIBILITY - REDUCED MOTION */
+/* 1. ACCESSIBILITY & REDUCED MOTION */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* 2. CUSTOM CURSOR HIDING FOR TOUCH / MOBILE DEVISE */
+/* 2. TOUCH DEVICES & CURSOR */
 @media (max-width: 900px), (hover: none) {
   #cursorGlow {
     display: none !important;
   }
 }
 
-/* 3. HEADER & MOBILE MENU ACTIVATION */
+/* 3. GLOBAL MOBILE STABILITY & OVERFLOW PROTECTION */
+html, body {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Ensure headings and body text never overflow horizontally */
+h1, h2, h3, h4, h5, h6, p, span, a, button, label {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* 4. LOADER RESPONSIVENESS */
+@media (max-width: 480px) {
+  .loader-full-line-container {
+    width: calc(100vw - 48px);
+    max-width: 300px;
+  }
+  .loader-logo {
+    height: 52px;
+    margin-bottom: 18px;
+  }
+  .loader-name {
+    letter-spacing: 0.3em;
+    font-size: 0.7rem;
+  }
+}
+
+/* 5. HEADER & MOBILE NAVIGATION */
 @media (max-width: 980px) {
-  #mainNav, 
-  .nav-cta { 
-    display: none !important; 
+  #siteHeader {
+    height: 72px;
   }
-  #menuToggle { 
-    display: flex; 
+  #siteHeader.scrolled {
+    height: 64px;
   }
-  .header-inner { 
-    padding: 0 24px; 
+  .header-inner {
+    padding: 0 18px;
+  }
+  .logo-img {
+    height: 44px;
+    max-width: 170px;
+  }
+  #mainNav,
+  .nav-cta {
+    display: none !important;
+  }
+  #menuToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 8px 4px;
+    z-index: 960;
+  }
+  #mobileMenu {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 9, 12, 0.98);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 850;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 85px 20px 40px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    transform: translateY(-100%);
+    transition: transform 0.5s var(--ease);
+  }
+  #mobileMenu.open {
+    transform: translateY(0);
+  }
+  #mobileMenu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    margin: auto 0;
+  }
+  #mobileMenu nav a {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    color: var(--ivory);
+    padding: 8px 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+  }
+  #mobileMenu nav a.active,
+  #mobileMenu nav a:hover {
+    color: var(--gold-glow);
   }
 }
 
-/* 4. HERO SECTION CAPTION REDUCTION */
-@media (max-width: 700px) {
-  .hero-caption { 
-    left: 20px; 
-    bottom: 24px; 
-    font-size: 0.8rem; 
+@media (max-width: 480px) {
+  .header-inner {
+    padding: 0 14px;
+  }
+  .logo-img {
+    height: 38px;
+    max-width: 140px;
   }
 }
 
-/* 5. GENERAL SECTION PADDING REDUCTION */
-@media (max-width: 700px) {
-  .section { 
-    padding: 90px 20px; 
+/* 6. GENERAL SECTION PADDING & HEADINGS */
+@media (max-width: 768px) {
+  .section {
+    padding: 70px 18px;
+  }
+  .section-head {
+    margin-bottom: 40px;
+    padding: 0 10px;
+  }
+  h2 {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+  }
+  .eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
   }
 }
 
-/* 6. BOOKING GRID LAYOUT ADAPTATION */
+@media (max-width: 480px) {
+  .section {
+    padding: 60px 15px;
+  }
+}
+
+/* 7. HOME HERO SECTION */
+@media (max-width: 768px) {
+  #hero {
+    height: 100svh;
+    min-height: 540px;
+    max-height: none;
+  }
+  .hero-content-overlay {
+    padding: 0 20px;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(13, 6, 8, 0.35) 0%, rgba(13, 6, 8, 0.65) 60%, rgba(13, 6, 8, 0.85) 100%);
+  }
+  .hero-content-inner {
+    max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    padding: 5px 14px;
+    margin-bottom: 12px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-title-main {
+    font-size: clamp(1.85rem, 7.5vw, 2.8rem);
+    line-height: 1.15;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .hero-desc-sub {
+    font-size: clamp(0.85rem, 3.8vw, 1rem);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+  .hero-btns-row {
+    justify-content: center;
+    gap: 12px;
+  }
+  .slider-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    opacity: 0.7;
+  }
+  .slider-arrow.prev { left: 8px; }
+  .slider-arrow.next { right: 8px; }
+  .scroll-indicator {
+    display: none !important;
+  }
+  .hero-caption {
+    left: 16px;
+    bottom: 16px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-btns-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .hero-btns-row .btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+  }
+  .hero-slide-dots {
+    bottom: 12px;
+  }
+  .hero-caption {
+    display: none;
+  }
+}
+
+/* 8. MARQUEE STRIP */
+@media (max-width: 768px) {
+  .marquee-strip {
+    padding: 10px 0;
+  }
+  .marquee-track span {
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+  }
+  .dot-sep {
+    margin: 0 14px;
+  }
+}
+
+/* 9. 3D HERO SLIDERS (Gallery, Spa, Services, Rooms, About, Attractions, Contact) */
+@media (max-width: 768px) {
+  .gallery-hero-3d,
+  .spa-hero-3d {
+    height: 60vh;
+    min-height: 420px;
+    max-height: none;
+  }
+  .gallery-hero-content,
+  .spa-hero-content {
+    width: 92%;
+    padding: 0 10px;
+    top: 52%;
+  }
+  .gallery-hero-badge,
+  .spa-hero-badge {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    padding: 5px 14px;
+    margin-bottom: 10px;
+  }
+  .gallery-hero-title,
+  .spa-hero-title {
+    font-size: clamp(1.85rem, 6.5vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .gallery-hero-breadcrumb {
+    font-size: 0.72rem;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gallery-3d-arrow,
+  .spa-3d-arrow {
+    width: 38px;
+    height: 38px;
+  }
+  .gallery-prev, .spa-prev { left: 8px; }
+  .gallery-next, .spa-next { right: 8px; }
+  .gallery-3d-controls,
+  .spa-3d-controls {
+    bottom: 14px;
+  }
+  .gallery-3d-progress,
+  .spa-3d-progress {
+    width: 130px;
+  }
+  .gallery-dot {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-hero-3d,
+  .spa-hero-3d {
+    height: 55vh;
+    min-height: 390px;
+  }
+  .gallery-hero-badge,
+  .spa-hero-badge {
+    font-size: 0.58rem;
+    padding: 4px 10px;
+    letter-spacing: 0.1em;
+  }
+}
+
+/* 10. WELCOME SECTION & 3D WELCOME SLIDER */
 @media (max-width: 900px) {
-  .booking-row { 
-    grid-template-columns: repeat(2, 1fr); 
+  .welcome-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
-  .booking-card { 
-    padding: 30px 22px; 
+  .welcome-copy {
+    text-align: left;
+    padding: 0;
   }
-}
-
-/* 7. SPA PACKAGES VERTICAL FLEX */
-@media (max-width: 800px) {
-  .spa-content { 
-    padding: 0 28px; 
+  .welcome-3d-slider {
+    max-width: 100%;
+    width: 100%;
   }
-  .spa-package { 
-    flex-direction: column; 
-    align-items: flex-start; 
-    gap: 8px; 
+  .welcome-3d-viewport {
+    height: 280px;
   }
 }
 
-/* 8. GALLERY MASONRY ADAPTATION */
+@media (max-width: 576px) {
+  .welcome-3d-viewport {
+    height: 230px;
+  }
+  .welcome-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  .welcome-prev { left: 6px; }
+  .welcome-next { right: 6px; }
+}
+
+/* 11. STATS GRID ROW */
 @media (max-width: 900px) {
-  .gallery-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    grid-auto-rows: 180px; 
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
-  .gallery-item.span-2 { 
-    grid-column: span 2; 
+  .stat-card {
+    padding: 22px 14px;
   }
-}
-
-/* 9. ABOUT TIMELINE & STATISTICS REFITTING */
-@media (max-width: 900px) {
-  .about-timeline, 
-  .about-stats { 
-    grid-template-columns: repeat(2, 1fr); 
+  .stat-card h3 {
+    font-size: 2.2rem;
   }
-  .about-timeline::before { 
-    display: none; 
-  }
-  .timeline-item {
-    padding-top: 30px;
+  .stat-card p {
+    font-size: 0.78rem;
   }
 }
 
-/* 10. CONTACT GRID STACKING */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 16px 8px;
+  }
+  .stat-card h3 {
+    font-size: 1.8rem;
+  }
+  .stat-card p {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+}
+
+/* 12. ROOMS TRACK & ROOM CARDS */
+@media (max-width: 992px) {
+  .rooms-track,
+  .rooms-grid-3d {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .rooms-track,
+  .rooms-grid-3d {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .room-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  .room-image {
+    height: 210px;
+  }
+  .room-body {
+    padding: 20px 16px;
+  }
+  .room-body h3 {
+    font-size: 1.35rem;
+  }
+  .room-price {
+    font-size: 1.15rem;
+  }
+  .room-body .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* 13. SPA PREVIEW ON HOME */
 @media (max-width: 900px) {
-  .contact-grid { 
-    grid-template-columns: 1fr; 
+  .spa-container {
+    flex-direction: column;
+    padding: 0 16px;
     gap: 40px;
+    text-align: center;
+  }
+  .spa-content {
+    max-width: 100%;
+    text-align: center;
+    padding: 0;
+  }
+  .spa-content .eyebrow {
+    text-align: center;
+  }
+  .spa-visual {
+    width: 100%;
+    max-width: 360px;
+    height: 280px;
+    margin: 0 auto;
+  }
+  .spa-card-3d {
+    width: 220px;
+    height: 150px;
   }
 }
 
-/* 11. FOOTER COLUMNS STACKING */
+@media (max-width: 480px) {
+  .spa-visual {
+    max-width: 290px;
+    height: 230px;
+  }
+  .spa-card-3d {
+    width: 175px;
+    height: 120px;
+  }
+  .card-tag {
+    font-size: 0.62rem;
+    padding: 3px 8px;
+    bottom: 6px;
+    left: 6px;
+  }
+}
+
+/* 14. SERVICES SHOWCASE & SERVICES PAGE */
+@media (max-width: 768px) {
+  .services-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .services-orig-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .service-orig-card {
+    padding: 24px 18px;
+  }
+  .services-3d-viewport {
+    height: 240px;
+  }
+  .services-3d-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  .premium-services-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .premium-service-card {
+    width: 100%;
+  }
+  .premium-service-image {
+    height: 190px !important;
+  }
+  .premium-service-content {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-3d-viewport {
+    height: 210px;
+  }
+  .service-orig-card h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* 15. ATTRACTIONS PAGE */
+@media (max-width: 900px) {
+  .attractions-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .attractions-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .attraction-img-wrapper {
+    height: 210px;
+  }
+  .attraction-content {
+    padding: 20px 16px;
+  }
+  .card-slider-arrow {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* 16. GALLERY PAGE & LIGHTBOX */
+@media (max-width: 768px) {
+  .gallery-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .gallery-filter-btn {
+    padding: 8px 14px;
+    font-size: 0.76rem;
+    min-height: 38px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 16px;
+  }
+  .lightbox-content {
+    max-width: 95vw;
+    max-height: 85vh;
+    padding: 8px;
+  }
+  .lightbox-img {
+    max-height: 70vh;
+  }
+  .lightbox-close {
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+  }
+  .lightbox-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  .lightbox-prev { left: 6px; }
+  .lightbox-next { right: 6px; }
+}
+
+@media (min-width: 577px) and (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 17. BOOKING PAGE */
+@media (max-width: 992px) {
+  .booking-box-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .booking-room-slider {
+    height: 280px;
+  }
+  .booking-form-box {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .booking-room-slider {
+    height: 220px;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .form-group, .field {
+    width: 100%;
+  }
+  .form-group input,
+  .form-group select,
+  .field select {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px !important;
+    padding: 0 12px;
+  }
+  .booking-bottom-row {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .book-action-block {
+    width: 100%;
+  }
+  .book-now-separate-btn {
+    width: 100%;
+    min-height: 48px;
+  }
+  .confirmation-card {
+    padding: 20px 14px;
+    width: 100%;
+  }
+  .invoice {
+    padding: 16px 12px;
+  }
+  .invoice-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .invoice-row {
+    font-size: 0.8rem;
+    gap: 6px;
+  }
+  .confirmation-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .confirmation-actions .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+  .features-open-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .note-line-item {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+}
+
+/* 18. SPA & SPA DETAILS PAGE */
+@media (max-width: 768px) {
+  .spa-detail-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+  .spa-detail-nav a {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.78rem;
+  }
+  .spa-category-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .spa-service-media {
+    height: 190px;
+  }
+  .spa-package-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 14px;
+  }
+  .spa-book-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* 19. CONTACT PAGE */
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .contact-form-box {
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .contact-card {
+    padding: 18px 14px;
+  }
+  .contact-form-box {
+    padding: 20px 14px;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    min-height: 44px;
+    font-size: 16px !important;
+  }
+  .contact-map {
+    height: 260px;
+  }
+}
+
+/* 20. ABOUT PAGE */
+@media (max-width: 992px) {
+  .about-story-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .about-prism-wrap {
+    margin: 0 auto;
+  }
+  .about-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-team-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .about-prism-wrap {
+    width: 260px;
+    height: 260px;
+  }
+  .testimonial-card {
+    padding: 20px 14px;
+  }
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .testimonial-author h4 {
+    font-size: 1rem;
+  }
+}
+
+/* 21. FOOTER */
 @media (max-width: 1000px) {
-  .footer-top { 
-    grid-template-columns: repeat(2, 1fr); 
+  .footer-top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+    padding: 60px 24px 40px;
   }
 }
 
 @media (max-width: 600px) {
   .footer-top {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 28px;
+    padding: 45px 16px 30px;
+  }
+  .footer-brand {
+    text-align: left;
   }
   .footer-bottom {
     flex-direction: column;
     text-align: center;
-    gap: 15px;
+    gap: 10px;
+    padding: 18px 16px;
+    font-size: 0.78rem;
   }
 }
+
