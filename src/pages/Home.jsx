@@ -158,6 +158,8 @@ export default function Home() {
   const goNextServices = () => setServicesIndex(prev => (prev + 1) % servicesImages.length);
   const goPrevServices = () => setServicesIndex(prev => (prev - 1 + servicesImages.length) % servicesImages.length);
 
+
+
   // Play hero reveal load-in on page mount
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -448,52 +450,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== OUR SERVICES SECTION (3D AUTO-SLIDER) ===== */}
-      <section className="section section--services-3d" id="homeServices3d">
-        <div className="services-header-bar reveal-up">
-          <div className="services-title-box">
-            <h2 className="services-main-head"><span className="text-maroon">OUR</span> SERVICES</h2>
-            <p className="services-sub-head">GREAT LOCATION &amp; BEST SERVICES</p>
-          </div>
-          <div className="services-btn-box">
-            <Link to="/services" className="btn-view-services">VIEW ALL SERVICES</Link>
-          </div>
-        </div>
-
-        <div className="services-orig-grid reveal-up">
-          {/* Card 1: Breakfast */}
-          <Link to="/services" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">🍳</span>
-            </div>
-            <h3>Breakfast</h3>
-            <p>Complimentary fresh morning buffet</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-
-          {/* Card 2: Wellness Centre */}
-          <Link to="/spa" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">🧘‍♀️</span>
-            </div>
-            <h3>Wellness Centre</h3>
-            <p>Experience a holistic approach to health</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-
-          {/* Card 3: Free WiFi */}
-          <Link to="/services" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">📶</span>
-            </div>
-            <h3>Free WiFi</h3>
-            <p>High-speed fiber connectivity</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-        </div>
-
-        {/* 3D Auto-Sliding Showcase directly below the 3 cards */}
-        <div className="services-3d-wrapper reveal-up" style={{ marginTop: '50px' }}>
+      {/* ===== OUR SERVICES SECTION (3D AUTO-SLIDER ONLY) ===== */}
+      <section className="section section--services-3d" id="homeServices3d" style={{ paddingTop: '0px', paddingBottom: '90px' }}>
+        <div className="services-3d-wrapper reveal-up" style={{ marginTop: '0px' }}>
           <div
             className="services-3d-viewport"
             id="services3dViewport"
