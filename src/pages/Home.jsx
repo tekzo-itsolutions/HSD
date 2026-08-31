@@ -374,7 +374,7 @@ export default function Home() {
             <p>Our Staff<br />Members</p>
           </div>
           <div className="stat-card">
-            <h3 data-count="15000">0</h3>
+            <h3 data-count="15000+">0</h3>
             <p>Happy<br />Customers</p>
           </div>
         </div>

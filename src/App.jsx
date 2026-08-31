@@ -62,7 +62,7 @@ function LayoutWrapper({ children }) {
           if (progress < 1) {
             requestAnimationFrame(tick);
           } else {
-            el.textContent = target;
+            el.textContent = el.dataset.count;
           }
         }
 

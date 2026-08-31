@@ -957,7 +957,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   box-shadow: 0 25px 55px rgba(201, 162, 39, 0.25);
 }
 .stat-card h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2.8rem, 4vw, 4.4rem);
   color: var(--gold-glow);
   text-shadow: 0 0 15px rgba(201, 162, 39, 0.35);
