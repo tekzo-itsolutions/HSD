@@ -5,17 +5,25 @@ import { LoaderContext } from '../App';
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileRoomsOpen, setMobileRoomsOpen] = useState(false);
+  const [mobileSpaOpen, setMobileSpaOpen] = useState(false);
   const location = useLocation();
   const { triggerLoader } = useContext(LoaderContext);
 
   const handleHomeClick = () => {
+    setIsOpen(false);
     triggerLoader();
     window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleSpaClick = () => {
+    setIsOpen(false);
     triggerLoader();
     window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
   };
 
   useEffect(() => {
@@ -33,7 +41,19 @@ export default function Header() {
 
   useEffect(() => {
     setIsOpen(false);
-  }, [location]);
+  }, [location.pathname, location.search]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -79,17 +99,126 @@ export default function Header() {
         </div>
       </header>
 
+      {/* Backdrop overlay for mobile menu */}
+      <div 
+        className={`mobile-menu-backdrop ${isOpen ? 'active' : ''}`} 
+        onClick={closeMenu}
+        aria-hidden="true"
+      ></div>
+
+      {/* Modern Luxury Mobile Drawer */}
       <div id="mobileMenu" className={isOpen ? 'open' : ''}>
-        <nav>
-          <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''} onClick={handleHomeClick}>Home</NavLink>
-          <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>About Us</NavLink>
-          <NavLink to="/rooms" className={({ isActive }) => isActive ? 'active' : ''}>Rooms</NavLink>      
-          <NavLink to="/spa" className={({ isActive }) => isActive ? 'active' : ''} onClick={handleSpaClick}>Golden Sparsh Spa</NavLink>   
-          <NavLink to="/services" className={({ isActive }) => isActive ? 'active' : ''}>Services</NavLink>      
-          <NavLink to="/attractions" className={({ isActive }) => isActive ? 'active' : ''}>Near By Attractions</NavLink>      
-          <NavLink to="/gallery" className={({ isActive }) => isActive ? 'active' : ''}>Gallery</NavLink>      
-          <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>Contact Us</NavLink>
-        </nav>
+        <div className="mobile-menu-header">
+          <Link to="/" className="mobile-menu-logo" onClick={handleHomeClick}>
+            <img src="/assets/images/hsd-logo.png" alt="Hotel Shree Daan" />
+          </Link>
+          <button className="mobile-menu-close" onClick={closeMenu} aria-label="Close menu">
+            ✕
+          </button>
+        </div>
+
+        <div className="mobile-menu-scrollable">
+          <nav className="mobile-nav-list">
+            <NavLink to="/" end className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={handleHomeClick}>
+              <span>Home</span>
+            </NavLink>
+
+            <NavLink to="/about" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              <span>About Us</span>
+            </NavLink>
+
+            {/* Rooms Accordion */}
+            <div className={`mobile-accordion ${mobileRoomsOpen ? 'open' : ''}`}>
+              <div className="mobile-accordion-head">
+                <NavLink to="/rooms" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+                  <span>Rooms &amp; Suites</span>
+                </NavLink>
+                <button 
+                  type="button" 
+                  className="mobile-accordion-toggle" 
+                  onClick={(e) => { e.preventDefault(); setMobileRoomsOpen(!mobileRoomsOpen); }}
+                  aria-label="Toggle rooms submenu"
+                >
+                  <span className="accordion-icon">{mobileRoomsOpen ? '−' : '+'}</span>
+                </button>
+              </div>
+              {mobileRoomsOpen && (
+                <div className="mobile-accordion-body">
+                  <Link to="/booking?room=premier" onClick={closeMenu}>Premier Suite</Link>
+                  <Link to="/booking?room=executive-double" onClick={closeMenu}>Executive Double</Link>
+                  <Link to="/booking?room=executive-single" onClick={closeMenu}>Executive Single</Link>
+                  <Link to="/booking?room=standard-double" onClick={closeMenu}>Standard Double</Link>
+                  <Link to="/booking?room=standard-single" onClick={closeMenu}>Standard Single</Link>
+                  <Link to="/booking?room=banquet-hall" onClick={closeMenu}>Banquet Hall</Link>
+                </div>
+              )}
+            </div>
+
+            {/* Spa Accordion */}
+            <div className={`mobile-accordion ${mobileSpaOpen ? 'open' : ''}`}>
+              <div className="mobile-accordion-head">
+                <NavLink to="/spa" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={handleSpaClick}>
+                  <span>Golden Sparsh Spa</span>
+                </NavLink>
+                <button 
+                  type="button" 
+                  className="mobile-accordion-toggle" 
+                  onClick={(e) => { e.preventDefault(); setMobileSpaOpen(!mobileSpaOpen); }}
+                  aria-label="Toggle spa submenu"
+                >
+                  <span className="accordion-icon">{mobileSpaOpen ? '−' : '+'}</span>
+                </button>
+              </div>
+              {mobileSpaOpen && (
+                <div className="mobile-accordion-body">
+                  <Link to="/spa-details#body-scrub" onClick={handleSpaClick}>Body Scrub</Link>
+                  <Link to="/spa-details#bath-therapy" onClick={handleSpaClick}>Luxury Bath Therapy</Link>
+                  <Link to="/spa-details#rejuvenate" onClick={handleSpaClick}>Rejuvenate</Link>
+                  <Link to="/spa-details#body-therapy" onClick={handleSpaClick}>Body Therapy</Link>
+                  <Link to="/spa-details#ayurveda" onClick={handleSpaClick}>Ayurveda</Link>
+                  <Link to="/spa-details#spa-packages" onClick={handleSpaClick}>Spa Packages &amp; Escapes</Link>
+                  <Link to="/spa-details#facial-therapy" onClick={handleSpaClick}>Facial Therapy</Link>
+                </div>
+              )}
+            </div>
+
+            <NavLink to="/services" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              <span>Services</span>
+            </NavLink>      
+
+            <NavLink to="/attractions" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              <span>Near By Attractions</span>
+            </NavLink>      
+
+            <NavLink to="/gallery" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              <span>Gallery</span>
+            </NavLink>      
+
+            <NavLink to="/contact" className={({ isActive }) => `mobile-nav-link ${isActive ? 'active' : ''}`} onClick={closeMenu}>
+              <span>Contact Us</span>
+            </NavLink>
+          </nav>
+
+          {/* Quick CTA Actions inside Mobile Drawer */}
+          <div className="mobile-menu-cta-box">
+            <Link to="/booking" className="btn btn-gold btn-block" onClick={closeMenu}>
+              <span>✦ Book Your Stay</span>
+            </Link>
+
+            <div className="mobile-menu-contact-info">
+              <a href="tel:+917874050009" className="mobile-contact-pill">
+                <span className="contact-icon">📞</span>
+                <span>+91 78740 50009</span>
+              </a>
+              <a href="https://wa.me/917874050009" target="_blank" rel="noopener noreferrer" className="mobile-contact-pill whatsapp-pill">
+                <span className="contact-icon">💬</span>
+                <span>WhatsApp Us</span>
+              </a>
+            </div>
+            
+            <p className="mobile-address-note">Valsad Road, Balitha, N.H No.8, Vapi</p>
+          </div>
+        </div>
       </div>
     </>
   );

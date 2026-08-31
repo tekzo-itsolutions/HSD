@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import CursorGlow from './components/CursorGlow';
 import ScrollToTop from './components/ScrollToTop';
+import FloatingMobileBar from './components/FloatingMobileBar';
 
 // Page Imports
 import Home from './pages/Home';
@@ -109,6 +110,7 @@ function SiteLayout() {
         <Route path="/contact.html" element={<Contact />} />
       </Routes>
       <Footer />
+      <FloatingMobileBar />
       <CursorGlow />
     </LayoutWrapper>
   );
