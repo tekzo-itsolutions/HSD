@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const eased = 1 - Math.pow(1 - progress, 3);
           el.textContent = Math.floor(eased * target);
           if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = target;
+          else el.textContent = el.dataset.count;
         }
         requestAnimationFrame(tick);
         io.unobserve(el);

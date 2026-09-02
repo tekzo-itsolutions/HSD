@@ -158,6 +158,8 @@ export default function Home() {
   const goNextServices = () => setServicesIndex(prev => (prev + 1) % servicesImages.length);
   const goPrevServices = () => setServicesIndex(prev => (prev - 1 + servicesImages.length) % servicesImages.length);
 
+
+
   // Play hero reveal load-in on page mount
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -182,7 +184,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
+              poster="/assets/images/about1.jpg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(0)}
@@ -204,7 +207,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="none"
+              poster="/assets/images/RECEPTION.jpg.jpeg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(1)}
@@ -226,7 +230,8 @@ export default function Home() {
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload="none"
+              poster="/assets/images/hero-rooms-1.jpg"
               disablePictureInPicture
               controlsList="nodownload nofullscreen noremoteplayback"
               onCanPlay={() => handleVideoCanPlay(2)}
@@ -371,7 +376,7 @@ export default function Home() {
             <p>Our Staff<br />Members</p>
           </div>
           <div className="stat-card">
-            <h3 data-count="15000">0</h3>
+            <h3 data-count="15000+">0</h3>
             <p>Happy<br />Customers</p>
           </div>
         </div>
@@ -422,7 +427,7 @@ export default function Home() {
             <h2 className="reveal-up">Golden Sparsh Spa</h2>
             <p className="spa-copy reveal-up">Immerse yourself in hot steam, quiet saunas, and traditional Ayurvedic massage rituals drawn from age-old Vedic practices, offered in low-lit tranquil luxury.</p>
             <div style={{ marginBottom: '30px', display: 'flex', flexDirection: 'column', gap: '8px' }} className="reveal-up">
-              <span className="spa-price" style={{ marginLeft: 0, fontSize: '1.1rem', color: 'var(--gold-glow)' }}>Signature therapies starting from ₹1,400</span>
+              <span className="spa-price" style={{ marginLeft: 0, fontSize: '1.1rem', color: 'var(--gold-glow)' }}></span>
               <span className="spa-timing" style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.05em' }}><span className="badge-sparkle">✦</span> TIMING: 8:30 AM to 8:30 PM</span>
             </div>
             <Link to="/spa" className="btn btn-gold reveal-up">View Spa Services</Link>
@@ -445,52 +450,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== OUR SERVICES SECTION (3D AUTO-SLIDER) ===== */}
-      <section className="section section--services-3d" id="homeServices3d">
-        <div className="services-header-bar reveal-up">
-          <div className="services-title-box">
-            <h2 className="services-main-head"><span className="text-maroon">OUR</span> SERVICES</h2>
-            <p className="services-sub-head">GREAT LOCATION &amp; BEST SERVICES</p>
-          </div>
-          <div className="services-btn-box">
-            <Link to="/services" className="btn-view-services">VIEW ALL SERVICES</Link>
-          </div>
-        </div>
-
-        <div className="services-orig-grid reveal-up">
-          {/* Card 1: Breakfast */}
-          <Link to="/services" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">🍳</span>
-            </div>
-            <h3>Breakfast</h3>
-            <p>Complimentary fresh morning buffet</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-
-          {/* Card 2: Wellness Centre */}
-          <Link to="/spa" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">🧘‍♀️</span>
-            </div>
-            <h3>Wellness Centre</h3>
-            <p>Experience a holistic approach to health</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-
-          {/* Card 3: Free WiFi */}
-          <Link to="/services" className="service-orig-card">
-            <div className="service-orig-icon-wrap">
-              <span className="service-emoji">📶</span>
-            </div>
-            <h3>Free WiFi</h3>
-            <p>High-speed fiber connectivity</p>
-            <span className="service-orig-link">EXPLORE MORE <span>→</span></span>
-          </Link>
-        </div>
-
-        {/* 3D Auto-Sliding Showcase directly below the 3 cards */}
-        <div className="services-3d-wrapper reveal-up" style={{ marginTop: '50px' }}>
+      {/* ===== OUR SERVICES SECTION (3D AUTO-SLIDER ONLY) ===== */}
+      <section className="section section--services-3d" id="homeServices3d" style={{ paddingTop: '0px', paddingBottom: '90px' }}>
+        <div className="services-3d-wrapper reveal-up" style={{ marginTop: '0px' }}>
           <div
             className="services-3d-viewport"
             id="services3dViewport"

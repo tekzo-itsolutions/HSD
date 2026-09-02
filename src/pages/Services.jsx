@@ -182,7 +182,8 @@ export default function Services() {
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
+                poster="/assets/images/HALL 1.jpg.jpeg"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
               >
                 <source src="/assets/videos/entrance 2.mp4" type="video/mp4" />
@@ -225,7 +226,8 @@ export default function Services() {
                 muted
                 loop
                 playsInline
-                preload="auto"
+                preload="metadata"
+                poster="/assets/images/service-slider-3.jpg"
                 style={{
                   width: '100%',
                   height: '100%',

@@ -134,7 +134,7 @@ function SpaCardSlider({ images, media }) {
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
                 poster={posterImg}
                 onEnded={handleVideoEnded}
                 style={{
@@ -421,6 +421,13 @@ export default function SpaDetails() {
     setGuestDate(new Date().toISOString().split('T')[0]);
   }, []);
 
+  useEffect(() => {
+    const categoryItems = SPA_TREATMENTS[activeTab]?.items || [];
+    if (categoryItems.length > 0) {
+      setGuestService(categoryItems[0].id);
+    }
+  }, [activeTab]);
+
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     const selectEl = document.getElementById('spaService');
@@ -465,6 +472,7 @@ export default function SpaDetails() {
   const activeCategory = SPA_TREATMENTS[activeTab];
   const activeItemIdx = activeItems[activeTab] || 0;
   const activeItem = activeCategory?.items[activeItemIdx];
+  const bookingServices = activeCategory?.items || [];
 
   return (
     <>
@@ -479,6 +487,8 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
+                preload="metadata"
+                poster="/assets/images/pic 73.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
                 onEnded={() => handleVideoEnded(0)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -495,6 +505,8 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/pic 37.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
                 onEnded={() => handleVideoEnded(1)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -511,6 +523,8 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/pic 60.jpg.jpeg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
                 onEnded={() => handleVideoEnded(2)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -527,6 +541,8 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/spa-long.jpg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
                 onEnded={() => handleVideoEnded(3)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -543,6 +559,8 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
+                preload="none"
+                poster="/assets/images/spa_home_1.jpg"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
                 onEnded={() => handleVideoEnded(4)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -776,45 +794,11 @@ export default function SpaDetails() {
                 onChange={(e) => setGuestService(e.target.value)}
                 style={{ width: '100%', minWidth: 0, boxSizing: 'border-box', textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden', background: '#26161a', color: 'var(--ivory)', border: '1px solid rgba(201, 162, 39, 0.4)', padding: '12px', borderRadius: '4px' }}
               >
-                <option value="natural-scrub">Natural Scrub — ₹1,000</option>
-                <option value="detan-scrub">De-Tan Scrub — ₹1,000</option>
-                <option value="fruit-scrub">Fruit Scrub — ₹1,200</option>
-                <option value="ubtan-scrub">Ubtan Scrub — ₹1,500</option>
-                <option value="turkish-hammam">Turkish Hammam Bath — ₹6,000</option>
-                <option value="signature-therapy">Signature Bath Therapy — ₹6,000</option>
-                <option value="couple-connect">Couple Connect Massage — ₹6,000</option>
-                <option value="pizhichil">Pizhichil Therapy — ₹5,000</option>
-                <option value="hamam">Royal Hammam Bath — From ₹3,500</option>
-                <option value="flower-bath">Aromatic Flower Bath — From ₹3,000</option>
-                <option value="deep-tissue">Deep Tissue Massage — From ₹2,500</option>
-                <option value="aroma">Aroma Healing Therapy — From ₹2,000</option>
-                <option value="swedish">Swedish Massage — From ₹2,000</option>
-                <option value="balinese">Traditional Balinese Massage — From ₹2,500</option>
-                <option value="dry-therapy">Dry Therapy (Stretch &amp; Pull) — From ₹2,500</option>
-                <option value="rope-therapy">Chavutti Thirumal (Rope Therapy) — From ₹2,400</option>
-                <option value="two-therapist-rope">Two Therapist Rope Session — ₹5,000</option>
-                <option value="hot-stone">Hot Stone Therapy — ₹3,750</option>
-                <option value="foot-reflexology">Foot Reflexology — ₹1,500</option>
-                <option value="cupping">Cupping Therapy — ₹2,500</option>
-                <option value="shirodhara">Ayurvedic Shirodhara — ₹4,000</option>
-                <option value="head-massage">Indian Head Massage — ₹1,200</option>
-                <option value="ayurveda-stress">Stress Reduction Package — ₹5,000</option>
-                <option value="herbal-pouch">Herbal Pouch Massage — ₹5,000</option>
-                <option value="hasta-padbhyangam">Hasta-Padbhyangam (Hand &amp; Foot) — ₹2,000</option>
-                <option value="abhyangam">Abhyangam Therapy — ₹2,100</option>
-                <option value="shirodhara-circuits">Traditional Shirodhaara Circuits — ₹4,500</option>
-                <option value="casa-vasta">Casa Vasta Rituals — ₹6,000</option>
-                <option value="space-aakash">Space Aakash Escape — ₹6,500</option>
-                <option value="fire-tejas">Fire Tejas Escape — ₹5,500</option>
-                <option value="earth-ira">Earth Ira Escape — ₹3,500</option>
-                <option value="water-jal">Water Jal Escape — ₹7,500</option>
-                <option value="wind-vayu">Wind Vayu Escape — ₹4,500</option>
-                <option value="indoceane">Indoceane Spa Ritual — ₹7,500</option>
-                <option value="berries-facial">Berries Facial — ₹800</option>
-                <option value="charcoal-facial">Charcoal Facial — ₹900</option>
-                <option value="detan-facial">De-Tan Facial — ₹1,000</option>
-                <option value="diamond-facial">Diamond Facial — ₹1,100</option>
-                <option value="gold-facial">Gold Facial — ₹1,200</option>
+                {bookingServices.map((service) => (
+                  <option key={service.id} value={service.id}>
+                    {service.title} — {service.price}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -866,26 +850,7 @@ export default function SpaDetails() {
           {activeItem && (
             <>
               <div className="spa-modal-img-box">
-                {activeTab === 'body-scrub' ? (
-                  <SpaCardSlider images={[
-                    '/assets/images/ChatGPT Image Aug 12, 2026, 08_45_41 PM.png',
-                    '/assets/images/Gemini_Generated_Image_lmp0zhlmp0zhlmp0.png',
-                    '/assets/images/ChatGPT Image Aug 12, 2026, 08_49_18 PM.png'
-                  ]} />
-                ) : activeTab === 'ayurveda' ? (
-                  <SpaCardSlider images={[
-                    '/assets/videos/IMG_4707.mp4',
-                    '/assets/images/Gemini_Generated_Image_dwvkjqdwvkjqdwvk.png',
-                    '/assets/images/Gemini_Generated_Image_lwf1gxlwf1gxlwf1.png'
-                  ]} />
-                ) : activeTab === 'rejuvenate' ? (
-                  <SpaCardSlider images={[
-                    '/assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png',
-                    '/assets/videos/IMG_4707.mp4'
-                  ]} />
-                ) : (
-                  <img src={activeItem.image} alt={activeItem.title} />
-                )}
+                <img src={activeItem.image} alt={activeItem.title} />
               </div>
               <div className="spa-modal-body">
                 <div className="spa-modal-header-row">

@@ -567,32 +567,108 @@ export default function Booking() {
           ) : (
             <div id="bookingConfirmation" className="booking-confirmation">
               <div className="confirmation-card">
-                <div className="confirmation-check">✓</div>
-                <h3>Booking Confirmed</h3>
-                <p>A printable invoice has been generated below. Thank you for choosing Hotel Shree Daan.</p>
-
                 <div className="invoice" id="invoice">
-                  <div className="invoice-head">
-                    <img src="/assets/images/logo-sticky.png" alt="Hotel Shree Daan" className="invoice-logo" />
-                    <div>
-                      <strong>Shree Daan Hotel</strong>
-                      <span>Booking Invoice</span>
+                  {/* 1. Official Header with Logo */}
+                  <div className="invoice-header">
+                    <div className="invoice-brand-col">
+                      <img src="/assets/images/logo-sticky.png" alt="Hotel Shree Daan" className="invoice-logo" />
+                    </div>
+                    <div className="invoice-header-right">
+                      <h4 className="invoice-main-heading">RESERVATION INVOICE</h4>
+                      <p className="invoice-main-sub">Golden Sparsh Spa &amp; Luxury Stay</p>
                     </div>
                   </div>
-                  <div className="invoice-row"><span>Booking ID</span><span>{confirmedBooking.id}</span></div>
-                  <div className="invoice-row"><span>Guest Name</span><span>{confirmedBooking.name}</span></div>
-                  <div className="invoice-row"><span>Room Type</span><span>{confirmedBooking.roomType}</span></div>
-                  <div className="invoice-row"><span>Check-in</span><span>{confirmedBooking.checkInFormatted}</span></div>
-                  <div className="invoice-row"><span>Check-out</span><span>{confirmedBooking.checkOutFormatted}</span></div>
-                  <div className="invoice-row"><span>Guests</span><span>{confirmedBooking.adults} Adults, {confirmedBooking.children} Children</span></div>
-                  <div className="invoice-row"><span>Nights</span><span>{confirmedBooking.nights}</span></div>
-                  <div className="invoice-row invoice-total"><span>Total Amount</span><span>₹{confirmedBooking.total.toLocaleString('en-IN')}</span></div>
-                  <div className="invoice-row"><span>Payment Status</span><span className="badge badge--pending">Pending</span></div>
-                  <div className="invoice-row"><span>Booking Status</span><span className="badge badge--confirmed">Confirmed</span></div>
+
+                  <div className="invoice-banner">
+                    <div className="invoice-voucher-title">BOOKING CONFIRMATION SUMMARY</div>
+                    <div className="invoice-date-ref">
+                      <span><strong>Invoice Date:</strong> {new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                    </div>
+                  </div>
+
+                  {/* 2. Grid Table for Details */}
+                  <div className="invoice-grid-section">
+                    <div className="invoice-col">
+                      <h5>GUEST INFORMATION</h5>
+                      <div className="invoice-row"><span>Guest Name:</span><strong>{confirmedBooking.name}</strong></div>
+                      <div className="invoice-row"><span>Contact Phone:</span><span>{confirmedBooking.phone || 'N/A'}</span></div>
+                      <div className="invoice-row"><span>Email Address:</span><span>{confirmedBooking.email || 'N/A'}</span></div>
+                      <div className="invoice-row"><span>Booking Reference:</span><strong className="invoice-booking-id">{confirmedBooking.id}</strong></div>
+                    </div>
+
+                    <div className="invoice-col">
+                      <h5>RESERVATION DETAILS</h5>
+                      <div className="invoice-row"><span>Room Type:</span><strong>{confirmedBooking.roomType}</strong></div>
+                      <div className="invoice-row"><span>Check-in Date:</span><span>{confirmedBooking.checkInFormatted} (12:00 PM)</span></div>
+                      <div className="invoice-row"><span>Check-out Date:</span><span>{confirmedBooking.checkOutFormatted} (11:00 AM)</span></div>
+                      <div className="invoice-row"><span>Occupancy:</span><span>{confirmedBooking.adults} Adults{confirmedBooking.children > 0 ? `, ${confirmedBooking.children} Children` : ''}</span></div>
+                      <div className="invoice-row"><span>Total Stay:</span><span>{confirmedBooking.nights} Night{confirmedBooking.nights > 1 ? 's' : ''}</span></div>
+                    </div>
+                  </div>
+
+                  {/* 3. Summary & Payment Table */}
+                  <div className="invoice-billing-table">
+                    <div className="invoice-billing-head">
+                      <span>DESCRIPTION</span>
+                      <span>NIGHTS</span>
+                      <span>RATE / NIGHT</span>
+                      <span>AMOUNT</span>
+                    </div>
+                    <div className="invoice-billing-row">
+                      <span>{confirmedBooking.roomType} (Accommodation with Breakfast &amp; Wi-Fi)</span>
+                      <span>{confirmedBooking.nights}</span>
+                      <span>₹{(confirmedBooking.total / (confirmedBooking.nights || 1)).toLocaleString('en-IN')}</span>
+                      <span>₹{confirmedBooking.total.toLocaleString('en-IN')}</span>
+                    </div>
+                    <div className="invoice-billing-total">
+                      <div className="invoice-total-row">
+                        <span>Total Amount Payable:</span>
+                        <strong>₹{confirmedBooking.total.toLocaleString('en-IN')}</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 4. Status Badges */}
+                  <div className="invoice-status-row">
+                    <div><span>Booking Status: </span><span className="badge badge--confirmed">Confirmed</span></div>
+                    <div><span>Payment Status: </span><span className="badge badge--pending">Pay at Hotel Check-in</span></div>
+                  </div>
+
+                  {/* 5. Hotel Policies & Terms */}
+                  <div className="invoice-policies">
+                    <h6>IMPORTANT HOTEL POLICIES:</h6>
+                    <ul>
+                      <li>Standard Check-in time is 12:00 Noon and Check-out time is 11:00 AM.</li>
+                      <li>All guests must present a valid government photo ID (Aadhaar / Passport / Driving License) at check-in.</li>
+                      <li>Rates are inclusive of morning breakfast and high-speed Wi-Fi access.</li>
+                      <li>For any amendments or special requests, please contact front desk at +91 78740 50009.</li>
+                    </ul>
+                  </div>
+
+                  {/* 6. Footer Note & Official Address */}
+                  <div className="invoice-footer-sign">
+                    <p>Thank you for choosing Hotel Shree Daan. We look forward to welcoming you!</p>
+                    <div className="invoice-stamp-area">
+                      <span>Authorized Reservation Desk</span>
+                      <strong>Hotel Shree Daan &amp; Spa</strong>
+                    </div>
+                  </div>
+
+                  <div className="invoice-footer-address-bar">
+                    <p className="invoice-footer-address">
+                      <strong>Hotel Shree Daan:</strong> Valsad Road, Balitha, N.H No.8, Vapi - 396 191, Gujarat, India
+                    </p>
+                    <p className="invoice-footer-contact">
+                      <strong>Tel:</strong> +91 78740 50009 | +91 98210 12345 &nbsp;•&nbsp; <strong>Web:</strong> www.hotelshreedaan.com
+                    </p>
+                  </div>
                 </div>
 
-                <div className="confirmation-actions">
-                  <button className="btn btn-ghost" onClick={handlePrint}>Print Invoice</button>
+                <div className="confirmation-actions no-print">
+                  <button className="btn btn-ghost" onClick={handlePrint}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                    Print / Download Invoice
+                  </button>
                   <button className="btn btn-gold" onClick={resetForm}>Make Another Booking</button>
                 </div>
               </div>
