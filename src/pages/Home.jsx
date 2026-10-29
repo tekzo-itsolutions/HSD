@@ -292,22 +292,16 @@ export default function Home() {
       {/* ===== MARQUEE STRIP ===== */}
       <div className="marquee-strip">
         <div className="marquee-track">
-          <span>Est. Heritage Hospitality</span><span className="dot-sep">✦</span>
-          <span>5-Star Comfort</span><span className="dot-sep">✦</span>
+          <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
+          <span>Max 3 Persons / Room</span><span className="dot-sep">✦</span>
+          <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
+          <span>Calling Compulsory to Confirm Bookings (+91 86989 88034)</span><span className="dot-sep">✦</span>
+          <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
           <span>24-Hour Service</span><span className="dot-sep">✦</span>
           <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
-          <span>Est. Heritage Hospitality</span><span className="dot-sep">✦</span>
-          <span>5-Star Comfort</span><span className="dot-sep">✦</span>
-          <span>24-Hour Service</span><span className="dot-sep">✦</span>
-          <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
-          <span>Est. Heritage Hospitality</span><span className="dot-sep">✦</span>
-          <span>5-Star Comfort</span><span className="dot-sep">✦</span>
-          <span>24-Hour Service</span><span className="dot-sep">✦</span>
-          <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
-          <span>Est. Heritage Hospitality</span><span className="dot-sep">✦</span>
-          <span>5-Star Comfort</span><span className="dot-sep">✦</span>
-          <span>24-Hour Service</span><span className="dot-sep">✦</span>
-          <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
+          <span>Calling Compulsory (+91 86989 88034)</span><span className="dot-sep">✦</span>
+          <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
+          <span>5-Star Luxury</span><span className="dot-sep">✦</span>
         </div>
       </div>
 
@@ -399,12 +393,27 @@ export default function Home() {
                 <span className="room-rating">★ {r.rating}</span>
               </div>
               <div className="room-body">
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                  <span style={{ background: 'rgba(201, 162, 39, 0.12)', color: 'var(--gold-dark)', border: '1px solid rgba(201, 162, 39, 0.3)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '600' }}>
+                    🐾 Pet Friendly
+                  </span>
+                  {r.id !== 'banquet-hall' && (
+                    <span style={{ background: 'rgba(110, 16, 39, 0.08)', color: 'var(--maroon)', border: '1px solid rgba(110, 16, 39, 0.2)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '600' }}>
+                      👥 Max 3 Persons
+                    </span>
+                  )}
+                </div>
                 <h3>{r.name}</h3>
                 <p className="room-price">
                   {r.id === 'banquet-hall' 
                     ? 'Contact Hotel' 
                     : `₹${r.price.toLocaleString('en-IN')} / night`}
                 </p>
+                {r.id !== 'banquet-hall' && (
+                  <p style={{ fontSize: '0.78rem', color: '#7a7067', margin: '-4px 0 12px 0' }}>
+                    Up to 10 Yrs Free • Above 10 Yrs ₹450/night extra
+                  </p>
+                )}
                 <button className="btn btn-gold" onClick={() => navigate(`/booking?room=${r.id}`)}>
                   {r.id === 'banquet-hall' ? 'Contact Hotel' : 'Book Now'}
                 </button>

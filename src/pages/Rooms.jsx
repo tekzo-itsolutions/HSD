@@ -155,10 +155,25 @@ export default function Rooms() {
           <h2>Rooms &amp; Suites</h2>
         </div>
 
-        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', marginBottom: '60px' }} className="reveal-up in-view">
+        <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center', marginBottom: '30px' }} className="reveal-up in-view">
           <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: '#5c534b' }}>
             Each room at Hotel Shree Daan is designed to be a private oasis. Featuring curated local fabrics, smart room lighting panels, glassmorphism details, and premium amenities, our suites represent the best of contemporary 5-star sanctuary.
           </p>
+        </div>
+
+        {/* COMPULSORY CALLING ALERT BANNER */}
+        <div className="compulsory-call-banner reveal-up in-view" style={{ maxWidth: '900px', margin: '0 auto 40px' }}>
+          <div className="call-banner-left">
+            <span className="call-banner-icon">📞</span>
+            <div className="call-banner-info">
+              <h4>CALLING IS COMPULSORY FOR ROOM BOOKINGS</h4>
+              <p>Prior phone call to front desk is mandatory to confirm all room reservations &amp; availability.</p>
+            </div>
+          </div>
+          <a href="tel:+918698988034" className="btn btn-call-action">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Front Desk: +91 86989 88034
+          </a>
         </div>
 
         <div className="rooms-grid" id="roomsGrid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '30px', maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
@@ -171,12 +186,27 @@ export default function Rooms() {
                 <span className="room-rating">★ {r.rating}</span>
               </div>
               <div className="room-body">
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '8px' }}>
+                  <span style={{ background: 'rgba(201, 162, 39, 0.12)', color: 'var(--gold-dark)', border: '1px solid rgba(201, 162, 39, 0.3)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '600' }}>
+                    🐾 Pet Friendly
+                  </span>
+                  {r.id !== 'banquet-hall' && (
+                    <span style={{ background: 'rgba(110, 16, 39, 0.08)', color: 'var(--maroon)', border: '1px solid rgba(110, 16, 39, 0.2)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.75rem', fontWeight: '600' }}>
+                      👥 Max 3 Persons
+                    </span>
+                  )}
+                </div>
                 <h3>{r.name}</h3>
                 <p className="room-price">
                   {r.id === 'banquet-hall' 
                     ? 'Contact Hotel' 
                     : <>₹{r.price.toLocaleString('en-IN')} <span>/ night</span></>}
                 </p>
+                {r.id !== 'banquet-hall' && (
+                  <p style={{ fontSize: '0.78rem', color: '#7a7067', margin: '-4px 0 12px 0' }}>
+                    Up to 10 Yrs Free • Above 10 Yrs ₹450/night extra
+                  </p>
+                )}
                 <button className="btn btn-gold" style={{ width: '100%' }} onClick={() => navigate(`/booking?room=${r.id}`)}>
                   {r.id === 'banquet-hall' ? 'Contact Hotel' : 'Book Now'}
                 </button>
@@ -194,6 +224,11 @@ export default function Rooms() {
         </div>
 
         <div className="services-grid">
+          <div className="service-card reveal-up in-view">
+            <div style={{ fontSize: '1.5rem', marginBottom: '10px' }}>🐾</div>
+            <h3>Pet Friendly Stay</h3>
+            <p>Pets are warmly welcomed! Enjoy your trip with your furry family members in our dedicated pet-friendly rooms.</p>
+          </div>
           <div className="service-card reveal-up in-view">
             <div style={{ fontSize: '1.5rem', marginBottom: '10px' }}>☕</div>
             <h3>Welcome Platter</h3>

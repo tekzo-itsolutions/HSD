@@ -206,11 +206,11 @@ export default function Header() {
             </Link>
 
             <div className="mobile-menu-contact-info">
-              <a href="tel:+917874050009" className="mobile-contact-pill">
+              <a href="tel:+918698988034" className="mobile-contact-pill">
                 <span className="contact-icon">📞</span>
-                <span>+91 78740 50009</span>
+                <span>+91 86989 88034</span>
               </a>
-              <a href="https://wa.me/917874050009" target="_blank" rel="noopener noreferrer" className="mobile-contact-pill whatsapp-pill">
+              <a href="https://wa.me/918698988034" target="_blank" rel="noopener noreferrer" className="mobile-contact-pill whatsapp-pill">
                 <span className="contact-icon">💬</span>
                 <span>WhatsApp Us</span>
               </a>

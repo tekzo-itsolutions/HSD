@@ -24,7 +24,7 @@ export default function Footer() {
           </Link>
           <p>Luxury stay begins here.</p>
           <p className="footer-address">Hotel Shree Daan, Valsad Road, Balitha, N.H No.8, Vapi - 396 191<br />
-            <a href="tel:+917874050009">+91 78740 50009</a></p>
+            <a href="tel:+918698988034">+91 86989 88034</a></p>
         </div>
 
         <div className="footer-col">

@@ -6021,3 +6021,242 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
     justify-content: center;
   }
 }
+
+/* ============ COMPULSORY CALLING ALERT BANNER & ACTIONS ============ */
+.compulsory-call-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: linear-gradient(135deg, rgba(110, 16, 39, 0.08) 0%, rgba(201, 162, 39, 0.08) 100%);
+  border: 1px solid rgba(110, 16, 39, 0.25);
+  border-left: 4px solid var(--maroon);
+  border-radius: 8px;
+  padding: 16px 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 15px rgba(20, 9, 12, 0.04);
+}
+
+.call-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.call-banner-icon {
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(110, 16, 39, 0.1);
+  flex-shrink: 0;
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(110, 16, 39, 0.3); }
+  70% { transform: scale(1.04); box-shadow: 0 0 0 8px rgba(110, 16, 39, 0); }
+  100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(110, 16, 39, 0); }
+}
+
+.call-banner-info h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  color: var(--maroon);
+  margin: 0 0 4px 0;
+  font-weight: 700;
+}
+
+.call-banner-info p {
+  font-size: 0.88rem;
+  color: #5c534b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-call-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--maroon);
+  color: #fff !important;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(110, 16, 39, 0.25);
+}
+
+.btn-call-action:hover {
+  background: #871430;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(110, 16, 39, 0.35);
+  color: #fff !important;
+}
+
+/* ============ CAPACITY & EXTRA PERSON NOTE ============ */
+.guest-capacity-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(201, 162, 39, 0.08);
+  border: 1px dashed rgba(201, 162, 39, 0.4);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  color: #4a3e35;
+  line-height: 1.45;
+}
+
+.guest-capacity-note .info-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.guest-capacity-note .extra-highlight {
+  color: var(--maroon);
+  font-weight: 700;
+}
+
+/* ============ PET FRIENDLY CHECKBOX ============ */
+.pet-friendly-field {
+  padding: 4px 0;
+}
+
+.pet-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.88rem;
+  color: #3f3631;
+}
+
+.pet-checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+
+.pet-label-text strong {
+  color: var(--maroon);
+}
+
+/* ============ CONFIRMATION CALLING & WHATSAPP BANNER ============ */
+.confirmation-calling-notice {
+  background: linear-gradient(135deg, rgba(110, 16, 39, 0.08) 0%, rgba(37, 211, 102, 0.08) 100%);
+  border: 1.5px solid rgba(110, 16, 39, 0.3);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.confirmation-calling-notice .notice-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.confirmation-calling-notice .notice-icon {
+  font-size: 1.8rem;
+}
+
+.confirmation-calling-notice .notice-text h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--maroon);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0 0 6px 0;
+}
+
+.confirmation-calling-notice .notice-text p {
+  font-size: 0.92rem;
+  color: #554a43;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.confirmation-calling-notice .notice-buttons-row {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-call-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--maroon);
+  color: #fff !important;
+  padding: 12px 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(110, 16, 39, 0.25);
+  transition: all 0.25s ease;
+}
+
+.btn-call-primary:hover {
+  background: #881230;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(110, 16, 39, 0.35);
+  color: #fff !important;
+}
+
+.btn-whatsapp-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  color: #fff !important;
+  padding: 12px 24px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3);
+  transition: all 0.25s ease;
+}
+
+.btn-whatsapp-primary:hover {
+  background: #1eb956;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.45);
+  color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  .compulsory-call-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+  .btn-call-action {
+    width: 100%;
+    justify-content: center;
+  }
+  .confirmation-calling-notice .notice-buttons-row {
+    flex-direction: column;
+  }
+  .btn-call-primary, .btn-whatsapp-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
