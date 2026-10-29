@@ -741,6 +741,8 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.4s var(--ease); }
 .dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+.hero-slide-dots .dot { padding: 0; border: 0; appearance: none; }
+.hero-slide-dots .dot:focus-visible { outline: 2px solid var(--white); outline-offset: 4px; }
 
 .scroll-indicator {
   position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);

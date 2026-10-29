@@ -271,12 +271,15 @@ export default function Home() {
         {/* Bottom Navigation Dots & Progress */}
         <div className="hero-slide-dots">
           {[0, 1, 2].map(idx => (
-            <span
+            <button
+              type="button"
               key={idx}
               className={`dot ${heroIndex === idx ? 'active' : ''}`}
+              aria-label={`Show slide ${idx + 1}: ${HERO_CONDITIONS[idx].title}`}
+              aria-current={heroIndex === idx ? 'true' : undefined}
               onClick={() => setHeroIndex(idx)}
               style={heroIndex === idx ? { width: '24px', borderRadius: '4px' } : {}}
-            ></span>
+            ></button>
           ))}
         </div>
         <div className="hero-progress-container" style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', height: '3px', background: 'rgba(255,255,255,0.1)', zIndex: '10' }}>
