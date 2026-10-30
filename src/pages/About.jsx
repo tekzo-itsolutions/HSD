@@ -379,10 +379,10 @@ export default function About() {
             <div className="callout-header-tag">
               <span className="tag-couple">🥂 Couple Friendly</span>
               <span className="tag-dot">✦</span>
-              <span className="tag-pet">🐶 Dog Friendly Luxury</span>
+              <span className="tag-pet">pet Friendly </span>
             </div>
             <h3>
-              We have Couple Friendly Rooms <span className="amp-symbol">&amp;</span> <span className="pet-highlight">Dog Friendly Rooms <span className="animated-dog-paw" title="Pets Welcome!"></span></span>
+              We have Couple Friendly Rooms <span className="amp-symbol">&amp;</span> <span className="pet-highlight">Pet Friendly Rooms <span className="animated-dog-paw" title="Pets Welcome!"></span></span>
             </h3>
           </div>
         </div>
