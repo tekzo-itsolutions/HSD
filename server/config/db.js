@@ -19,7 +19,7 @@ const dbConfig = {
   enableKeepAlive: true,
   keepAliveInitialDelay: 0
 };
-
+  
 let pool = null;
 
 export async function initDatabase() {
