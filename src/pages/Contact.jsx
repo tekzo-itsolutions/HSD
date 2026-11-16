@@ -266,7 +266,7 @@ export default function Contact() {
                     <div className="info-icon-3d">📞</div>
                     <div className="info-content-3d">
                       <h4>Direct Concierge &amp; Phone</h4>
-                      <p><a href="tel:+917874050009">+91 78740 50009</a> (Front Desk Hotline)</p>
+                      <p><a href="tel:+918698988034">+91 86989 88034</a> (Front Desk Hotline)</p>
                       <div className="status-badge-live">
                         <span className="status-dot-pulse"></span> Desk Hotline Active
                       </div>
@@ -303,10 +303,10 @@ export default function Contact() {
                   </div>
                   <div className="whatsapp-text">
                     <h5>Instant WhatsApp Support</h5>
-                    <p>Chat directly with our Concierge Desk</p>
+                    <p>Chat directly with our Concierge Desk (+91 86989 88034)</p>
                   </div>
                 </div>
-                <a href="https://wa.me/917874050009" target="_blank" rel="noopener noreferrer" className="btn-whatsapp-action">
+                <a href="https://wa.me/918698988034" target="_blank" rel="noopener noreferrer" className="btn-whatsapp-action">
                   <span>Chat Now</span>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>

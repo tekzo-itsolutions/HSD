@@ -6,7 +6,7 @@ export const ROOMS = [
     rating: 4.8,
     image: '/assets/images/test_rooms/shree premier suite 1.jpg',
     gradient: 'radial-gradient(ellipse at 60% 40%, #6E1027, #2c0813 60%, #14090C)',
-    facilities: ['Living Area', 'Balcony', 'Mini Bar', 'Bathtub']
+    facilities: ['Living Area', 'Balcony', 'Mini Bar', 'Bathtub', 'Pet Friendly']
   },
   {
     id: 'executive-single',
@@ -15,7 +15,7 @@ export const ROOMS = [
     rating: 4.6,
     image: '/assets/images/test_rooms/executive.jpg',
     gradient: 'radial-gradient(ellipse at 40% 40%, #8a5a1f, #57332a 55%, #14090C)',
-    facilities: ['City View', 'Workspace', 'Smart TV', 'Mini Bar']
+    facilities: ['City View', 'Workspace', 'Smart TV', 'Mini Bar', 'Pet Friendly']
   },
   {
     id: 'standard-double',
@@ -24,7 +24,7 @@ export const ROOMS = [
     rating: 4.5,
     image: '/assets/images/test_rooms/standard-double.jpg',
     gradient: 'radial-gradient(ellipse at 30% 30%, #8a5a1f, #3d270e 60%, #14090C)',
-    facilities: ['King Bed', 'City View', 'Free WiFi', 'Breakfast']
+    facilities: ['King Bed', 'City View', 'Free WiFi', 'Breakfast', 'Pet Friendly']
   },
   {
     id: 'executive-double',
@@ -33,7 +33,7 @@ export const ROOMS = [
     rating: 4.7,
     image: '/assets/images/test_rooms/executive-double.jpg',
     gradient: 'radial-gradient(ellipse at 40% 50%, #3f5240, #1c261d 60%, #14090C)',
-    facilities: ['Courtyard View', 'Private Lounge', 'Butler Service', 'Spa Access']
+    facilities: ['Courtyard View', 'Private Lounge', 'Butler Service', 'Spa Access', 'Pet Friendly']
   },
   {
     id: 'standard-single',
@@ -42,7 +42,7 @@ export const ROOMS = [
     rating: 4.4,
     image: '/assets/images/test_rooms/standard-single.jpg',
     gradient: 'radial-gradient(ellipse at 40% 40%, #81523a, #3d1811 60%, #14090C)',
-    facilities: ['Private Balcony', 'Jacuzzi', 'Dining Area', 'Personal Butler']
+    facilities: ['Private Balcony', 'Jacuzzi', 'Dining Area', 'Personal Butler', 'Pet Friendly']
   },
   {
     id: 'banquet-hall',
@@ -65,6 +65,10 @@ export const roomData = {
     ],
     featuresTitle: "PREMIER SUITE ROOM'S / FEATURES",
     features: [
+      "PET FRIENDLY - YES (PETS WELCOME)",
+      "MAX - 3 PEOPLE",
+      "CHILDREN UP TO 10 YEARS - COMPLIMENTARY",
+      "EXTRA PERSON (ABOVE 10 YRS) - ₹450 / NIGHT",
       "BED - KING BED",
       "DRAWING ROOM WITH 32\" LED",
       "VIEW - CITY",
@@ -75,7 +79,6 @@ export const roomData = {
       "TEA / COFFEE MAKER",
       "A/C INCLUDED",
       "DRESSING AREA",
-      "MAX - 3 PEOPLE",
       "FRAGRANCES WITH DIFFUSER AND CANDLES",
       "ROOM SIZE - 500 SQ. FT.",
       "ATTACHED BALCONY"
@@ -90,6 +93,10 @@ export const roomData = {
     ],
     featuresTitle: "EXECUTIVE SINGLE ROOM'S / FEATURES",
     features: [
+      "PET FRIENDLY - YES (PETS WELCOME)",
+      "MAX - 3 PEOPLE",
+      "CHILDREN UP TO 10 YEARS - COMPLIMENTARY",
+      "EXTRA PERSON (ABOVE 10 YRS) - ₹450 / NIGHT",
       "LED TV",
       "BED - KING SIZE BED",
       "ATTACHED BALCONY",
@@ -98,7 +105,6 @@ export const roomData = {
       "BREAKFAST INCLUDED - YES",
       "ROOM SERVICE - 24 X 7",
       "A/C INCLUDED",
-      "MAX - 3 PEOPLE",
       "ELECTRONIC SAFE",
       "ROOM SIZE - 180 SQ. FT."
     ]
@@ -112,6 +118,10 @@ export const roomData = {
     ],
     featuresTitle: "STANDARD DOUBLE ROOM'S / FEATURES",
     features: [
+      "PET FRIENDLY - YES (PETS WELCOME)",
+      "MAX - 3 PEOPLE",
+      "CHILDREN UP TO 10 YEARS - COMPLIMENTARY",
+      "EXTRA PERSON (ABOVE 10 YRS) - ₹450 / NIGHT",
       "BED - DOUBLE BED",
       "LED TV",
       "VIEW - CITY",
@@ -120,7 +130,6 @@ export const roomData = {
       "ROOM SERVICE - 24 X 7",
       "BREAKFAST INCLUDED - YES",
       "A/C INCLUDED",
-      "MAX - 3 PEOPLE",
       "DAILY NEWS PAPER",
       "ROOM SIZE - 150 SQ. FT.",
       "ELECTRONIC SAFE"
@@ -135,6 +144,10 @@ export const roomData = {
     ],
     featuresTitle: "EXECUTIVE DOUBLE ROOM'S / FEATURES",
     features: [
+      "PET FRIENDLY - YES (PETS WELCOME)",
+      "MAX - 3 PEOPLE",
+      "CHILDREN UP TO 10 YEARS - COMPLIMENTARY",
+      "EXTRA PERSON (ABOVE 10 YRS) - ₹450 / NIGHT",
       "32\" LED TV",
       "BED - KING SIZE BED",
       "ATTACHED BALCONY",
@@ -143,7 +156,6 @@ export const roomData = {
       "BREAKFAST INCLUDED - YES",
       "ROOM SERVICE - 24 X 7",
       "A/C INCLUDED",
-      "MAX - 3 PEOPLE",
       "ELECTRONIC SAFE",
       "ROOM SIZE - 180 SQ. FT."
     ]
@@ -157,6 +169,10 @@ export const roomData = {
     ],
     featuresTitle: "STANDARD SINGLE ROOM'S / FEATURES",
     features: [
+      "PET FRIENDLY - YES (PETS WELCOME)",
+      "MAX - 3 PEOPLE",
+      "CHILDREN UP TO 10 YEARS - COMPLIMENTARY",
+      "EXTRA PERSON (ABOVE 10 YRS) - ₹450 / NIGHT",
       "BED - DOUBLE BED",
       "LED TV",
       "VIEW - CITY",
@@ -165,7 +181,6 @@ export const roomData = {
       "ROOM SERVICE - 24 X 7",
       "BREAKFAST INCLUDED - YES",
       "A/C INCLUDED",
-      "MAX - 3 PEOPLE",
       "DAILY NEWS PAPER",
       "ROOM SIZE - 150 SQ. FT.",
       "ELECTRONIC SAFE"

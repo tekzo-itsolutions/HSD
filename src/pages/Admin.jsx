@@ -1416,22 +1416,22 @@ export default function Admin() {
 
                 <div className="form-grid-2">
                   <div className="form-group-field">
-                    <label>Adults Count</label>
+                    <label>Adults Count (Max 3)</label>
                     <select className="form-input-control" value={newRoomAdults} onChange={(e) => setNewRoomAdults(e.target.value)}>
                       <option value="1">1 Adult</option>
                       <option value="2">2 Adults</option>
-                      <option value="3">3 Adults</option>
-                      <option value="4">4 Adults</option>
-                      <option value="10">Group (10+)</option>
+                      <option value="3">3 Adults (Max Capacity)</option>
                     </select>
+                    <small style={{ color: '#777', fontSize: '0.78rem', marginTop: '4px', display: 'block' }}>
+                      Max 3 persons per room. Up to 10 yrs free; above 10 yrs ₹450/night extra.
+                    </small>
                   </div>
                   <div className="form-group-field">
                     <label>Children Count</label>
                     <select className="form-input-control" value={newRoomChildren} onChange={(e) => setNewRoomChildren(e.target.value)}>
                       <option value="0">0 Children</option>
-                      <option value="1">1 Child</option>
-                      <option value="2">2 Children</option>
-                      <option value="3">3 Children</option>
+                      {parseInt(newRoomAdults, 10) < 3 && <option value="1">1 Child</option>}
+                      {parseInt(newRoomAdults, 10) === 1 && <option value="2">2 Children</option>}
                     </select>
                   </div>
                 </div>

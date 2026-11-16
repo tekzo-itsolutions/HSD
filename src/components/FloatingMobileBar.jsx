@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function FloatingMobileBar() {
@@ -12,7 +12,7 @@ export default function FloatingMobileBar() {
   return (
     <div className="floating-mobile-bar" id="floatingMobileBar">
       <a 
-        href="tel:+917874050009" 
+        href="tel:+918698988034" 
         className="floating-bar-btn floating-call-btn" 
         aria-label="Call Hotel Shree Daan"
       >
@@ -21,7 +21,7 @@ export default function FloatingMobileBar() {
       </a>
 
       <a 
-        href="https://wa.me/917874050009?text=Hello%20Hotel%20Shree%20Daan,%20I%20would%20like%20to%20inquire%20about%20a%20room%20or%20spa%20booking." 
+        href="https://wa.me/918698988034?text=Hello%20Hotel%20Shree%20Daan,%20I%20would%20like%20to%20inquire%20about%20a%20room%20or%20spa%20booking." 
         target="_blank" 
         rel="noopener noreferrer" 
         className="floating-bar-btn floating-wa-btn" 
