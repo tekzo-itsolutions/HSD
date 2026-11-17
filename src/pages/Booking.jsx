@@ -475,22 +475,22 @@ export default function Booking() {
           <h2>Check Availability &amp; Reserve</h2>
         </div>
 
-        {/* COMPULSORY CALLING ALERT BANNER */}
-        <div className="compulsory-call-banner reveal-up in-view">
-          <div className="call-banner-left">
-            <span className="call-banner-icon">📞</span>
-            <div className="call-banner-info">
-              <h4>CALLING IS COMPULSORY TO CONFIRM BOOKINGS</h4>
-              <p>Prior phone call to front desk is mandatory for room and spa booking confirmation.</p>
-            </div>
-          </div>
-          <a href="tel:+918698988034" className="btn btn-call-action">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            Call Front Desk: +91 86989 88034
-          </a>
-        </div>
-
         <div className="room-booking-container reveal-up in-view">
+          {/* COMPULSORY CALLING ALERT BANNER */}
+          <div className="compulsory-call-banner">
+            <div className="call-banner-left">
+              <span className="call-banner-icon">📞</span>
+              <div className="call-banner-info">
+                <h4>CALLING IS COMPULSORY TO CONFIRM BOOKINGS</h4>
+                <p>Prior phone call to front desk is mandatory for room and spa booking confirmation.</p>
+              </div>
+            </div>
+            <a href="tel:+918698988034" className="btn btn-call-action">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call Front Desk: +91 86989 88034
+            </a>
+          </div>
+
           {!confirmedBooking ? (
             <form id="bookingForm" onSubmit={handleFormSubmit}>
               {/* ROW 1: TWO SIDE-BY-SIDE BOXES */}
