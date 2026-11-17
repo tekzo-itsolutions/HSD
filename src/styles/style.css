@@ -4476,6 +4476,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 .spa-item-text {
   flex: 1;
+  min-width: 0;
 }
 .spa-item-text h5 {
   font-family: var(--font-display);
@@ -4505,16 +4506,19 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-shrink: 0;
 }
 .spa-item-meta-panel .dur {
   font-size: 0.82rem;
   color: #a89f97;
+  white-space: nowrap;
 }
 .spa-item-meta-panel .prc {
   font-family: var(--font-display);
   font-size: 1.1rem;
   color: var(--gold-glow);
   font-weight: 500;
+  white-space: nowrap;
 }
 .spa-item-meta-panel .chevron {
   font-size: 0.8rem;
@@ -4526,64 +4530,97 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   color: var(--gold);
 }
 
-.spa-tax-notice {
-  font-size: 0.75rem;
-  color: #8a8078;
-  margin-top: 25px;
-  text-align: left;
-  font-style: italic;
-}
-
-.spa-booking-section {
-  background: var(--ink);
-  color: var(--ivory);
-  padding: 70px 40px;
-  position: relative;
-  overflow: hidden;
-  max-width: 1200px;
-  margin: 60px auto;
-  border-radius: 24px;
-  border: 1px solid rgba(201, 162, 39, 0.25);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-}
-@media (max-width: 1280px) {
-  .spa-booking-section {
-    margin: 50px 24px;
-    width: auto;
-  }
-}
-@media (max-width: 576px) {
-  .spa-booking-section {
-    margin: 30px 16px;
-    padding: 50px 20px;
-    border-radius: 16px;
-  }
-}
-
+/* ===== MOBILE SPA MENU ITEM — full description + stacked layout ===== */
 @media (max-width: 991px) {
-  .spa-menu-category {
-    padding: 30px 20px;
-  }
-  .spa-category-layout {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  .spa-showcase-column {
-    display: none;
-  }
   .spa-menu-item {
-    padding: 14px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
   }
   .spa-menu-item:hover {
     transform: none;
   }
+  .spa-item-text {
+    width: 100%;
+  }
+  .spa-item-text h5 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
   .spa-item-text p {
-    max-width: 320px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    max-width: 100%;
+    font-size: 0.83rem;
+    line-height: 1.5;
+    color: #9a9088;
+  }
+  .spa-item-meta-panel {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 14px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(201, 162, 39, 0.1);
+  }
+  .spa-item-meta-panel .dur {
+    font-size: 0.8rem;
+    color: #9a9088;
+  }
+  .spa-item-meta-panel .prc {
+    font-size: 1rem;
+  }
+  .spa-item-meta-panel .chevron {
+    margin-left: auto;
+    font-size: 0.85rem;
+  }
+  .spa-items-column {
+    gap: 10px;
+  }
+  .spa-menu-category {
+    padding: 24px 16px;
+  }
+  .spa-category-header {
+    font-size: 0.85rem;
+    padding: 7px 18px;
+    margin-bottom: 20px;
   }
 }
 @media (max-width: 480px) {
+  .spa-menu-item {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .spa-item-text h5 {
+    font-size: 1.05rem;
+  }
   .spa-item-text p {
-    max-width: 180px;
+    font-size: 0.8rem;
+  }
+  .spa-item-meta-panel .prc {
+    font-size: 0.95rem;
+  }
+  .spa-items-column {
+    gap: 8px;
+  }
+  .spa-menu-container {
+    padding: 0 12px;
+    margin: 24px auto 60px;
+    gap: 32px;
+  }
+  .spa-menu-category {
+    padding: 20px 14px;
+    border-radius: 10px;
+  }
+  .spa-tabs-nav {
+    gap: 8px;
+    padding: 0 12px;
+    margin-bottom: 28px;
+  }
+  .spa-tab-btn {
+    padding: 9px 16px;
+    font-size: 0.82rem;
   }
 }
 
