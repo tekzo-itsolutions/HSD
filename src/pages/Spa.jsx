@@ -47,9 +47,11 @@ export default function Spa() {
   const [heroIndex, setHeroIndex] = useState(0);
   const heroVideoRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [heroProgress, setHeroProgress] = useState(0);
+  const isTransitioningRef = useRef(false);
 
   useEffect(() => {
-    // Play active slide video from start, pause and reset others
+    isTransitioningRef.current = false;
+    // Play active slide video from start, pause others without resetting immediately to avoid frame flash
     heroVideoRefs.forEach((ref, idx) => {
       const video = ref.current;
       if (video) {
@@ -58,7 +60,6 @@ export default function Spa() {
           video.play().catch(() => {});
         } else {
           video.pause();
-          video.currentTime = 0;
         }
       }
     });
@@ -73,12 +74,18 @@ export default function Spa() {
       const video = e.target;
       if (video.duration && video.duration > 0) {
         setHeroProgress((video.currentTime / video.duration) * 100);
+        // Seamlessly transition 0.35s before video ends to prevent freeze/poster display
+        if (!isTransitioningRef.current && (video.duration - video.currentTime) <= 0.35) {
+          isTransitioningRef.current = true;
+          goNextHero();
+        }
       }
     }
   };
 
   const handleVideoEnded = (idx) => {
-    if (idx === heroIndex) {
+    if (idx === heroIndex && !isTransitioningRef.current) {
+      isTransitioningRef.current = true;
       goNextHero();
     }
   };
@@ -96,8 +103,7 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
-                preload="metadata"
-                poster="/assets/images/pic 73.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
                 onEnded={() => handleVideoEnded(0)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -114,8 +120,7 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/pic 37.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
                 onEnded={() => handleVideoEnded(1)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -132,8 +137,7 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/pic 60.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
                 onEnded={() => handleVideoEnded(2)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -150,8 +154,7 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/spa-long.jpg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
                 onEnded={() => handleVideoEnded(3)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -168,8 +171,7 @@ export default function Spa() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/spa_home_1.jpg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
                 onEnded={() => handleVideoEnded(4)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}

@@ -110,8 +110,7 @@ function SpaCardSlider({ images, media }) {
     <div className="card-slider-wrapper" style={{ height: '100%', position: 'relative', overflow: 'hidden', backgroundColor: '#0d0608' }}>
       {normalizedItems.map((item, i) => {
         const isActive = idx === i;
-        const bgImg = item.type === 'video' ? (item.poster || firstImg) : item.src;
-        const posterImg = item.poster || firstImg;
+        const bgImg = item.type === 'video' ? undefined : item.src;
         return (
           <div
             key={i}
@@ -134,8 +133,7 @@ function SpaCardSlider({ images, media }) {
                 autoPlay
                 muted
                 playsInline
-                preload="metadata"
-                poster={posterImg}
+                preload="auto"
                 onEnded={handleVideoEnded}
                 style={{
                   width: '100%',
@@ -319,6 +317,7 @@ export default function SpaDetails() {
   const [heroIndex, setHeroIndex] = useState(0);
   const heroVideoRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
   const [heroProgress, setHeroProgress] = useState(0);
+  const isTransitioningRef = useRef(false);
 
   // Preload Ayurveda showcase video for instant zero-blank playback
   useEffect(() => {
@@ -329,7 +328,8 @@ export default function SpaDetails() {
   }, []);
 
   useEffect(() => {
-    // Play active slide video from start, pause and reset others
+    isTransitioningRef.current = false;
+    // Play active slide video from start, pause others without resetting immediately to avoid frame flash
     heroVideoRefs.forEach((ref, idx) => {
       const video = ref.current;
       if (video) {
@@ -338,7 +338,6 @@ export default function SpaDetails() {
           video.play().catch(() => {});
         } else {
           video.pause();
-          video.currentTime = 0;
         }
       }
     });
@@ -353,12 +352,18 @@ export default function SpaDetails() {
       const video = e.target;
       if (video.duration && video.duration > 0) {
         setHeroProgress((video.currentTime / video.duration) * 100);
+        // Seamlessly transition 0.35s before video ends to prevent freeze/poster display
+        if (!isTransitioningRef.current && (video.duration - video.currentTime) <= 0.35) {
+          isTransitioningRef.current = true;
+          goNextHero();
+        }
       }
     }
   };
 
   const handleVideoEnded = (idx) => {
-    if (idx === heroIndex) {
+    if (idx === heroIndex && !isTransitioningRef.current) {
+      isTransitioningRef.current = true;
       goNextHero();
     }
   };
@@ -506,8 +511,7 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
-                preload="metadata"
-                poster="/assets/images/pic 73.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 0)}
                 onEnded={() => handleVideoEnded(0)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -524,8 +528,7 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/pic 37.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 1)}
                 onEnded={() => handleVideoEnded(1)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -542,8 +545,7 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/pic 60.jpg.jpeg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 2)}
                 onEnded={() => handleVideoEnded(2)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -560,8 +562,7 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/spa-long.jpg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 3)}
                 onEnded={() => handleVideoEnded(3)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -578,8 +579,7 @@ export default function SpaDetails() {
                 autoPlay
                 muted
                 playsInline
-                preload="none"
-                poster="/assets/images/spa_home_1.jpg"
+                preload="auto"
                 onTimeUpdate={(e) => handleVideoTimeUpdate(e, 4)}
                 onEnded={() => handleVideoEnded(4)}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
