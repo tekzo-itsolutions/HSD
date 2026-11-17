@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
   #mobileMenu {
     position: fixed;
     inset: 0;
-    background: rgba(18, 8, 11, 0.98);
+    background: radial-gradient(ellipse at 50% 15%, rgba(45, 12, 18, 0.98) 0%, rgba(16, 7, 10, 0.99) 70%);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     z-index: 920;
@@ -118,7 +118,7 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 84px 20px 32px;
+    padding: 86px 20px 32px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     transform: translateY(-100%);
@@ -130,40 +130,60 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
   #mobileMenu nav {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
     width: 100%;
-    max-width: 320px;
+    max-width: 330px;
     text-align: center;
-    margin: auto 0;
-    padding: 6px 0;
+    margin: 0 auto;
+    padding: 10px 0 18px;
   }
   #mobileMenu nav a.mobile-nav-link,
   #mobileMenu nav a {
     font-family: var(--font-display);
-    font-size: 1.45rem;
+    font-size: clamp(1.55rem, 5vw, 1.75rem);
+    font-weight: 500;
     color: var(--ivory);
-    padding: 7px 0;
-    min-height: 40px;
+    padding: 8px 12px;
+    min-height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     transition: color 0.3s ease, transform 0.25s ease;
   }
   #mobileMenu nav a.active,
   #mobileMenu nav a:hover {
     color: var(--gold-glow);
   }
+  #mobileMenu nav a.active span {
+    position: relative;
+    font-weight: 600;
+  }
+  #mobileMenu nav a.active span::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 1.5px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
   .mobile-menu-cta-wrap {
     width: 100%;
-    margin-top: 10px;
+    max-width: 320px;
+    margin: 18px auto 0;
     padding-top: 4px;
   }
   .mobile-menu-cta-wrap .btn {
     width: 100%;
-    padding: 13px 20px;
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
+    padding: 15px 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px -4px rgba(201, 162, 39, 0.4);
   }
 }
 
@@ -172,27 +192,31 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     padding: 0 14px;
   }
   .logo-img {
-    height: 38px;
-    max-width: 140px;
+    height: 40px;
+    max-width: 150px;
   }
   #mobileMenu {
-    padding: 76px 16px 24px;
+    padding: 80px 16px 28px;
   }
   #mobileMenu nav {
-    gap: 6px;
+    gap: 10px;
+    padding: 8px 0 16px;
   }
   #mobileMenu nav a.mobile-nav-link,
   #mobileMenu nav a {
-    font-size: 1.3rem;
-    padding: 5px 0;
-    min-height: 36px;
+    font-size: 1.62rem;
+    font-weight: 500;
+    padding: 7px 10px;
+    min-height: 40px;
+    letter-spacing: 0.035em;
   }
   .mobile-menu-cta-wrap {
-    margin-top: 8px;
+    margin-top: 16px;
   }
   .mobile-menu-cta-wrap .btn {
-    padding: 12px 16px;
-    font-size: 0.8rem;
+    padding: 14px 20px;
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
   }
 }
 
