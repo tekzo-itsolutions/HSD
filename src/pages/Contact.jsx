@@ -266,7 +266,7 @@ export default function Contact() {
                     <div className="info-icon-3d">📞</div>
                     <div className="info-content-3d">
                       <h4>Direct Concierge &amp; Phone</h4>
-                      <p><a href="tel:+918698988034">+91 86989 88034</a> (Front Desk Hotline)</p>
+                      <p><a href="tel:+917874050009">+91 78740 50009</a> (Front Desk &amp; WhatsApp Hotline)</p>
                       <div className="status-badge-live">
                         <span className="status-dot-pulse"></span> Desk Hotline Active
                       </div>
@@ -278,7 +278,11 @@ export default function Contact() {
                     <div className="info-icon-3d">✉️</div>
                     <div className="info-content-3d">
                       <h4>Email Desk</h4>
-                      <p><a href="mailto:reservations@shreedaanhotel.com">reservations@shreedaanhotel.com</a></p>
+                      <p>
+                        <a href="mailto:sales@hotelshreedaan.in">sales@hotelshreedaan.in</a>
+                        <br />
+                        <a href="mailto:hotelshreedaan20@gmail.com">hotelshreedaan20@gmail.com</a>
+                      </p>
                     </div>
                   </div>
 
@@ -296,19 +300,19 @@ export default function Contact() {
               {/* WhatsApp 3D Direct Connect Card */}
               <div className="whatsapp-3d-card" style={{ marginTop: '14px' }}>
                 <div className="whatsapp-left">
-                  <div className="whatsapp-icon-bg">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.12.553 4.11 1.519 5.836l-1.614 5.895 6.052-1.588c1.7 1 3.738 1.857 5.943 1.857 6.627 0 12-5.373 12-12 0-6.627-5.373-12-12-12zm0 22c-1.895 0-3.662-.516-5.188-1.411l-.372-.22-3.864 1.013 1.031-3.766-.241-.384c-.989-1.571-1.566-3.424-1.566-5.419 0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z"/>
+                  <div className="whatsapp-icon-3d">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.05 20.15C10.57 20.15 9.12 19.75 7.85 19L7.55 18.82L4.43 19.64L5.26 16.59L5.06 16.27C4.24 14.97 3.8 13.46 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.05 20.15ZM16.57 14.39C16.32 14.27 15.1 13.67 14.87 13.59C14.65 13.51 14.48 13.46 14.32 13.71C14.15 13.96 13.67 14.52 13.52 14.69C13.38 14.85 13.23 14.88 12.98 14.75C12.73 14.63 11.93 14.36 10.98 13.52C10.24 12.86 9.74 12.05 9.6 11.8C9.45 11.55 9.58 11.42 9.71 11.29C9.82 11.18 9.95 11.01 10.08 10.86C10.2 10.71 10.25 10.61 10.33 10.44C10.41 10.27 10.37 10.13 10.31 10C10.25 9.88 9.75 8.65 9.55 8.14C9.35 7.65 9.14 7.71 8.98 7.71C8.83 7.7 8.66 7.7 8.49 7.7C8.32 7.7 8.05 7.76 7.82 8.01C7.59 8.26 6.95 8.86 6.95 10.08C6.95 11.3 7.84 12.48 7.97 12.65C8.09 12.81 9.72 15.33 12.21 16.4C12.8 16.66 13.26 16.81 13.62 16.93C14.22 17.12 14.76 17.09 15.19 17.03C15.67 16.96 16.67 16.42 16.88 15.84C17.08 15.26 17.08 14.76 17.02 14.65C16.96 14.54 16.82 14.51 16.57 14.39Z" />
                     </svg>
                   </div>
                   <div className="whatsapp-text">
                     <h5>Instant WhatsApp Support</h5>
-                    <p>Chat directly with our Concierge Desk (+91 86989 88034)</p>
+                    <p>Chat directly with our Concierge Desk (<strong>+91 78740 50009</strong>)</p>
                   </div>
                 </div>
-                <a href="https://wa.me/918698988034" target="_blank" rel="noopener noreferrer" className="btn-whatsapp-action">
+                <a href="https://wa.me/917874050009" target="_blank" rel="noopener noreferrer" className="btn-whatsapp-action" aria-label="Chat on WhatsApp">
                   <span>Chat Now</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
 

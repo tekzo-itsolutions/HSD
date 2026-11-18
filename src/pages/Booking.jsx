@@ -9,8 +9,8 @@ const BOOKING_HERO_IMAGES = [
   '/assets/images/hero-booking-3.jpg'
 ];
 
-const WHATSAPP_NUMBER = '918698988034';
-const FRONT_DESK_PHONE = '+91 86989 88034';
+const WHATSAPP_NUMBER = '917874050009';
+const FRONT_DESK_PHONE = '+91 78740 50009';
 const EXTRA_PERSON_RATE = 450;
 
 if (typeof window !== 'undefined') {
@@ -133,9 +133,8 @@ export default function Booking() {
   const totalGuests = numAdults + numAbove10 + numUpTo10;
   const totalChildren = numAbove10 + numUpTo10;
 
-  // Chargeable persons (Adults + Children Above 10 Yrs). Standard room tariff covers up to 2.
-  const chargeablePersons = numAdults + numAbove10;
-  const extraGuests = Math.max(0, chargeablePersons - 2);
+  // Extra Person Charge applies strictly when children above 10 years are selected (₹450/night)
+  const extraGuests = numAbove10;
   const extraPersonTotal = roomCode === 'banquet-hall' ? 0 : (extraGuests * EXTRA_PERSON_RATE * nights);
   const roomBaseTotal = roomCode === 'banquet-hall' ? 0 : (nights * priceNumber);
   const estimatedTotal = roomCode === 'banquet-hall' ? 0 : (roomBaseTotal + extraPersonTotal);
@@ -216,36 +215,58 @@ export default function Booking() {
   // WhatsApp Message Generator with customer booking details
   const getWhatsAppBookingUrl = (booking) => {
     if (!booking) return '';
-    const occupantParts = [`${booking.adults} Adult${booking.adults > 1 ? 's' : ''}`];
-    if (booking.childrenAbove10 > 0) occupantParts.push(`${booking.childrenAbove10} Child (Above 10 Yrs - ₹450/n)`);
-    if (booking.childrenUpTo10 > 0) occupantParts.push(`${booking.childrenUpTo10} Child (Up to 10 Yrs - Free)`);
-    else if (booking.children > 0 && !booking.childrenAbove10 && !booking.childrenUpTo10) occupantParts.push(`${booking.children} Children`);
 
-    const msgLines = [
-      `*🏨 ROOM BOOKING DETAILS — HOTEL SHREE DAAN*`,
-      `══════════════════════════`,
-      `*📌 Booking ID:* ${booking.id}`,
-      `*👤 Guest Name:* ${booking.name}`,
-      `*📞 Phone:* ${booking.phone}`,
-      booking.email ? `*✉️ Email:* ${booking.email}` : null,
-      `*🛏️ Room Type:* ${booking.roomType}`,
-      `*📅 Check-In:* ${booking.checkInFormatted} (12:00 PM)`,
-      `*📅 Check-Out:* ${booking.checkOutFormatted} (11:00 AM)`,
-      `*🌙 Total Stay:* ${booking.nights} Night${booking.nights > 1 ? 's' : ''}`,
-      `*👥 Occupancy:* ${occupantParts.join(', ')} (Max 3 Allowed)`,
-      `*🐾 Pet Friendly:* ${booking.hasPet ? 'Yes (Traveling with Pet 🐾)' : 'Yes (Pet-Friendly Stay)'}`,
-      `*👶 Child Policy:* Up to 10 Yrs Free • Above 10 Yrs ₹450/night`,
-      `──────────────────────────`,
-      `*💵 Base Room Rate:* ₹${(booking.roomBaseTotal || 0).toLocaleString('en-IN')}`,
-      booking.extraPersonTotal > 0 ? `*➕ Extra Person Charge (Above 10 Yrs @ ₹450/night):* ₹${booking.extraPersonTotal.toLocaleString('en-IN')}` : null,
-      `*💰 Total Amount:* ₹${booking.total.toLocaleString('en-IN')}`,
-      `*💳 Payment:* Pay at Hotel Check-in`,
-      `══════════════════════════`,
-      `*⚠️ NOTE: Phone call is compulsory to confirm this booking.*`,
-      `*Front Desk:* ${FRONT_DESK_PHONE}`
-    ].filter(Boolean);
+    const hasChildren = (booking.children && booking.children > 0);
+    const childLine = hasChildren
+      ? (booking.children === 1 ? 'Child: 1' : `Children: ${booking.children}`)
+      : null;
 
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msgLines.join('\n'))}`;
+    const guestLines = [
+      'GUEST INFORMATION',
+      `Guest Name: ${booking.name}`,
+      `Phone: ${booking.phone}`,
+      booking.email ? `Email: ${booking.email}` : null
+    ].filter(Boolean).join('\n');
+
+    const stayLines = [
+      'STAY DETAILS',
+      `Room Type: ${booking.roomType}`,
+      `Check-In: ${booking.checkInFormatted} (12:00 PM)`,
+      `Check-Out: ${booking.checkOutFormatted} (11:00 AM)`,
+      `Total Stay: ${booking.nights} Night${booking.nights > 1 ? 's' : ''}`,
+      `Occupancy: ${booking.adults} Adult${booking.adults > 1 ? 's' : ''}`,
+      childLine,
+      booking.hasPet ? 'Pet Friendly: Yes' : null
+    ].filter(Boolean).join('\n');
+
+    const billingLines = [
+      'BILLING SUMMARY',
+      `Base Room Rate: ₹${(booking.roomBaseTotal || 0).toLocaleString('en-IN')}`,
+      booking.extraPersonTotal > 0 ? `Extra Person Charge: ₹${booking.extraPersonTotal.toLocaleString('en-IN')}` : null,
+      `Total Amount: ₹${booking.total.toLocaleString('en-IN')}`,
+      'Payment: Pay at Hotel Check-in'
+    ].filter(Boolean).join('\n');
+
+    const noticeLines = [
+      'IMPORTANT NOTE',
+      'Phone call is compulsory to confirm this booking.',
+      `Front Desk: ${FRONT_DESK_PHONE}`
+    ].join('\n');
+
+    const fullMessage = [
+      'HOTEL SHREE DAAN',
+      'Room Reservation Request',
+      '',
+      guestLines,
+      '',
+      stayLines,
+      '',
+      billingLines,
+      '',
+      noticeLines
+    ].join('\n');
+
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(fullMessage)}`;
   };
 
   const handleFormSubmit = async (e) => {
@@ -485,9 +506,9 @@ export default function Booking() {
                 <p>Prior phone call to front desk is mandatory for room and spa booking confirmation.</p>
               </div>
             </div>
-            <a href="tel:+918698988034" className="btn btn-call-action">
+            <a href="tel:+917874050009" className="btn btn-call-action">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              Call Front Desk: +91 86989 88034
+              Call Front Desk: +91 78740 50009
             </a>
           </div>
 
@@ -642,7 +663,7 @@ export default function Booking() {
                       <div className="guest-capacity-note" style={{ marginBottom: '12px' }}>
                         <span className="info-icon">👥</span>
                         <div className="info-text">
-                          <strong>Max 3 Persons Per Room:</strong> Children <strong>up to 10 years stay complimentary</strong>. Guests &amp; children <strong>above 10 years</strong> charged <span className="extra-highlight">₹450 / night</span> extra.
+                          <strong>Max 3 Persons Per Room:</strong> Children <strong>up to 10 years stay complimentary</strong>. Children <strong>above 10 years</strong> charged <span className="extra-highlight">₹450 / night</span> extra.
                         </div>
                       </div>
 
@@ -676,7 +697,7 @@ export default function Booking() {
                         To book the Banquet Hall, please contact the hotel directly:
                       </p>
                       <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.7rem', fontWeight: '700', color: 'var(--maroon)', marginBottom: '15px' }}>
-                        <a href="tel:+918698988034" style={{ color: 'inherit', textDecoration: 'none' }}>+91 86989 88034</a>
+                        <a href="tel:+917874050009" style={{ color: 'inherit', textDecoration: 'none' }}>+91 78740 50009</a>
                       </div>
                       <p style={{ fontSize: '0.92rem', color: '#5c534b', lineHeight: '1.5', margin: 0 }}>
                         Our dedicated events team will assist you with custom quotes, capacity setups, and layout planning.
@@ -741,9 +762,9 @@ export default function Booking() {
                     </div>
                   </div>
                   <div className="notice-buttons-row">
-                    <a href="tel:+918698988034" className="btn btn-call-primary">
+                    <a href="tel:+917874050009" className="btn btn-call-primary">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                      Call Front Desk (+91 86989 88034)
+                      Call Front Desk (+91 78740 50009)
                     </a>
                     <a 
                       href={getWhatsAppBookingUrl(confirmedBooking)} 
@@ -758,14 +779,10 @@ export default function Booking() {
                 </div>
 
                 <div className="invoice" id="invoice">
-                  {/* 1. Official Header with Logo */}
-                  <div className="invoice-header">
-                    <div className="invoice-brand-col">
-                      <img src="/assets/images/logo-sticky.png" alt="Hotel Shree Daan" className="invoice-logo" />
-                    </div>
-                    <div className="invoice-header-right">
-                      <h4 className="invoice-main-heading">RESERVATION INVOICE</h4>
-                      <p className="invoice-main-sub">Golden Sparsh Spa &amp; Luxury Stay</p>
+                  {/* 1. Official Header with Centered Logo */}
+                  <div className="invoice-header" style={{ justifyContent: 'center' }}>
+                    <div className="invoice-brand-col" style={{ justifyContent: 'center', width: '100%' }}>
+                      <img src="/assets/images/logo-sticky.png" alt="Hotel Shree Daan" className="invoice-logo" style={{ margin: '0 auto' }} />
                     </div>
                   </div>
 
@@ -797,10 +814,11 @@ export default function Booking() {
                           {confirmedBooking.adults} Adults
                           {confirmedBooking.childrenAbove10 > 0 ? `, ${confirmedBooking.childrenAbove10} Child (Above 10 Yrs)` : ''}
                           {confirmedBooking.childrenUpTo10 > 0 ? `, ${confirmedBooking.childrenUpTo10} Child (Up to 10 Yrs - Free)` : ''}
-                          {' '}(Total: {confirmedBooking.totalGuests} / Max 3)
                         </span>
                       </div>
-                      <div className="invoice-row"><span>Pet Friendly Stay:</span><strong>{confirmedBooking.hasPet ? 'Yes, Traveling with Pet 🐾' : 'Yes (Pet-Friendly Hotel)'}</strong></div>
+                      {confirmedBooking.hasPet && (
+                        <div className="invoice-row"><span>Pet Friendly Stay:</span><strong>Yes (Traveling with Pet)</strong></div>
+                      )}
                       <div className="invoice-row"><span>Total Stay:</span><span>{confirmedBooking.nights} Night{confirmedBooking.nights > 1 ? 's' : ''}</span></div>
                     </div>
                   </div>
@@ -823,7 +841,7 @@ export default function Booking() {
 
                     {confirmedBooking.extraGuests > 0 && (
                       <div className="invoice-billing-row extra-charge-row" style={{ color: 'var(--maroon)', fontWeight: '600' }}>
-                        <span>Extra Person Charge (Guest Above 10 Yrs @ ₹450 / night)</span>
+                        <span>Extra Person Charge (Child Above 10 Yrs @ ₹450 / night)</span>
                         <span>{confirmedBooking.nights}</span>
                         <span>₹{EXTRA_PERSON_RATE}</span>
                         <span>₹{confirmedBooking.extraPersonTotal.toLocaleString('en-IN')}</span>
@@ -848,7 +866,7 @@ export default function Booking() {
                   <div className="invoice-policies">
                     <h6>IMPORTANT HOTEL POLICIES:</h6>
                     <ul>
-                      <li><strong style={{ color: 'var(--maroon)' }}>Calling Compulsory:</strong> A direct phone call to +91 86989 88034 is mandatory to confirm room availability and guarantee your booking.</li>
+                      <li><strong style={{ color: 'var(--maroon)' }}>Calling Compulsory:</strong> A direct phone call to +91 78740 50009 is mandatory to confirm room availability and guarantee your booking.</li>
                       <li><strong>Maximum Capacity &amp; Child Policy:</strong> Strictly up to 3 persons allowed per room. Children <strong>up to 10 years stay complimentary</strong>. Extra guests &amp; children <strong>above 10 years</strong> incur a ₹450/night charge.</li>
                       <li><strong>Pet Friendly Hotel:</strong> Pets are warmly welcome at Hotel Shree Daan. Please inform our front desk at check-in.</li>
                       <li>Standard Check-in time is 12:00 Noon and Check-out time is 11:00 AM.</li>
@@ -871,7 +889,7 @@ export default function Booking() {
                       <strong>Hotel Shree Daan:</strong> Valsad Road, Balitha, N.H No.8, Vapi - 396 191, Gujarat, India
                     </p>
                     <p className="invoice-footer-contact">
-                      <strong>Hotline / WhatsApp:</strong> +91 86989 88034 &nbsp;•&nbsp; <strong>Web:</strong> www.hotelshreedaan.com
+                      <strong>Hotline / WhatsApp:</strong> +91 78740 50009 &nbsp;•&nbsp; <strong>Email:</strong> sales@hotelshreedaan.in &nbsp;•&nbsp; <strong>Web:</strong> www.hotelshreedaan.com
                     </p>
                   </div>
                 </div>
@@ -948,7 +966,7 @@ export default function Booking() {
             <div className="note-open-list" id="kindlyNoteList">
               <div className="note-line-item" style={{ background: 'rgba(110, 16, 39, 0.08)', borderLeft: '3px solid var(--maroon)' }}>
                 <span className="note-check-icon" style={{ color: 'var(--maroon)' }}>📞</span>
-                <span className="note-text" style={{ fontWeight: '700', color: 'var(--maroon)' }}>PHONE CALLING IS COMPULSORY TO CONFIRM ALL ROOM AND SPA BOOKINGS (+91 86989 88034).</span>
+                <span className="note-text" style={{ fontWeight: '700', color: 'var(--maroon)' }}>PHONE CALLING IS COMPULSORY TO CONFIRM ALL ROOM AND SPA BOOKINGS (+91 78740 50009).</span>
               </div>
               <div className="note-line-item" style={{ background: 'rgba(201, 162, 39, 0.08)', borderLeft: '3px solid var(--gold)' }}>
                 <span className="note-check-icon" style={{ color: 'var(--gold)' }}>🐾</span>

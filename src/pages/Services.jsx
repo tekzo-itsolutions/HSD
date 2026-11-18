@@ -13,8 +13,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-export default function Services() {
-  // ==================== 1. 3D HERO SLIDER ====================
+function ServicesHeroSlider() {
   const [heroIndex, setHeroIndex] = useState(0);
   const heroDuration = 6000;
   const [heroProgress, setHeroProgress] = useState(0);
@@ -44,83 +43,89 @@ export default function Services() {
   const goPrevHero = () => setHeroIndex(prev => (prev - 1 + heroImages.length) % heroImages.length);
 
   return (
+    <section id="servicesHeroSlider" className="gallery-hero-3d">
+      <div className="gallery-3d-viewport">
+        <div className="gallery-3d-slides" id="services3dSlides">
+          {heroImages.map((src, idx) => {
+            let diff = idx - heroIndex;
+            const total = heroImages.length;
+            if (diff > total / 2) diff -= total;
+            if (diff < -total / 2) diff += total;
+
+            let className = 'gallery-3d-slide';
+            if (diff === 0) className += ' active';
+            else if (diff === 1 || (heroIndex === total - 1 && idx === 0)) className += ' next-slide';
+            else if (diff === -1 || (heroIndex === 0 && idx === total - 1)) className += ' prev-slide';
+
+            return (
+              <div key={idx} className={className} data-index={idx}>
+                <img
+                  src={src}
+                  alt="Hotel Shree Daan Luxury Services"
+                  className="gallery-slide-img"
+                  loading="eager"
+                  fetchPriority={idx === 0 ? "high" : "auto"}
+                  decoding="async"
+                />
+                <div className="gallery-slide-overlay"></div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Ambient 3D Lighting Sweep Overlay */}
+      <div className="gallery-3d-light-sweep"></div>
+
+      {/* Hero Content Overlay */}
+      <div className="gallery-hero-content">
+        <div className="gallery-hero-badge">
+          <span className="badge-sparkle">✦</span> HOTEL SHREE DAAN AMENITIES <span className="badge-sparkle">✦</span>
+        </div>
+        <h1 className="gallery-hero-title">
+          Luxury <span>Services</span>
+        </h1>
+        <div className="gallery-hero-breadcrumb">
+          <Link to="/">HOME</Link>
+          <span className="sep">›</span>
+          <span className="active">SERVICES</span>
+        </div>
+      </div>
+
+      {/* 3D Navigation Arrows */}
+      <button className="gallery-3d-arrow gallery-prev" onClick={goPrevHero} aria-label="Previous Slide">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button className="gallery-3d-arrow gallery-next" onClick={goNextHero} aria-label="Next Slide">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      {/* Slider Controls & Auto Progress Bar */}
+      <div className="gallery-3d-controls">
+        <div className="gallery-3d-dots" id="services3dDots">
+          {heroImages.map((_, idx) => (
+            <button
+              key={idx}
+              className={`gallery-dot ${heroIndex === idx ? 'active' : ''}`}
+              onClick={() => setHeroIndex(idx)}
+            >
+              <span>0{idx + 1}</span>
+            </button>
+          ))}
+        </div>
+        <div className="gallery-3d-progress">
+          <div className="gallery-progress-bar" style={{ width: `${Math.min(heroProgress, 100)}%`, transition: 'width 0.05s linear' }}></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default function Services() {
+  return (
     <>
       {/* ===== 3D SERVICES HERO SLIDER ===== */}
-      <section id="servicesHeroSlider" className="gallery-hero-3d">
-        <div className="gallery-3d-viewport">
-          <div className="gallery-3d-slides" id="services3dSlides">
-            {heroImages.map((src, idx) => {
-              let diff = idx - heroIndex;
-              const total = heroImages.length;
-              if (diff > total / 2) diff -= total;
-              if (diff < -total / 2) diff += total;
-
-              let className = 'gallery-3d-slide';
-              if (diff === 0) className += ' active';
-              else if (diff === 1 || (heroIndex === total - 1 && idx === 0)) className += ' next-slide';
-              else if (diff === -1 || (heroIndex === 0 && idx === total - 1)) className += ' prev-slide';
-
-              return (
-                <div key={idx} className={className} data-index={idx}>
-                  <img
-                    src={src}
-                    alt="Hotel Shree Daan Luxury Services"
-                    className="gallery-slide-img"
-                    loading="eager"
-                    fetchPriority={idx === 0 ? "high" : "auto"}
-                    decoding="async"
-                  />
-                  <div className="gallery-slide-overlay"></div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Ambient 3D Lighting Sweep Overlay */}
-        <div className="gallery-3d-light-sweep"></div>
-
-        {/* Hero Content Overlay */}
-        <div className="gallery-hero-content">
-          <div className="gallery-hero-badge">
-            <span className="badge-sparkle">✦</span> HOTEL SHREE DAAN AMENITIES <span className="badge-sparkle">✦</span>
-          </div>
-          <h1 className="gallery-hero-title">
-            Luxury <span>Services</span>
-          </h1>
-          <div className="gallery-hero-breadcrumb">
-            <Link to="/">HOME</Link>
-            <span className="sep">›</span>
-            <span className="active">SERVICES</span>
-          </div>
-        </div>
-
-        {/* 3D Navigation Arrows */}
-        <button className="gallery-3d-arrow gallery-prev" onClick={goPrevHero} aria-label="Previous Slide">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button className="gallery-3d-arrow gallery-next" onClick={goNextHero} aria-label="Next Slide">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-
-        {/* Slider Controls & Auto Progress Bar */}
-        <div className="gallery-3d-controls">
-          <div className="gallery-3d-dots" id="services3dDots">
-            {heroImages.map((_, idx) => (
-              <button
-                key={idx}
-                className={`gallery-dot ${heroIndex === idx ? 'active' : ''}`}
-                onClick={() => setHeroIndex(idx)}
-              >
-                <span>0{idx + 1}</span>
-              </button>
-            ))}
-          </div>
-          <div className="gallery-3d-progress">
-            <div className="gallery-progress-bar" style={{ width: `${Math.min(heroProgress, 100)}%`, transition: 'width 0.05s linear' }}></div>
-          </div>
-        </div>
-      </section>
+      <ServicesHeroSlider />
 
       {/* ===== SERVICES DETAILED GRID ===== */}
       <section className="section section--tinted">
@@ -176,17 +181,24 @@ export default function Services() {
 
           {/* Business Lounge / Banquet Hall Card */}
           <div className="premium-service-card reveal-up">
-            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative', backgroundColor: '#000' }}>
               <video
+                src="/assets/videos/entrance 2.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
-                poster="/assets/images/HALL 1.jpg.jpeg"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                preload="auto"
+                disablePictureInPicture
+                controlsList="nodownload nofullscreen noremoteplayback"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                  backgroundColor: '#000'
+                }}
               >
-                <source src="/assets/videos/entrance 2.mp4" type="video/mp4" />
                 Your browser does not support HTML5 video.
               </video>
             </div>
@@ -220,22 +232,24 @@ export default function Services() {
 
           {/* Luxury Suites & Living Spaces Video Card */}
           <div className="premium-service-card reveal-up">
-            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
+            <div className="premium-service-image" style={{ height: '220px', overflow: 'hidden', position: 'relative', backgroundColor: '#000' }}>
               <video
+                src="/assets/videos/IMG_4753(1).mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
-                poster="/assets/images/service-slider-3.jpg"
+                preload="auto"
+                disablePictureInPicture
+                controlsList="nodownload nofullscreen noremoteplayback"
                 style={{
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  display: 'block'
+                  display: 'block',
+                  backgroundColor: '#000'
                 }}
               >
-                <source src="/assets/videos/IMG_4753(1).mp4" type="video/mp4" />
                 Your browser does not support HTML5 video.
               </video>
             </div>

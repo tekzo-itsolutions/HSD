@@ -368,7 +368,7 @@ export default function Admin() {
 
           <div class="footer-note">
             Thank you for choosing Hotel Shree Daan. We wish you an exceptional and memorable stay.<br>
-            For desk assistance or concierge inquiries, contact frontdesk@hotelshreedaan.com
+            For desk assistance or concierge inquiries, contact sales@hotelshreedaan.in / hotelshreedaan20@gmail.com
           </div>
         </div>
       </body>
