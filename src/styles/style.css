@@ -4255,8 +4255,8 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   background: #14090c;
   border: 1px solid rgba(201, 162, 39, 0.2);
   border-radius: 12px;
-  padding: 40px 42px;
-  max-width: 1020px;
+  padding: 42px 48px;
+  max-width: 1120px;
   margin: 0 auto;
   position: relative;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
@@ -4323,7 +4323,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 }
 
 .spa-category-header-bar {
-  width: 380px;
+  width: 390px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -4349,8 +4349,8 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 
 .spa-category-layout {
   display: grid;
-  grid-template-columns: 380px 420px;
-  gap: 28px;
+  grid-template-columns: 390px 460px;
+  gap: 32px;
   align-items: start;
 }
 
