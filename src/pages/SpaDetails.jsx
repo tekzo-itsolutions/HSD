@@ -749,7 +749,6 @@ export default function SpaDetails() {
                         <div className="spa-item-meta-panel">
                           <span className="dur">{item.duration}</span>
                           <span className="prc">{item.price}</span>
-                          <span className="chevron">➔</span>
                         </div>
                       </div>
                     ))}
