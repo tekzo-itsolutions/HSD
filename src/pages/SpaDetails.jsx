@@ -3,46 +3,11 @@ import { useLocation, Link } from 'react-router-dom';
 import { SPA_TREATMENTS } from '../data/spaDetailsData';
 import { createSpaBooking } from '../api';
 
-const SHORT_DESCS = {
-  'natural-scrub': 'Traditionally exfoliating ritual for body complexion...',
-  'detan-scrub': 'Removes dirt, reduces fine lines, cleanses deeply...',
-  'fruit-scrub': 'Natural fruit extract exfoliator for glowing skin...',
-  'ubtan-scrub': 'Turmeric and saffron extract for tan removal...',
-  'turkish-hammam': 'Middle Eastern steam bath, scrub, and deep skin softening...',
-  'signature-therapy': 'Thai & oil massage combination with facial, scrub & Jacuzzi...',
-  'couple-connect': 'Simultaneous couple relaxation with two therapists...',
-  'pizhichil': 'Oleation and sudation treatment for arthritis, blood pressure...',
-  'hamam': 'Soothing bath with milk and scrub, leaves a shimmering veil...',
-  'flower-bath': 'Warm tub with epsom salts, flowers, and healing herbs...',
-  'deep-tissue': 'Deep pressure targeting aches, knots, and tired muscles...',
-  'aroma': 'Pure essential oils with classical relaxation techniques...',
-  'swedish': 'Long, kneading strokes combined with rhythmic tapping...',
-  'balinese': 'Stretches, acupressure, and aromatherapy to restore energy flow...',
-  'dry-therapy': 'Active stretching, pulling and rocking without oil...',
-  'rope-therapy': 'Traditional Indian foot pressure massage balancing on ropes...',
-  'two-therapist-rope': 'Dual practitioner support for deep tissue pressure...',
-  'hot-stone': 'Warm volcanic stones with essential oils for muscle tension...',
-  'foot-reflexology': 'Restores body energy flow by targeting foot reflex points...',
-  'cupping': 'Detoxifies and stimulates circulation using suction cups...',
-  'shirodhara': 'Continuous stream of warm herbal oil on forehead for deep sleep...',
-  'head-massage': 'Ancient Ayurvedic crown ritual to relieve stress and tension...',
-  'ayurveda-stress': 'Harmonizes body & mind with Abhyanga and Shirodhara...',
-  'herbal-pouch': 'Rhythmic warm oil application with heated herbal compress...',
-  'hasta-padbhyangam': 'Hand and foot massage focusing on vital Ayurvedic marma points...',
-  'abhyangam': 'Detoxifying full body massage using warm herbal medicated oils...',
-  'shirodhara-circuits': 'Choice of Buttermilk, Decoction, Milk, or Oil flowing formulas...',
-  'casa-vasta': 'Sacred rituals, sound healing & quantum tools for nervous system...',
-  'space-aakash': 'Foot bath, Sandal body polish, Abhyanga and Shirodhara...',
-  'fire-tejas': 'Heated back compress, Swedish massage, and choice of facial...',
-  'earth-ira': 'Foot bath, Aroma fusion massage, and foot reflexology session...',
-  'water-jal': 'Foot bath, ocean body scrub, body wrap, massage & hydrating facial...',
-  'wind-vayu': 'Temple massage & Sandal Shea body polish with shea butter...',
-  'indoceane': 'De-tan body scrub, milk bath, sandalwood massage, & cream wrap...',
-  'berries-facial': 'Rich berry extracts (grape, pomegranate) for vitality & moisture...',
-  'charcoal-facial': 'Exfoliating charcoal mask absorbs oil and minimizes pores...',
-  'detan-facial': 'Removes tanned skin layer, reduces blemishes & acne appearance...',
-  'diamond-facial': 'Anti-ageing treatment to tighten skin and restore collagen...',
-  'gold-facial': 'Anti-ageing procedure targeting dark circles, lines & wrinkles...'
+
+
+const formatDuration = (dur) => {
+  if (!dur) return '';
+  return dur.replace(/minutes|minute|mins/gi, 'Min');
 };
 
 // Spa Card Media Slider for multi-image & video items
@@ -677,7 +642,9 @@ export default function SpaDetails() {
             return (
               <div key={catKey} id={catKey} className="spa-menu-category in-view">
                 <AyurvedicLeaves />
-                <div className="spa-category-header">{category.title}</div>
+                <div className="spa-category-header-bar">
+                  <div className="spa-category-header">{category.title}</div>
+                </div>
                 <div className="spa-category-layout">
                   {/* Left Column Showcase Card */}
                   <div className="spa-showcase-column">
@@ -709,7 +676,7 @@ export default function SpaDetails() {
                         {!activeItem.rates && (
                           <div className="spa-showcase-price-box">
                             <span className="price spa-showcase-price">{activeItem.price}</span>
-                            <span className="duration spa-showcase-duration">{activeItem.duration}</span>
+                            <span className="duration spa-showcase-duration">{formatDuration(activeItem.duration)}</span>
                           </div>
                         )}
                       </div>
@@ -718,7 +685,7 @@ export default function SpaDetails() {
                         <div className="spa-showcase-rates-container" style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%', marginBottom: '16px', padding: '12px 14px', background: 'rgba(201, 162, 39, 0.05)', borderRadius: '6px', border: '1px solid rgba(201, 162, 39, 0.2)' }}>
                           {activeItem.rates.map((rate, rIdx) => (
                             <div key={rIdx} className="showcase-rate-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.85rem', color: '#d1c7bd', paddingBottom: '6px', borderBottom: rIdx === activeItem.rates.length - 1 ? 'none' : '1px dashed rgba(201, 162, 39, 0.15)' }}>
-                              <span>{rate.duration}</span>
+                              <span>{formatDuration(rate.duration)}</span>
                               <strong>{rate.price}</strong>
                             </div>
                           ))}
@@ -744,10 +711,9 @@ export default function SpaDetails() {
                           <h5 style={{ color: activeIdx === idx ? 'var(--gold-glow)' : 'var(--ivory)' }}>
                             {item.title}
                           </h5>
-                          <p>{SHORT_DESCS[item.id] || item.desc}</p>
                         </div>
                         <div className="spa-item-meta-panel">
-                          <span className="dur">{item.duration}</span>
+                          <span className="dur">{formatDuration(item.duration)}</span>
                           <span className="prc">{item.price}</span>
                         </div>
                       </div>
@@ -913,7 +879,7 @@ export default function SpaDetails() {
                   {!activeItem.rates && (
                     <div className="spa-modal-price-box">
                       <span className="price">{activeItem.price}</span>
-                      <span className="duration" style={{ display: 'block' }}>{activeItem.duration}</span>
+                      <span className="duration" style={{ display: 'block' }}>{formatDuration(activeItem.duration)}</span>
                     </div>
                   )}
                 </div>
@@ -922,7 +888,7 @@ export default function SpaDetails() {
                   <div className="spa-modal-rates-list" style={{ display: 'flex', flexDirection: 'column' }}>
                     {activeItem.rates.map((rate, rIdx) => (
                       <div key={rIdx} className="modal-rate-row" style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <span>{rate.duration}</span>
+                        <span>{formatDuration(rate.duration)}</span>
                         <strong>{rate.price}</strong>
                       </div>
                     ))}

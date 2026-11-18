@@ -87,12 +87,12 @@ export const SPA_TREATMENTS = {
       {
         id: 'hamam',
         title: 'Royal Hammam Bath',
-        duration: '90 Minutes',
-        price: 'From ₹3,500',
+        duration: '90 Min',
+        price: '₹3,500',
         priceNumber: 3500,
         desc: 'Relaxing & soothing bath, incorporate the use of a milk and scrub. Leaves a silky, smooth shimmering veil on the body.',
         rates: [
-          { duration: '90 Minutes', price: '₹3,500' },
+          { duration: '90 Min', price: '₹3,500' },
           { duration: '2 Hours', price: '₹4,000' }
         ],
         image: '/assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png'
@@ -100,13 +100,13 @@ export const SPA_TREATMENTS = {
       {
         id: 'flower-bath',
         title: 'Aromatic Flower Bath',
-        duration: '60 Minutes',
-        price: 'From ₹3,000',
+        duration: '60 Min',
+        price: '₹3,000',
         priceNumber: 3000,
         desc: 'Flowers and flowering herbs have incredible healing properties and when added to a tub filled with warm water, epsom salts, and essential oils you can connect your own personal time ritual that is equally beneficial for your physical and mental well-being.',
         rates: [
-          { duration: '60 Minutes', price: '₹3,000' },
-          { duration: '90 Minutes', price: '₹3,500' }
+          { duration: '60 Min', price: '₹3,000' },
+          { duration: '90 Min', price: '₹3,500' }
         ],
         image: '/assets/images/Gemini_Generated_Image_sqlopmsqlopmsqlo.png'
       }
@@ -118,77 +118,77 @@ export const SPA_TREATMENTS = {
       {
         id: 'deep-tissue',
         title: 'Deep Tissue',
-        duration: '60 Minutes',
-        price: 'From ₹2,500',
+        duration: '60 Min',
+        price: '₹2,500',
         priceNumber: 2500,
         desc: "Your therapy is personalized to focus on your body's area affected by tension and stress. Special blend of oils like invigorating oils is used for tired muscles. This treatment is designed to relieve aches & knots with deep pressure.",
         rates: [
-          { duration: '60 Minutes', price: '₹2,500' },
-          { duration: '90 Minutes', price: '₹3,000' }
+          { duration: '60 Min', price: '₹2,500' },
+          { duration: '90 Min', price: '₹3,000' }
         ],
         image: '/assets/images/IMG_20210816_142523_028.jpg.jpeg'
       },
       {
         id: 'aroma',
         title: 'Aroma',
-        duration: '60 Minutes',
-        price: 'From ₹2,000',
+        duration: '60 Min',
+        price: '₹2,000',
         priceNumber: 2000,
         desc: 'The Healing power of the pure essential oils and their properties have an invigorating effect on the mind using the classical techniques. Medium pressure is applied to improve the circulation and ease muscle knots for a complete relaxation.',
         rates: [
-          { duration: '60 Minutes', price: '₹2,000' },
-          { duration: '90 Minutes', price: '₹2,500' }
+          { duration: '60 Min', price: '₹2,000' },
+          { duration: '90 Min', price: '₹2,500' }
         ],
         image: '/assets/images/spa_home_1.jpg'
       },
       {
         id: 'swedish',
         title: 'Swedish',
-        duration: '60 Minutes',
-        price: 'From ₹2,000',
+        duration: '60 Min',
+        price: '₹2,000',
         priceNumber: 2000,
         desc: 'One of the most popular forms of massage therapy. It can help you relax, give you more energy, and may help after an injury. Swedish massage involves long, kneading strokes combined with rhythmic tapping strokes and movement of the joints.',
         rates: [
-          { duration: '60 Minutes', price: '₹2,000' },
-          { duration: '90 Minutes', price: '₹2,500' }
+          { duration: '60 Min', price: '₹2,000' },
+          { duration: '90 Min', price: '₹2,500' }
         ],
         image: '/assets/images/pic 37.jpg.jpeg'
       },
       {
         id: 'balinese',
         title: 'Balinese',
-        duration: '60 Minutes',
-        price: 'From ₹2,500',
+        duration: '60 Min',
+        price: '₹2,500',
         priceNumber: 2500,
         desc: 'Balinese massage is a full-body, deep-tissue, holistic treatment. Traditional Balinese massage uses a combination of gentle stretches, acupressure, reflexology, and aromatherapy to stimulate the flow of blood, oxygen and energy around your body, and bring a sense of wellbeing, calm and deep relaxation.',
         rates: [
-          { duration: '60 Minutes', price: '₹2,500' },
-          { duration: '90 Minutes', price: '₹3,000' }
+          { duration: '60 Min', price: '₹2,500' },
+          { duration: '90 Min', price: '₹3,000' }
         ],
         image: '/assets/images/IMG_20210816_142523_028.jpg.jpeg'
       },
       {
         id: 'dry-therapy',
         title: 'Dry Therapy',
-        duration: '60 Minutes',
-        price: 'From ₹2,500',
+        duration: '60 Min',
+        price: '₹2,500',
         priceNumber: 2500,
         desc: 'The practitioner will use their hands, thumbs, elbows, and knees to stretch, pull, and rock different parts of your body. Good for muscle relaxation, increase flexibility in your muscles and mobility.',
         rates: [
-          { duration: '60/90 Minutes', price: '₹2,500' }
+          { duration: '60/90 Min', price: '₹2,500' }
         ],
         image: '/assets/images/spa_home_1.jpg'
       },
       {
         id: 'rope-therapy',
         title: 'Rope Therapy',
-        duration: '60 Minutes',
-        price: 'From ₹2,400',
+        duration: '60 Min',
+        price: '₹2,400',
         priceNumber: 2400,
         desc: "Chavutti Thirumal is also known as Indian rope massage and its translation literally means 'massage by foot pressure'. The therapist holds onto a rope above their head for balance, and to adjust the pressure. It's a perfect massage for keen sportspeople, like footballers, rugby players, or rowers, and for those who are particularly muscular.",
         rates: [
-          { duration: '60 Minutes', price: '₹2,400' },
-          { duration: '90 Minutes', price: '₹3,000' }
+          { duration: '60 Min', price: '₹2,400' },
+          { duration: '90 Min', price: '₹3,000' }
         ],
         image: '/assets/images/pic 37.jpg.jpeg'
       },
@@ -291,7 +291,7 @@ export const SPA_TREATMENTS = {
         id: 'shirodhara-circuits',
         title: 'Traditional Shirodhaara Circuits',
         duration: '90 Min',
-        price: 'From ₹4,500',
+        price: '₹4,500',
         priceNumber: 4500,
         desc: 'Continuous flowing liquids onto the forehead using specific natural formulations for profound mental balance and stress release.',
         rates: [
