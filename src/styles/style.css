@@ -4247,9 +4247,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   max-width: 1200px;
   margin: 40px auto 100px;
   padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 70px;
+  display: block;
   width: 100%;
   box-sizing: border-box;
 }
@@ -4576,13 +4574,15 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   .spa-menu-container {
     padding: 0 16px;
     width: 100%;
+    margin: 25px auto 60px;
+    display: block;
     box-sizing: border-box;
   }
   .spa-menu-category {
     padding: 28px 20px;
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     box-sizing: border-box;
     border-radius: 14px;
   }
@@ -4594,38 +4594,47 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   }
   .spa-category-header {
     font-size: 0.95rem;
-    padding: 8px 24px;
+    padding: 8px 26px;
   }
   .spa-category-layout {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     box-sizing: border-box;
   }
   .spa-showcase-column {
-    display: none;
+    display: none !important;
   }
   .spa-items-column {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 16px;
     box-sizing: border-box;
   }
   .spa-menu-item {
-    width: 100%;
+    width: 100% !important;
     padding: 16px 20px;
     gap: 14px;
     box-sizing: border-box;
     border-radius: 10px;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
   .spa-menu-item:hover {
     transform: none;
   }
+  .spa-item-text {
+    flex: 1;
+    min-width: 0;
+  }
   .spa-item-text h5 {
     font-size: 1.12rem;
     margin: 0;
+    white-space: normal;
+    word-break: break-word;
   }
   .spa-item-meta-panel {
     gap: 10px;
@@ -4644,14 +4653,19 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
 
 @media (max-width: 768px) {
   .spa-menu-container {
-    padding: 0 14px;
+    padding: 0 10px;
     width: 100%;
+    margin: 20px auto 50px;
+    display: block;
+    box-sizing: border-box;
   }
   .spa-menu-category {
-    padding: 26px 16px;
-    width: 100%;
-    max-width: 100%;
+    padding: 24px 14px;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     border-radius: 14px;
+    box-sizing: border-box;
   }
   .spa-category-header-bar {
     width: 100%;
@@ -4659,23 +4673,27 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   }
   .spa-category-header {
     font-size: 0.92rem;
-    padding: 7px 22px;
+    padding: 8px 24px;
   }
   .spa-items-column {
-    gap: 15px;
+    width: 100% !important;
+    gap: 14px;
   }
   .spa-menu-item {
-    width: 100%;
-    padding: 16px 18px;
+    width: 100% !important;
+    padding: 16px 16px;
     gap: 12px;
     border-radius: 10px;
   }
   .spa-item-text h5 {
     font-size: 1.08rem;
     margin: 0;
+    white-space: normal;
+    word-break: break-word;
   }
   .spa-item-meta-panel {
     gap: 9px;
+    flex-shrink: 0;
   }
   .spa-item-meta-panel .dur {
     font-size: 0.82rem;
@@ -4683,21 +4701,26 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
     white-space: nowrap;
   }
   .spa-item-meta-panel .prc {
-    font-size: 1.12rem;
+    font-size: 1.14rem;
     white-space: nowrap;
   }
 }
 
 @media (max-width: 480px) {
   .spa-menu-container {
-    padding: 0 10px;
+    padding: 0 8px;
     width: 100%;
+    margin: 15px auto 40px;
+    display: block;
+    box-sizing: border-box;
   }
   .spa-menu-category {
-    padding: 24px 14px;
-    width: 100%;
-    max-width: 100%;
+    padding: 22px 12px;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
     border-radius: 12px;
+    box-sizing: border-box;
   }
   .spa-category-header-bar {
     width: 100%;
@@ -4705,15 +4728,16 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   }
   .spa-category-header {
     font-size: 0.88rem;
-    padding: 7px 20px;
+    padding: 7px 22px;
     margin: 0;
   }
   .spa-items-column {
-    gap: 14px;
+    width: 100% !important;
+    gap: 12px;
   }
   .spa-menu-item {
-    width: 100%;
-    padding: 15px 16px;
+    width: 100% !important;
+    padding: 15px 14px;
     gap: 10px;
     border-radius: 9px;
   }
@@ -4722,7 +4746,7 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
     min-width: 0;
   }
   .spa-item-text h5 {
-    font-size: 1.04rem;
+    font-size: 1.05rem;
     margin: 0;
     white-space: normal;
     word-break: break-word;
@@ -4737,31 +4761,38 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
     white-space: nowrap;
   }
   .spa-item-meta-panel .prc {
-    font-size: 1.08rem;
+    font-size: 1.1rem;
     white-space: nowrap;
   }
 }
 
 @media (max-width: 360px) {
   .spa-menu-container {
-    padding: 0 8px;
+    padding: 0 6px;
+    display: block;
+    box-sizing: border-box;
   }
   .spa-menu-category {
-    padding: 20px 10px;
+    padding: 18px 10px;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
   }
   .spa-category-header-bar {
-    margin-bottom: 15px;
+    margin-bottom: 14px;
   }
   .spa-category-header {
     font-size: 0.82rem;
-    padding: 6px 16px;
+    padding: 6px 18px;
   }
   .spa-items-column {
-    gap: 12px;
+    gap: 11px;
+    width: 100% !important;
   }
   .spa-menu-item {
-    padding: 13px 12px;
+    padding: 14px 10px;
     gap: 8px;
+    width: 100% !important;
   }
   .spa-item-text h5 {
     font-size: 0.98rem;
@@ -4770,11 +4801,11 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
     gap: 6px;
   }
   .spa-item-meta-panel .dur {
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     padding: 3px 6px;
   }
   .spa-item-meta-panel .prc {
-    font-size: 1.02rem;
+    font-size: 1.05rem;
   }
 }
 
