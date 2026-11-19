@@ -498,7 +498,7 @@ export default function Booking() {
 
         <div className="room-booking-container reveal-up in-view">
           {/* COMPULSORY CALLING ALERT BANNER */}
-          <div className="compulsory-call-banner">
+          <div className="compulsory-call-banner" style={{ maxWidth: '900px', margin: '0 auto 28px' }}>
             <div className="call-banner-left">
               <span className="call-banner-icon">📞</span>
               <div className="call-banner-info">
