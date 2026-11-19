@@ -710,6 +710,21 @@ h1, h2, h3, h4, h5, h6, p, span, a, button, label {
     font-size: 16px !important;
     padding: 0 12px;
   }
+  .field-row {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .field-row .field {
+    width: 100%;
+    min-width: 0;
+  }
+  .field-row .field input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+  }
   .booking-bottom-row {
     flex-direction: column;
     gap: 20px;

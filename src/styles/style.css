@@ -5020,6 +5020,30 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   padding: 10px 14px;
   font-size: 0.9rem;
   border-radius: 6px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.field-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field-row .field {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field-row .field input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .booking-bottom-row {
