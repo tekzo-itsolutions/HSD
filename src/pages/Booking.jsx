@@ -758,7 +758,7 @@ export default function Booking() {
                     <span className="notice-icon">⚠️</span>
                     <div className="notice-text">
                       <h4>PHONE CALLING IS COMPULSORY TO CONFIRM BOOKING</h4>
-                      <p>Your room booking request <strong>{confirmedBooking.id}</strong> is received. Please call our reception immediately to confirm your stay and send details via WhatsApp.</p>
+                      <p>Your room booking request is received. Please call our reception immediately to confirm your stay and send details via WhatsApp.</p>
                     </div>
                   </div>
                   <div className="notice-buttons-row">
@@ -800,7 +800,6 @@ export default function Booking() {
                       <div className="invoice-row"><span>Guest Name:</span><strong>{confirmedBooking.name}</strong></div>
                       <div className="invoice-row"><span>Contact Phone:</span><span>{confirmedBooking.phone || 'N/A'}</span></div>
                       <div className="invoice-row"><span>Email Address:</span><span>{confirmedBooking.email || 'N/A'}</span></div>
-                      <div className="invoice-row"><span>Booking Reference:</span><strong className="invoice-booking-id">{confirmedBooking.id}</strong></div>
                     </div>
 
                     <div className="invoice-col">
