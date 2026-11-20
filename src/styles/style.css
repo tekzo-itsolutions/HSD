@@ -6342,32 +6342,34 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 16px;
   width: 100%;
-  max-width: 1140px;
+  max-width: 850px;
   margin: 0 auto 28px;
   box-sizing: border-box;
   background: linear-gradient(135deg, rgba(110, 16, 39, 0.08) 0%, rgba(201, 162, 39, 0.08) 100%);
   border: 1px solid rgba(110, 16, 39, 0.25);
   border-left: 4px solid var(--maroon);
-  border-radius: 8px;
-  padding: 16px 24px;
+  border-radius: 6px;
+  padding: 12px 20px;
   box-shadow: 0 4px 15px rgba(20, 9, 12, 0.04);
 }
 
 .call-banner-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .call-banner-icon {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: rgba(110, 16, 39, 0.1);
   flex-shrink: 0;
@@ -6380,28 +6382,74 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(110, 16, 39, 0); }
 }
 
+.call-banner-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .call-banner-info h4 {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
   color: var(--maroon);
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .call-banner-info p {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: #5c534b;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .btn-call-action {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: var(--maroon);
+  color: #fff !important;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(110, 16, 39, 0.22);
+}
+
+.btn-call-action svg {
+  flex-shrink: 0;
+}
+
+.btn-call-action:hover {
+  background: #871430;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(110, 16, 39, 0.35);
+  color: #fff !important;
+}
+
+.call-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.btn-whatsapp-banner-action {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
   padding: 10px 18px;
-  background: var(--maroon);
+  background: #25D366;
   color: #fff !important;
   font-family: var(--font-sans);
   font-size: 0.88rem;
@@ -6410,13 +6458,13 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   border-radius: 6px;
   white-space: nowrap;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(110, 16, 39, 0.25);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
 }
 
-.btn-call-action:hover {
-  background: #871430;
+.btn-whatsapp-banner-action:hover {
+  background: #20ba5a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(110, 16, 39, 0.35);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.35);
   color: #fff !important;
 }
 
@@ -6560,15 +6608,27 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   color: #fff !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .compulsory-call-banner {
     flex-direction: column;
-    align-items: flex-start;
-    padding: 16px;
+    align-items: stretch;
+    gap: 16px;
+    padding: 18px 20px;
   }
-  .btn-call-action {
+  .call-banner-left {
+    width: 100%;
+  }
+  .call-banner-actions {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-call-action, .btn-whatsapp-banner-action {
     width: 100%;
     justify-content: center;
+    padding: 12px 18px;
+    white-space: normal;
+    text-align: center;
   }
   .confirmation-calling-notice .notice-buttons-row {
     flex-direction: column;
@@ -6576,6 +6636,32 @@ h2 em { font-style: italic; color: var(--maroon); font-weight: 500; }
   .btn-call-primary, .btn-whatsapp-primary {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .compulsory-call-banner {
+    padding: 14px 16px;
+    border-radius: 6px;
+  }
+  .call-banner-left {
+    gap: 12px;
+  }
+  .call-banner-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 1.4rem;
+  }
+  .call-banner-info h4 {
+    font-size: 0.92rem;
+  }
+  .call-banner-info p {
+    font-size: 0.8rem;
+  }
+  .btn-call-action {
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    letter-spacing: 0.02em;
   }
 }
 

@@ -298,11 +298,11 @@ export default function Home() {
           <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
           <span>Max 3 Persons / Room</span><span className="dot-sep">✦</span>
           <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
-          <span>Calling Compulsory to Confirm Bookings (+91 78740 50009)</span><span className="dot-sep">✦</span>
+          <span>Calling &amp; WhatsApp Share Compulsory to Confirm Bookings (+91 78740 50009)</span><span className="dot-sep">✦</span>
           <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
           <span>24-Hour Service</span><span className="dot-sep">✦</span>
           <span>Golden Sparsh Spa</span><span className="dot-sep">✦</span>
-          <span>Calling Compulsory (+91 78740 50009)</span><span className="dot-sep">✦</span>
+          <span>Calling &amp; WhatsApp Share Compulsory (+91 78740 50009)</span><span className="dot-sep">✦</span>
           <span>🐾 Pet Friendly Hotel</span><span className="dot-sep">✦</span>
           <span>5-Star Luxury</span><span className="dot-sep">✦</span>
         </div>

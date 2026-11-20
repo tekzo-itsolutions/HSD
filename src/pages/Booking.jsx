@@ -249,8 +249,8 @@ export default function Booking() {
 
     const noticeLines = [
       'IMPORTANT NOTE',
-      'Phone call is compulsory to confirm this booking.',
-      `Front Desk: ${FRONT_DESK_PHONE}`
+      '⚠️ Phone call & WhatsApp sharing of booking details are compulsory to confirm this booking.',
+      `Front Desk & WhatsApp: ${FRONT_DESK_PHONE}`
     ].join('\n');
 
     const fullMessage = [
@@ -497,18 +497,18 @@ export default function Booking() {
         </div>
 
         <div className="room-booking-container reveal-up in-view">
-          {/* COMPULSORY CALLING ALERT BANNER */}
-          <div className="compulsory-call-banner" style={{ maxWidth: '900px', margin: '0 auto 28px' }}>
+          {/* COMPULSORY CALLING & WHATSAPP ALERT BANNER */}
+          <div className="compulsory-call-banner" style={{ maxWidth: '850px', margin: '0 auto 28px' }}>
             <div className="call-banner-left">
               <span className="call-banner-icon">📞</span>
               <div className="call-banner-info">
-                <h4>CALLING IS COMPULSORY TO CONFIRM BOOKINGS</h4>
-                <p>Prior phone call to front desk is mandatory for room and spa booking confirmation.</p>
+                <h4>CALLING &amp; WHATSAPP SHARING COMPULSORY FOR ROOM BOOKINGS</h4>
+                <p>Prior phone call to front desk &amp; sharing booking details on WhatsApp is mandatory to confirm all room reservations &amp; availability.</p>
               </div>
             </div>
             <a href="tel:+917874050009" className="btn btn-call-action">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              Call Front Desk: +91 78740 50009
+              CALL FRONT DESK: +91 78740 50009
             </a>
           </div>
 
@@ -744,6 +744,9 @@ export default function Booking() {
                       <strong>₹{estimatedTotal.toLocaleString('en-IN')}</strong>
                     </div>
                     <button type="submit" className="btn btn-gold btn-block book-now-separate-btn">BOOK NOW</button>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--maroon)', margin: '10px 0 0', textAlign: 'center', fontWeight: '700', lineHeight: 1.4 }}>
+                      ⚠️ NOTE: Calling the Front Desk &amp; sharing booking details on WhatsApp is COMPULSORY to confirm your reservation.
+                    </p>
                   </div>
                 </div>
               )}
@@ -757,8 +760,8 @@ export default function Booking() {
                   <div className="notice-header">
                     <span className="notice-icon">⚠️</span>
                     <div className="notice-text">
-                      <h4>PHONE CALLING IS COMPULSORY TO CONFIRM BOOKING</h4>
-                      <p>Your room booking request is received. Please call our reception immediately to confirm your stay and send details via WhatsApp.</p>
+                      <h4>PHONE CALLING &amp; WHATSAPP SHARING IS COMPULSORY</h4>
+                      <p><strong>Room booking request received!</strong> Calling our front desk &amp; sharing your booking details on WhatsApp is <strong>COMPULSORY</strong>. Please call our front desk &amp; share booking details on WhatsApp immediately to guarantee and confirm your stay.</p>
                     </div>
                   </div>
                   <div className="notice-buttons-row">
@@ -773,7 +776,7 @@ export default function Booking() {
                       className="btn btn-whatsapp-primary"
                     >
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                      Send Details to WhatsApp
+                      Share Details to WhatsApp (Compulsory)
                     </a>
                   </div>
                 </div>
@@ -865,7 +868,7 @@ export default function Booking() {
                   <div className="invoice-policies">
                     <h6>IMPORTANT HOTEL POLICIES:</h6>
                     <ul>
-                      <li><strong style={{ color: 'var(--maroon)' }}>Calling Compulsory:</strong> A direct phone call to +91 78740 50009 is mandatory to confirm room availability and guarantee your booking.</li>
+                      <li><strong style={{ color: 'var(--maroon)' }}>Calling &amp; WhatsApp Share Compulsory:</strong> A direct phone call to +91 78740 50009 and sharing your booking details on WhatsApp is mandatory to confirm room availability and guarantee your booking.</li>
                       <li><strong>Maximum Capacity &amp; Child Policy:</strong> Strictly up to 3 persons allowed per room. Children <strong>up to 10 years stay complimentary</strong>. Extra guests &amp; children <strong>above 10 years</strong> incur a ₹450/night charge.</li>
                       <li><strong>Pet Friendly Hotel:</strong> Pets are warmly welcome at Hotel Shree Daan. Please inform our front desk at check-in.</li>
                       <li>Standard Check-in time is 12:00 Noon and Check-out time is 11:00 AM.</li>
@@ -965,7 +968,7 @@ export default function Booking() {
             <div className="note-open-list" id="kindlyNoteList">
               <div className="note-line-item" style={{ background: 'rgba(110, 16, 39, 0.08)', borderLeft: '3px solid var(--maroon)' }}>
                 <span className="note-check-icon" style={{ color: 'var(--maroon)' }}>📞</span>
-                <span className="note-text" style={{ fontWeight: '700', color: 'var(--maroon)' }}>PHONE CALLING IS COMPULSORY TO CONFIRM ALL ROOM AND SPA BOOKINGS (+91 78740 50009).</span>
+                <span className="note-text" style={{ fontWeight: '700', color: 'var(--maroon)' }}>PHONE CALLING &amp; WHATSAPP DETAILS SHARING IS COMPULSORY TO CONFIRM ALL ROOM AND SPA BOOKINGS (+91 78740 50009).</span>
               </div>
               <div className="note-line-item" style={{ background: 'rgba(201, 162, 39, 0.08)', borderLeft: '3px solid var(--gold)' }}>
                 <span className="note-check-icon" style={{ color: 'var(--gold)' }}>🐾</span>
